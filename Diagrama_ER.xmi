@@ -212,7 +212,7 @@
           <AttributeMap key="usWDQ8PK6N47F" value="uKXcBW3BPUSsc"/>
           <AttributeMap key="uv36Y0uhkWlsZ" value="ugIz6UByBccEG"/>
         </packagedElement>
-        <packagedElement xmi:type="uml:ForeignKeyConstraint" xmi:id="uAmg5RKi6xOIU" name="Recivo es enviado" referencedEntity="uNZZkT6YSo9El" updateAction="0" deleteAction="0">
+        <packagedElement xmi:type="uml:ForeignKeyConstraint" xmi:id="uAmg5RKi6xOIU" name="Recibo es enviado" referencedEntity="uNZZkT6YSo9El" updateAction="0" deleteAction="0">
           <AttributeMap key="usWDQ8PK6N47F" value="u9XNoqYhUjhIZ"/>
           <AttributeMap key="um3YHIoDE9cef" value="upl4vG09zyIFs"/>
         </packagedElement>
@@ -389,7 +389,7 @@
                 </linepath>
               </assocwidget>
               <assocwidget xmi.id="uAmg5RKi6xOIU" localid="uYWgpKqv102u2" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" autoresize="1" seqnum="" type="519" visibilityA="0" visibilityB="0" changeabilityA="900" changeabilityB="900" widgetaid="uNZZkT6YSo9El" widgetbid="uHQQxgN4MnofL" indexa="0" totalcounta="0" indexb="0" totalcountb="0">
-                <floatingtext xmi.id="unQcqIDkrfWUf" localid="uozXwT2O8T8gk" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" autoresize="1" x="212.636" y="586.299" width="103" height="17" isinstance="0" showstereotype="2" text="Recivo es enviado" pretext="+" posttext="" role="710"/>
+                <floatingtext xmi.id="unQcqIDkrfWUf" localid="uozXwT2O8T8gk" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" autoresize="1" x="212.636" y="586.299" width="103" height="17" isinstance="0" showstereotype="2" text="Recibo es enviado" pretext="+" posttext="" role="710"/>
                 <linepath layout="Direct">
                   <startpoint startx="950.067" starty="233.209"/>
                   <endpoint endx="207.659" endy="605.519"/>

@@ -47,7 +47,7 @@ El propósito del proyecto es desarrollar una solución dentro del marco de la a
 | Francisco Navarta Carvajal | 0611396863@uma.es |
 | Ricardo Juan Alitt López | ricardoallitt@uma.es |
 | Marco Antonio Muñoz Gentile | marcomunozgentile@uma.es |
-| Samuel Fernández Toledo | fernandeztoledosamuel@gmail.com |
+| Samuel Fernández Toledo | fernandeztoledosamuel@uma.es |
 | Alberto Von Thode Árbol | 0611391374@uma.es |
 | Alejandro García Garrido | alejandrogarrido@uma.es |
 | Mario Zurera de Alva | mariozurera@uma.es |

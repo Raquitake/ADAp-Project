@@ -18,7 +18,10 @@ Cada sprint contiene las prácticas, entregables y documentos asociados a su res
 ## 🗂️ Archivos Principales  
 
 - **`ScrumLog.pdf`** → Contiene los registros de las reuniones *Scrum* realizadas por el equipo durante el desarrollo del proyecto.  
-- **`Transcripción.pdf`** → Incluye la transcripción completa de la charla asociada al proyecto.  
+- **`Transcripción.pdf`** → Incluye la transcripción completa de la charla asociada al proyecto.
+- **`Sprint1`** → Incluye la resolución a la práctica 1. 
+- **`Sprint2`** → Incluye la resolución a la práctica 2. 
+- **`Sprint3`** → Incluye la resolución a la práctica 3. 
 
 ---
 

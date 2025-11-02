@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://schema.omg.org/spec/UML/2.1">
+  <xmi:Documentation exporter="umbrello uml modeller 2.38.5 (Applications 23.08.5) http://umbrello.kde.org" exporterVersion="2.0.4"/>
+  <uml:Model xmi:id="m1" name="UML Model">
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="folder" name="folder"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="dataType" name="dataType"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Logical_View" name="Logical View">
+      <uml:Package xmi:id="Datatypes" name="Datatypes" stereotype="folder">
+        <packagedElement xmi:type="uml:DataType" xmi:id="uHNCXcbb6lTUG" name="char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uxCvJUERaElNN" name="int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="up5ZoCjNel08J" name="float" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="umcDldp33NUQm" name="double" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uhO2bWaDhC1Ui" name="bool" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uHB23NxixDw5q" name="string" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uR9QpFSgmLum3" name="unsigned char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uxHcViB8E0PRR" name="signed char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u05QfaOa3SByU" name="unsigned int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uhIB3QlHYpzUl" name="signed int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uBmdY9482MMft" name="short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="ug5lv3aWuBprN" name="unsigned short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uRK0SibSjQGN2" name="signed short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uKuPHItHiOEd5" name="long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uo6A4IcuVvSoc" name="signed long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u780Ksfhdv17C" name="unsigned long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uyg5rRxlPDrqD" name="long double" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uJJTg6QoXkRbp" name="wchar_t" stereotype="dataType"/>
+      </uml:Package>
+      <packagedElement xmi:type="uml:Class" xmi:id="ucZ73y5sP99tm" name="Sistema">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="u6Sbwjd2d9znH" name="solicitarInicioSesion">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="" type="uhO2bWaDhC1Ui" direction="return"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="urjAFCcNmEkXQ" name="email" visibility="private" type="uHB23NxixDw5q" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uZb7oUuLgINRI" name="pass_hash" visibility="private" type="uHB23NxixDw5q" value=""/>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="usew49c9HWcvH" name="solicitarHacerseSocio">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uhVOpbH0YtbNb" name="new_parameter" visibility="private" type="" value=""/>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="u71Ctj0LQ7pIa" name="SolicitarHacerseSocio"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="urNm9KdVquf5N" name="confirmarPago"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uYFv1PdHPgxuH" name="actualizarSuscripcion">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uJ6C1Gc2nwfNh" type="uhO2bWaDhC1Ui" direction="return"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="udXgPGFs7Ub62" name="actualizar" visibility="private" type="uhO2bWaDhC1Ui" value="true"/>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="ug75oWnb7jjO1" name="solicitarHacerseSocio">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uHHnh9hZMdRGX" type="uhO2bWaDhC1Ui" direction="return"/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="uuDCTRZysHUsV" name="GestionUsuarios">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uk6OgBbbK0AwB" name="autenticarUsuario">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="" type="uhO2bWaDhC1Ui" direction="return"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSdTxYb5klnsy" name="email" visibility="private" type="uHB23NxixDw5q" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uwll3CRUNR9ZY" name="pass_hash" visibility="private" type="uHB23NxixDw5q" value=""/>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uDFS0cT9eOndz" name="flase">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uctFLAwH1mLB0" type="uhO2bWaDhC1Ui" direction="return"/>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="u8dnZcaoa8K7V" name="false"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uajxAJcogXipl" name="actualizarEstadoSocio">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="upMTbghJVx2JY" type="uU1YIXlnbrYWj" direction="return"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uitakeBkK9wsl" name="idCliente" visibility="private" type="uHB23NxixDw5q" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u8x3W3mcBwJ7I" name="actualizar" visibility="private" type="uhO2bWaDhC1Ui" value="true"/>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uHN5gCgEURzZt" name="guardarPreferenciaSuscripcion">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uUGm0gCed2lTi" name="idUsuario" visibility="private" type="uHB23NxixDw5q" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uuh9No5Z9hwwX" name="guardar" visibility="private" type="uhO2bWaDhC1Ui" value="true"/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="uU1YIXlnbrYWj" name="Usuario">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="ugw67CZmBXc9u" name="verificarContraseñaHash" comment="&#10;">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uMVyyWIkjdEu5" type="uhO2bWaDhC1Ui" direction="return"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u0h4ihgl3TS7o" name="pass_hash" visibility="private" type="uHB23NxixDw5q" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uLBEzehSrJjw4" name="autenticacionExistosa" visibility="private" type="uhO2bWaDhC1Ui" value="" direction="out"/>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uVzRmu6T7KDL2" name="setSuscritoNewsletter">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u2zEImIGTUR4h" type="uhO2bWaDhC1Ui" direction="return"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uU4hhGbLLzm4g" name="setSuscrito" visibility="private" type="uhO2bWaDhC1Ui" value=""/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="ur9PU1kWPfysv" name="GestionPagos">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uUAP4T4J5a51F" name="procesarPagoCuota">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uRNXvXAaKNmIA" name="datosPago" visibility="private" type="" value=""/>
+        </ownedOperation>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uo1aZV02qCGao" name="procesarDatosPago">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="up4O4QBPAIJbS" type="uhO2bWaDhC1Ui" direction="return"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uIp1qkC3XFJHP" name="datosPago" visibility="private" type="uveGtwHLPRQ7U" value=""/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="uveGtwHLPRQ7U" name="string[]"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="urNiv77HP0HuN" name="ClienteObjeto">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uIU4A8fIhzDdq" name="setEsSocio" comment="return true">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="up2jBCgu1VGTY" type="uhO2bWaDhC1Ui" direction="return"/>
+        </ownedOperation>
+      </packagedElement>
+      <xmi:Extension extender="umbrello">
+        <diagrams resolution="96">
+          <diagram xmi.id="ukviQHyss0Gk8" name="IniciarSesion" type="3" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="107.613" canvasheight="503.361" canvaswidth="1667.03" isopen="1" autoincrementsequence="0">
+            <widgets>
+              <objectwidget xmi.id="uuDCTRZysHUsV" localid="uoyZ5vcm8upCv" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="923.45" y="99" width="130" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <objectwidget xmi.id="uU1YIXlnbrYWj" localid="ueZZYtmtrFn3F" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1595.03" y="108" width="72" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <objectwidget xmi.id="ucZ73y5sP99tm" localid="uN65hj0YzerNa" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="535.053" y="80" width="73" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <floatingtext xmi.id="uJrCVTutfvbY0" localid="uerkkMx7NWcQG" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="108.99" y="313.65" width="135" height="22" isinstance="0" showstereotype="2" text="ConfirmaciónLogin" pretext="" posttext="" role="700"/>
+              <objectwidget xmi.id="upV43XFHKTXCc" localid="uAgAbf6RA4W0G" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="1" x="39.7782" y="17" width="128" height="63" isinstance="0" instancename="Visitante" showstereotype="2" drawasactor="1" multipleinstance="0" decon="0"/>
+              <floatingtext xmi.id="u01ReVM9X3GcR" localid="uFEDAbcps64Wf" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="588.079" y="272.784" width="106" height="22" isinstance="0" showstereotype="2" text="Sesión Iniciada" pretext="" posttext="" role="700"/>
+              <floatingtext xmi.id="uBdF0VhwJWcv1" localid="u4zicEHA6s3Hs" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="104.269" y="481.361" width="79" height="22" isinstance="0" showstereotype="2" text="ErrorLogin" pretext="" posttext="" role="700"/>
+              <floatingtext xmi.id="uDM2MCQVdyRBx" localid="ubEyhgPiMhToi" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1010.6" y="215.263" width="36" height="22" isinstance="0" showstereotype="2" text="true" pretext="" posttext="" role="700"/>
+              <floatingtext xmi.id="u2menG1Gd7jxt" localid="uwUHZjOn3ndnb" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="993.033" y="374.491" width="40" height="22" isinstance="0" showstereotype="2" text="false" pretext="" posttext="" role="700"/>
+              <floatingtext xmi.id="unkIgNvYLHodq" localid="u2tPeVSbfXLl8" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="574.559" y="438.61" width="135" height="22" isinstance="0" showstereotype="2" text="ErrorAutenticación" pretext="" posttext="" role="700"/>
+            </widgets>
+            <messages>
+              <messagewidget xmi.id="uKK2nH5htatAK" localid="uOhcZxT5ocYd9" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="989" y="366.884" width="641" height="8" isinstance="0" showstereotype="2" seqnum="" widgetaid="ueZZYtmtrFn3F" widgetbid="uoyZ5vcm8upCv" operation="" sequencemessagetype="1001"/>
+              <messagewidget xmi.id="uk6OgBbbK0AwB" localid="uuEgIMS1MmoF5" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="0" x="571" y="165.887" width="425" height="106" isinstance="0" showstereotype="2" seqnum="2" widgetaid="uN65hj0YzerNa" widgetbid="uoyZ5vcm8upCv" operation="uk6OgBbbK0AwB" sequencemessagetype="1000" textid="uXODq83sws4qZ">
+                <floatingtext xmi.id="uXODq83sws4qZ" localid="uOzKuROXTJjjg" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="576" y="143" width="404" height="22" isinstance="0" showstereotype="2" text="autenticarUsuario(email : string, pass_hash : string) : bool" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uKYDLN0LYRVra" localid="uXsFRmZLB0qEv" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="572" y="429.817" width="415" height="8" isinstance="0" showstereotype="2" seqnum="" widgetaid="uoyZ5vcm8upCv" widgetbid="uN65hj0YzerNa" operation="" sequencemessagetype="1001"/>
+              <messagewidget xmi.id="uA6OkVi4mbB1D" localid="u3Ej5ShiOS9O0" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="104" y="474.514" width="466" height="8" isinstance="0" showstereotype="2" seqnum="" widgetaid="uN65hj0YzerNa" widgetbid="uAgAbf6RA4W0G" operation="" sequencemessagetype="1001"/>
+              <messagewidget xmi.id="u6Sbwjd2d9znH" localid="uKL58ZkkI3Nnr" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="0" x="103" y="130" width="476" height="184" isinstance="0" showstereotype="2" seqnum="1" widgetaid="uAgAbf6RA4W0G" widgetbid="uN65hj0YzerNa" operation="u6Sbwjd2d9znH" sequencemessagetype="1000" textid="u3xgMTwP5Vmrz">
+                <floatingtext xmi.id="u3xgMTwP5Vmrz" localid="urz5jf7f9e9AP" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="108" y="108" width="416" height="22" isinstance="0" showstereotype="2" text="solicitarInicioSesion(email : string, pass_hash : string) : bool" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="ugw67CZmBXc9u" localid="uoNTzfdUgGfE9" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="0" x="988" y="188.11" width="651" height="31" isinstance="0" showstereotype="2" seqnum="3" widgetaid="uoyZ5vcm8upCv" widgetbid="ueZZYtmtrFn3F" operation="ugw67CZmBXc9u" sequencemessagetype="1000" textid="umNk3BOUjXIkm">
+                <floatingtext xmi.id="umNk3BOUjXIkm" localid="um2No0dT7WjzL" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="993" y="166" width="576" height="22" isinstance="0" showstereotype="2" text="verificarContraseñaHash(pass_hash : string, out autenticacionExistosa : bool) : bool" pretext="" posttext="" role="704"/>
+              </messagewidget>
+            </messages>
+            <associations/>
+          </diagram>
+          <diagram xmi.id="ul6xvUM8s3JA6" name="HacerseSocio" type="3" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="93" canvasheight="928.867" canvaswidth="1534.25" isopen="1" autoincrementsequence="1">
+            <widgets>
+              <floatingtext xmi.id="utyDNR9JteS8P" localid="upnDlQ87b3WkA" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="549.764" y="711.816" width="136" height="22" isinstance="0" showstereotype="2" text="usuarioActualizado" pretext="" posttext="" role="700"/>
+              <floatingtext xmi.id="uibp3fzqTFD1t" localid="uwbzTsyEiEZjb" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="543.777" y="399.701" width="122" height="22" isinstance="0" showstereotype="2" text="pagoConfirmado" pretext="" posttext="" role="700"/>
+              <objectwidget xmi.id="upV43XFHKTXCc" localid="uc3NAppPdmMGK" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="1" x="50" y="17" width="119" height="63" isinstance="0" instancename="Usuario" showstereotype="2" drawasactor="1" multipleinstance="0" decon="0"/>
+              <floatingtext xmi.id="uwjp6GYN2tNvS" localid="um7NXawSd8fof" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="110.298" y="780.418" width="132" height="22" isinstance="0" showstereotype="2" text="confirmaciónSocio" pretext="" posttext="" role="700"/>
+              <objectwidget xmi.id="ucZ73y5sP99tm" localid="uoQCC31uP3W2f" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="495.859" y="80" width="73" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <floatingtext xmi.id="uXedAzY5J3vGO" localid="ujuTOsR794GUT" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="115.963" y="906.867" width="93" height="22" isinstance="0" showstereotype="2" text="errorEnPago" pretext="" posttext="" role="700"/>
+              <floatingtext xmi.id="uo5IJbLdwl0PA" localid="unTx284QkUMSh" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="231" y="172" width="236" height="22" isinstance="0" showstereotype="2" text="(Presenta info cuota,solicita pago)" pretext="" posttext="" role="700"/>
+              <objectwidget xmi.id="urNiv77HP0HuN" localid="uijbUqO36kQzc" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1419.25" y="164" width="115" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <floatingtext xmi.id="uiqyHZW0ZOxHy" localid="u6VdG7IkDmBSC" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1198.56" y="612.87" width="24" height="22" isinstance="0" showstereotype="2" text="ok" pretext="" posttext="" role="700"/>
+              <floatingtext xmi.id="uBq0Kfvx1Wvaj" localid="uMtdXCf1EOPDR" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="537.275" y="840.423" width="76" height="22" isinstance="0" showstereotype="2" text="errorPago" pretext="" posttext="" role="700"/>
+              <objectwidget xmi.id="ur9PU1kWPfysv" localid="uqXiyIxBZ54F4" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="854" y="108" width="113" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <objectwidget xmi.id="uuDCTRZysHUsV" localid="uUFcrL2CT7y9g" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1118.29" y="136" width="130" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+            </widgets>
+            <messages>
+              <messagewidget xmi.id="uh2xE2P3fE9QF" localid="uliMhDdwRKV71" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="110" y="197" width="421" height="8" isinstance="0" showstereotype="2" seqnum="" widgetaid="uoQCC31uP3W2f" widgetbid="uc3NAppPdmMGK" operation="" sequencemessagetype="1001"/>
+              <messagewidget xmi.id="uz76xYsougtCO" localid="undJVxk90ad1v" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="533" y="825.204" width="376" height="8" isinstance="0" showstereotype="2" seqnum="" widgetaid="uqXiyIxBZ54F4" widgetbid="uoQCC31uP3W2f" operation="" sequencemessagetype="1001"/>
+              <messagewidget xmi.id="ug75oWnb7jjO1" localid="uOomsSdJi6OvT" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="0" x="109" y="130" width="431" height="644" isinstance="0" showstereotype="2" seqnum="1" widgetaid="uc3NAppPdmMGK" widgetbid="uoQCC31uP3W2f" operation="ug75oWnb7jjO1" sequencemessagetype="1000" textid="uo4VrFwslDiTZ">
+                <floatingtext xmi.id="uo4VrFwslDiTZ" localid="urA0J9WlUojC1" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="252" y="108" width="217" height="22" isinstance="0" showstereotype="2" text="solicitarHacerseSocio() : bool" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uajxAJcogXipl" localid="uaj4dwpfC1G2P" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="0" x="532" y="490" width="659" height="221" isinstance="0" showstereotype="2" seqnum="4" widgetaid="uoQCC31uP3W2f" widgetbid="uUFcrL2CT7y9g" operation="uajxAJcogXipl" sequencemessagetype="1000" textid="uEj5UHt4hy6s1">
+                <floatingtext xmi.id="uEj5UHt4hy6s1" localid="u4wxknxSUK59d" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="537" y="468" width="507" height="22" isinstance="0" showstereotype="2" text="actualizarEstadoSocio(idCliente : string, actualizar : bool = true) : Usuario" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="urNm9KdVquf5N" localid="ux9caUF8g8Igy" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="110" y="252" width="421" height="8" isinstance="0" showstereotype="2" seqnum="2" widgetaid="uc3NAppPdmMGK" widgetbid="uoQCC31uP3W2f" operation="urNm9KdVquf5N" sequencemessagetype="1001" textid="uj3kUPAKQ2sUV">
+                <floatingtext xmi.id="uj3kUPAKQ2sUV" localid="ub18C0sP1q7BH" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="345" y="230" width="133" height="22" isinstance="0" showstereotype="2" text="confirmarPago()" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uo1aZV02qCGao" localid="uIYPqL7O2KTLq" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="0" x="532" y="329.213" width="386" height="70" isinstance="0" showstereotype="2" seqnum="3" widgetaid="uoQCC31uP3W2f" widgetbid="uqXiyIxBZ54F4" operation="uo1aZV02qCGao" sequencemessagetype="1000" textid="u0D10djwlSN2X">
+                <floatingtext xmi.id="u0D10djwlSN2X" localid="uTJ72q2KzuAMy" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="537" y="307" width="337" height="22" isinstance="0" showstereotype="2" text="procesarDatosPago(datosPago : string[]) : bool" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uIU4A8fIhzDdq" localid="ue9DCzQzaVz2M" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="0" x="1183" y="548" width="301" height="62" isinstance="0" showstereotype="2" seqnum="5" widgetaid="uUFcrL2CT7y9g" widgetbid="uijbUqO36kQzc" operation="uIU4A8fIhzDdq" sequencemessagetype="1000" textid="ukCusF5M0jUUn">
+                <floatingtext xmi.id="ukCusF5M0jUUn" localid="ud0SzgzPpQz6M" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1188" y="526" width="146" height="22" isinstance="0" showstereotype="2" text="setEsSocio() : bool" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uIP35ilFrfSTX" localid="uGbapKRS9pphn" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="110" y="893.753" width="421" height="8" isinstance="0" showstereotype="2" seqnum="" widgetaid="uoQCC31uP3W2f" widgetbid="uc3NAppPdmMGK" operation="" sequencemessagetype="1001"/>
+            </messages>
+            <associations/>
+          </diagram>
+          <diagram xmi.id="u2rzUV08R9GUL" name="SuscribirseAComunicaciones" type="3" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="100" canvasheight="456" canvaswidth="1459" isopen="1" autoincrementsequence="0">
+            <widgets>
+              <objectwidget xmi.id="ucZ73y5sP99tm" localid="ucqiZskheB2wq" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="1" x="481" y="80" width="73" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <objectwidget xmi.id="uU1YIXlnbrYWj" localid="u4bmK0MXsJohs" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="1" x="1387" y="136" width="72" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <objectwidget xmi.id="uuDCTRZysHUsV" localid="uE5ACijptJMPR" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="1" x="992" y="108" width="130" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <objectwidget xmi.id="upV43XFHKTXCc" localid="uCIdRx7O1S4NI" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="1" x="50" y="17" width="119" height="63" isinstance="0" instancename="Usuario" showstereotype="2" drawasactor="1" multipleinstance="0" decon="0"/>
+              <floatingtext xmi.id="ujqjbzIheA6Vy" localid="ubKA3frbV8Qbn" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="1" x="539" y="382" width="163" height="22" isinstance="0" showstereotype="2" text="preferenciasGuardadas" pretext="" posttext="" role="700"/>
+              <floatingtext xmi.id="u7TtV98ggdsI7" localid="uIUWCrp8lLeZO" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="1" x="116" y="434" width="185" height="22" isinstance="0" showstereotype="2" text="confirmacionActualizacion" pretext="" posttext="" role="700"/>
+              <floatingtext xmi.id="u0EsqEXVgru7b" localid="uA6GP66gi4xUM" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="1" x="1100" y="322" width="24" height="22" isinstance="0" showstereotype="2" text="ok" pretext="" posttext="" role="700"/>
+            </widgets>
+            <messages>
+              <messagewidget xmi.id="uHN5gCgEURzZt" localid="uZ4Srd7FYV90W" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="0" x="517" y="202" width="548" height="181" isinstance="0" showstereotype="2" seqnum="2" widgetaid="ucqiZskheB2wq" widgetbid="uE5ACijptJMPR" operation="uHN5gCgEURzZt" sequencemessagetype="1000" textid="ufICsWXogC5A2">
+                <floatingtext xmi.id="ufICsWXogC5A2" localid="uIaKRU6ZpOsZy" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="522" y="180" width="496" height="22" isinstance="0" showstereotype="2" text="guardarPreferenciaSuscripcion(idUsuario : string, guardar : bool = true)" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uYFv1PdHPgxuH" localid="uo2reyFbsJJwK" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="0" x="109" y="145" width="416" height="289" isinstance="0" showstereotype="2" seqnum="1" widgetaid="uCIdRx7O1S4NI" widgetbid="ucqiZskheB2wq" operation="uYFv1PdHPgxuH" sequencemessagetype="1000" textid="ugz7SHXQNqqGU">
+                <floatingtext xmi.id="ugz7SHXQNqqGU" localid="uvBEMw2r94aq7" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="1" x="115" y="123" width="363" height="22" isinstance="0" showstereotype="2" text="actualizarSuscripcion(actualizar : bool = true) : bool" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uVzRmu6T7KDL2" localid="ueExebMyCn4kz" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="0" x="1057" y="242" width="374" height="72" isinstance="0" showstereotype="2" seqnum="3" widgetaid="uE5ACijptJMPR" widgetbid="u4bmK0MXsJohs" operation="uVzRmu6T7KDL2" sequencemessagetype="1000" textid="uJgxeUcO5IdNX">
+                <floatingtext xmi.id="uJgxeUcO5IdNX" localid="uFa5K7FPXcK0p" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1062" y="220" width="338" height="22" isinstance="0" showstereotype="2" text="setSuscritoNewsletter(setSuscrito : bool) : bool" pretext="" posttext="" role="704"/>
+              </messagewidget>
+            </messages>
+            <associations/>
+          </diagram>
+        </diagrams>
+      </xmi:Extension>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="Use_Case_View" name="Use Case View">
+      <packagedElement xmi:type="uml:Actor" xmi:id="upV43XFHKTXCc" name="Cliente"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="Component_View" name="Component View"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Deployment_View" name="Deployment View"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Entity_Relationship_Model" name="Entity Relationship Model"/>
+  </uml:Model>
+  <xmi:Extension extender="umbrello">
+    <docsettings viewid="u2rzUV08R9GUL" documentation="" uniqueid="ulenZqQK43DJ9"/>
+    <listview>
+      <listitem id="Views" type="800" open="1">
+        <listitem id="Component_View" type="821" open="1"/>
+        <listitem id="Deployment_View" type="827" open="1"/>
+        <listitem id="Entity_Relationship_Model" type="836" open="1"/>
+        <listitem id="Logical_View" type="801" open="1">
+          <listitem id="urNiv77HP0HuN" type="813" open="0">
+            <listitem id="uIU4A8fIhzDdq" type="815" open="0"/>
+          </listitem>
+          <listitem id="Datatypes" type="830" open="0">
+            <listitem id="uhO2bWaDhC1Ui" type="829" open="0"/>
+            <listitem id="umcDldp33NUQm" type="829" open="0"/>
+            <listitem id="up5ZoCjNel08J" type="829" open="0"/>
+            <listitem id="uyg5rRxlPDrqD" type="829" open="0"/>
+            <listitem id="uKuPHItHiOEd5" type="829" open="0"/>
+            <listitem id="uBmdY9482MMft" type="829" open="0"/>
+            <listitem id="uxHcViB8E0PRR" type="829" open="0"/>
+            <listitem id="uhIB3QlHYpzUl" type="829" open="0"/>
+            <listitem id="uo6A4IcuVvSoc" type="829" open="0"/>
+            <listitem id="uRK0SibSjQGN2" type="829" open="0"/>
+            <listitem id="uHB23NxixDw5q" type="829" open="0"/>
+            <listitem id="uR9QpFSgmLum3" type="829" open="0"/>
+            <listitem id="u05QfaOa3SByU" type="829" open="0"/>
+            <listitem id="u780Ksfhdv17C" type="829" open="0"/>
+            <listitem id="ug5lv3aWuBprN" type="829" open="0"/>
+            <listitem id="uJJTg6QoXkRbp" type="829" open="0"/>
+          </listitem>
+          <listitem id="ur9PU1kWPfysv" type="813" open="0">
+            <listitem id="uo1aZV02qCGao" type="815" open="0"/>
+            <listitem id="uUAP4T4J5a51F" type="815" open="0"/>
+          </listitem>
+          <listitem id="uuDCTRZysHUsV" type="813" open="1">
+            <listitem id="uajxAJcogXipl" type="815" open="0"/>
+            <listitem id="uk6OgBbbK0AwB" type="815" open="0"/>
+            <listitem id="u8dnZcaoa8K7V" type="815" open="0"/>
+            <listitem id="uDFS0cT9eOndz" type="815" open="0"/>
+            <listitem id="uHN5gCgEURzZt" type="815" open="0"/>
+          </listitem>
+          <listitem id="ul6xvUM8s3JA6" type="810" label="HacerseSocio" open="0"/>
+          <listitem id="ukviQHyss0Gk8" type="810" label="IniciarSesion" open="0"/>
+          <listitem id="ucZ73y5sP99tm" type="813" open="1">
+            <listitem id="uYFv1PdHPgxuH" type="815" open="0"/>
+            <listitem id="urNm9KdVquf5N" type="815" open="0"/>
+            <listitem id="u71Ctj0LQ7pIa" type="815" open="0"/>
+            <listitem id="ug75oWnb7jjO1" type="815" open="0"/>
+            <listitem id="usew49c9HWcvH" type="815" open="0"/>
+            <listitem id="u6Sbwjd2d9znH" type="815" open="0"/>
+          </listitem>
+          <listitem id="uveGtwHLPRQ7U" type="813" open="1"/>
+          <listitem id="u2rzUV08R9GUL" type="810" label="SuscribirseAComunicaciones" open="0"/>
+          <listitem id="uU1YIXlnbrYWj" type="813" open="1">
+            <listitem id="uVzRmu6T7KDL2" type="815" open="0"/>
+            <listitem id="ugw67CZmBXc9u" type="815" open="0"/>
+          </listitem>
+        </listitem>
+        <listitem id="Use_Case_View" type="802" open="1">
+          <listitem id="upV43XFHKTXCc" type="811" open="1"/>
+        </listitem>
+      </listitem>
+    </listview>
+    <codegeneration>
+      <codegenerator language="C++"/>
+    </codegeneration>
+  </xmi:Extension>
+</xmi:XMI>

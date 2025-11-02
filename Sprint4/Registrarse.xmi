@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://schema.omg.org/spec/UML/2.1">
+  <xmi:Documentation exporter="umbrello uml modeller 2.38.5 (Applications 23.08.5) http://umbrello.kde.org" exporterVersion="2.0.4"/>
+  <uml:Model xmi:id="m1" name="UML Model">
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="folder" name="folder"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="dataType" name="dataType"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Logical_View" name="Logical View">
+      <uml:Package xmi:id="Datatypes" name="Datatypes" stereotype="folder">
+        <packagedElement xmi:type="uml:DataType" xmi:id="uerQjvegjiNGI" name="char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="udR8CFpt4JBYJ" name="int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="ucrMcHEj3Sh32" name="float" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uB3aLw8VkpbnY" name="double" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uWLF54Rb3Zn4b" name="bool" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uzIazLFVcIKQp" name="string" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="ujK7z0ZjUdupM" name="unsigned char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uBQnfNHRJGrCw" name="signed char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="udEXGkomaxcha" name="unsigned int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uc3vxHbcT343v" name="signed int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uXFm2vtNmAwRI" name="short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u5gfduKbxEpY7" name="unsigned short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u1SJH3bPJQ8pE" name="signed short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u2lF1ZwHajoGS" name="long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u22W458QslBHo" name="signed long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uVQzj6RkGLNEV" name="unsigned long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uB2w4zMdQrLqk" name="long double" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uJX21wZxef7oR" name="wchar_t" stereotype="dataType"/>
+        <xmi:Extension extender="umbrello">
+          <diagrams resolution="96">
+            <diagram xmi.id="uBsymb5rqOHIp" name="RegistrarUsuario" type="3" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="100" canvasheight="800" canvaswidth="1100" isopen="1" autoincrementsequence="0">
+              <widgets>
+                <objectwidget xmi.id="u4lGlBMvfBZzr" localid="uf0MB0ABEgqoh" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="647" y="80" width="110" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+                <objectwidget xmi.id="u5cdKVAebyy34" localid="u3RDbrwplIAkZ" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="547" y="173" width="72" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+                <floatingtext xmi.id="uyYzZDCtAUU4H" localid="uR8yKY6IdQaTO" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="182" y="409" width="59" height="22" isinstance="0" showstereotype="2" text="Usuario" pretext="" posttext="" role="700"/>
+                <objectwidget xmi.id="ujhrPn6TmrAQx" localid="uufL2CnLpTcBD" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="328" y="80" width="114" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+                <objectwidget xmi.id="ujtjZ80hm9zHH" localid="uW3LUNtXzBKlN" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="75" y="17" width="72" height="63" isinstance="0" showstereotype="2" drawasactor="1" multipleinstance="0" decon="0"/>
+              </widgets>
+              <messages>
+                <messagewidget xmi.id="uUwKx4FijrOW4" localid="uGq2rdXpNeUkb" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="0" x="111" y="156" width="282" height="281" isinstance="0" showstereotype="2" seqnum="1" widgetaid="uW3LUNtXzBKlN" widgetbid="uufL2CnLpTcBD" operation="uUwKx4FijrOW4" sequencemessagetype="1000" textid="uPc7hJE6BtdvK">
+                  <floatingtext xmi.id="uPc7hJE6BtdvK" localid="uNJxeJFPB8WuS" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="116" y="134" width="240" height="22" isinstance="0" showstereotype="2" text="ObtenerUsuario(usuario : string)" pretext="" posttext="" role="704"/>
+                </messagewidget>
+                <messagewidget xmi.id="uaHtCbJaKwVuu" localid="uE8TyGaHDNDNd" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="386" y="187" width="160" height="8" isinstance="0" showstereotype="2" seqnum="2" widgetaid="uufL2CnLpTcBD" widgetbid="u3RDbrwplIAkZ" operation="uaHtCbJaKwVuu" sequencemessagetype="1002" textid="uzQL4pzmNZFRX">
+                  <floatingtext xmi.id="uzQL4pzmNZFRX" localid="ukJN6JnrpZGWI" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="405" y="165" width="121" height="22" isinstance="0" showstereotype="2" text="CrearUsuario()" pretext="" posttext="" role="704"/>
+                </messagewidget>
+                <messagewidget xmi.id="u14IhoFIP55su" localid="ut9dCdVcEcBfd" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="386" y="363" width="315" height="8" isinstance="0" showstereotype="2" seqnum="4" widgetaid="uufL2CnLpTcBD" widgetbid="uf0MB0ABEgqoh" operation="u14IhoFIP55su" sequencemessagetype="1001" textid="uf1E0P0iNkfeL">
+                  <floatingtext xmi.id="uf1E0P0iNkfeL" localid="uHyRhpAsuvCZm" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="395" y="341" width="291" height="22" isinstance="0" showstereotype="2" text="EnviarNotificacion(usuarioEmail : string)" pretext="" posttext="" role="704"/>
+                </messagewidget>
+              </messages>
+              <associations/>
+            </diagram>
+          </diagrams>
+        </xmi:Extension>
+      </uml:Package>
+      <packagedElement xmi:type="uml:Class" xmi:id="ujhrPn6TmrAQx" name="Base de datos">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uUwKx4FijrOW4" name="ObtenerUsuario">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSeztOiuSckW5" name="usuario" visibility="private" type="uzIazLFVcIKQp" value=""/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="u5cdKVAebyy34" name="Usuario">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uaHtCbJaKwVuu" name="CrearUsuario"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="u77a2y9z44duI" name="ValidarContraseña">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uFVBXLuTFjnJs" name="contraseña" visibility="private" type="" value=""/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="u4lGlBMvfBZzr" name="ServicioEmail">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="u14IhoFIP55su" name="EnviarNotificacion">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="urSR6RvRmqP2X" name="usuarioEmail" visibility="private" type="uzIazLFVcIKQp" value=""/>
+        </ownedOperation>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="Use_Case_View" name="Use Case View">
+      <packagedElement xmi:type="uml:Actor" xmi:id="ujtjZ80hm9zHH" name="Usuario"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="Component_View" name="Component View"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Deployment_View" name="Deployment View"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Entity_Relationship_Model" name="Entity Relationship Model"/>
+  </uml:Model>
+  <xmi:Extension extender="umbrello">
+    <docsettings viewid="uBsymb5rqOHIp" documentation="" uniqueid="uSeztOiuSckW5"/>
+    <listview>
+      <listitem id="Views" type="800" open="1">
+        <listitem id="Component_View" type="821" open="1"/>
+        <listitem id="Deployment_View" type="827" open="1"/>
+        <listitem id="Entity_Relationship_Model" type="836" open="1"/>
+        <listitem id="Logical_View" type="801" open="1">
+          <listitem id="ujhrPn6TmrAQx" type="813" open="1">
+            <listitem id="uUwKx4FijrOW4" type="815" open="0"/>
+          </listitem>
+          <listitem id="Datatypes" type="830" open="1">
+            <listitem id="uWLF54Rb3Zn4b" type="829" open="0"/>
+            <listitem id="uerQjvegjiNGI" type="829" open="0"/>
+            <listitem id="uB3aLw8VkpbnY" type="829" open="0"/>
+            <listitem id="ucrMcHEj3Sh32" type="829" open="0"/>
+            <listitem id="udR8CFpt4JBYJ" type="829" open="0"/>
+            <listitem id="uB2w4zMdQrLqk" type="829" open="0"/>
+            <listitem id="u2lF1ZwHajoGS" type="829" open="0"/>
+            <listitem id="uBsymb5rqOHIp" type="810" label="RegistrarUsuario" open="0"/>
+            <listitem id="uXFm2vtNmAwRI" type="829" open="0"/>
+            <listitem id="uBQnfNHRJGrCw" type="829" open="0"/>
+            <listitem id="uc3vxHbcT343v" type="829" open="0"/>
+            <listitem id="u22W458QslBHo" type="829" open="0"/>
+            <listitem id="u1SJH3bPJQ8pE" type="829" open="0"/>
+            <listitem id="uzIazLFVcIKQp" type="829" open="0"/>
+            <listitem id="ujK7z0ZjUdupM" type="829" open="0"/>
+            <listitem id="udEXGkomaxcha" type="829" open="0"/>
+            <listitem id="uVQzj6RkGLNEV" type="829" open="0"/>
+            <listitem id="u5gfduKbxEpY7" type="829" open="0"/>
+            <listitem id="uJX21wZxef7oR" type="829" open="0"/>
+          </listitem>
+          <listitem id="u4lGlBMvfBZzr" type="813" open="1">
+            <listitem id="u14IhoFIP55su" type="815" open="0"/>
+          </listitem>
+          <listitem id="u5cdKVAebyy34" type="813" open="1">
+            <listitem id="uaHtCbJaKwVuu" type="815" open="0"/>
+            <listitem id="u77a2y9z44duI" type="815" open="0"/>
+          </listitem>
+        </listitem>
+        <listitem id="Use_Case_View" type="802" open="1">
+          <listitem id="ujtjZ80hm9zHH" type="811" open="1"/>
+        </listitem>
+      </listitem>
+    </listview>
+    <codegeneration>
+      <codegenerator language="C++"/>
+    </codegeneration>
+  </xmi:Extension>
+</xmi:XMI>

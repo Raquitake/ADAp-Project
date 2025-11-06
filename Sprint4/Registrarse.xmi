@@ -26,23 +26,28 @@
         <packagedElement xmi:type="uml:DataType" xmi:id="uJX21wZxef7oR" name="wchar_t" stereotype="dataType"/>
         <xmi:Extension extender="umbrello">
           <diagrams resolution="96">
-            <diagram xmi.id="uBsymb5rqOHIp" name="RegistrarUsuario" type="3" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="100" canvasheight="800" canvaswidth="1100" isopen="1" autoincrementsequence="0">
+            <diagram xmi.id="uBsymb5rqOHIp" name="RegistrarUsuario" type="3" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="122" canvasheight="800" canvaswidth="1100" isopen="1" autoincrementsequence="1">
               <widgets>
-                <objectwidget xmi.id="u4lGlBMvfBZzr" localid="uf0MB0ABEgqoh" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="647" y="80" width="110" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
-                <objectwidget xmi.id="u5cdKVAebyy34" localid="u3RDbrwplIAkZ" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="547" y="173" width="72" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
-                <floatingtext xmi.id="uyYzZDCtAUU4H" localid="uR8yKY6IdQaTO" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="182" y="409" width="59" height="22" isinstance="0" showstereotype="2" text="Usuario" pretext="" posttext="" role="700"/>
-                <objectwidget xmi.id="ujhrPn6TmrAQx" localid="uufL2CnLpTcBD" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="328" y="80" width="114" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
-                <objectwidget xmi.id="ujtjZ80hm9zHH" localid="uW3LUNtXzBKlN" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="75" y="17" width="72" height="63" isinstance="0" showstereotype="2" drawasactor="1" multipleinstance="0" decon="0"/>
+                <floatingtext xmi.id="uMVaKLsyFdCY7" localid="uG4TCJThr3xad" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="731.148" y="459.836" width="281" height="22" isinstance="0" showstereotype="2" text="enviarNotificacion(mensaje:string):string" pretext="" posttext="" role="700"/>
+                <objectwidget xmi.id="uaZWsMr93hRGL" localid="u85mvYxoRJCvW" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="578.364" y="108" width="117" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+                <objectwidget xmi.id="ujtjZ80hm9zHH" localid="uW3LUNtXzBKlN" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="-230.131" y="17" width="72" height="63" isinstance="0" showstereotype="2" drawasactor="1" multipleinstance="0" decon="0"/>
+                <objectwidget xmi.id="u9qVImpsipxlh" localid="uvxEhxrSOcbua" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="167.251" y="80" width="73" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+                <objectwidget xmi.id="uA46nLvkxRM8L" localid="uQMsLoqqyGdbA" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="989.524" y="293" width="113" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+                <objectwidget xmi.id="ueDEx84ELToYM" localid="ux5K63Y3iZpgh" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="870.785" y="237" width="70" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
               </widgets>
               <messages>
-                <messagewidget xmi.id="uUwKx4FijrOW4" localid="uGq2rdXpNeUkb" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="0" x="111" y="156" width="282" height="281" isinstance="0" showstereotype="2" seqnum="1" widgetaid="uW3LUNtXzBKlN" widgetbid="uufL2CnLpTcBD" operation="uUwKx4FijrOW4" sequencemessagetype="1000" textid="uPc7hJE6BtdvK">
-                  <floatingtext xmi.id="uPc7hJE6BtdvK" localid="uNJxeJFPB8WuS" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="116" y="134" width="240" height="22" isinstance="0" showstereotype="2" text="ObtenerUsuario(usuario : string)" pretext="" posttext="" role="704"/>
+                <messagewidget xmi.id="uSfta57xfs7Ph" localid="unvydNYVnuged" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="0" x="-194" y="157.691" width="405" height="255" isinstance="0" showstereotype="2" seqnum="1" widgetaid="uW3LUNtXzBKlN" widgetbid="uvxEhxrSOcbua" operation="uSfta57xfs7Ph" sequencemessagetype="1000" textid="ujqTW7uWuVPk7">
+                  <floatingtext xmi.id="ujqTW7uWuVPk7" localid="uKZVJp7uRsGlm" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="-189" y="135" width="393" height="22" isinstance="0" showstereotype="2" text="solicitarRegistrarse(Usuario : string, contraseña : string)" pretext="" posttext="" role="704"/>
                 </messagewidget>
-                <messagewidget xmi.id="uaHtCbJaKwVuu" localid="uE8TyGaHDNDNd" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="386" y="187" width="160" height="8" isinstance="0" showstereotype="2" seqnum="2" widgetaid="uufL2CnLpTcBD" widgetbid="u3RDbrwplIAkZ" operation="uaHtCbJaKwVuu" sequencemessagetype="1002" textid="uzQL4pzmNZFRX">
-                  <floatingtext xmi.id="uzQL4pzmNZFRX" localid="ukJN6JnrpZGWI" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="405" y="165" width="121" height="22" isinstance="0" showstereotype="2" text="CrearUsuario()" pretext="" posttext="" role="704"/>
+                <messagewidget xmi.id="uSVcE7jkkvVuC" localid="uHyAhJI5oUHsl" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="0" x="203" y="206.717" width="441" height="125" isinstance="0" showstereotype="2" seqnum="2" widgetaid="uvxEhxrSOcbua" widgetbid="u85mvYxoRJCvW" operation="uSVcE7jkkvVuC" sequencemessagetype="1000" textid="uBJqKXXPiXF1M">
+                  <floatingtext xmi.id="uBJqKXXPiXF1M" localid="u7MjsCEkRMbxz" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="233" y="184" width="398" height="22" isinstance="0" showstereotype="2" text="crearUsuario(usuario : string, contraseña : string) : string" pretext="" posttext="" role="704"/>
                 </messagewidget>
-                <messagewidget xmi.id="u14IhoFIP55su" localid="ut9dCdVcEcBfd" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="386" y="363" width="315" height="8" isinstance="0" showstereotype="2" seqnum="4" widgetaid="uufL2CnLpTcBD" widgetbid="uf0MB0ABEgqoh" operation="u14IhoFIP55su" sequencemessagetype="1001" textid="uf1E0P0iNkfeL">
-                  <floatingtext xmi.id="uf1E0P0iNkfeL" localid="uHyRhpAsuvCZm" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="395" y="341" width="291" height="22" isinstance="0" showstereotype="2" text="EnviarNotificacion(usuarioEmail : string)" pretext="" posttext="" role="704"/>
+                <messagewidget xmi.id="uq5IhdbduhpP5" localid="uswvDfuFZT6ce" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="204" y="377" width="841" height="8" isinstance="0" showstereotype="2" seqnum="4" widgetaid="uvxEhxrSOcbua" widgetbid="uQMsLoqqyGdbA" operation="uq5IhdbduhpP5" sequencemessagetype="1001" textid="uFQwlyqCTL0y1">
+                  <floatingtext xmi.id="uFQwlyqCTL0y1" localid="u820OwW47x6Jo" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="209" y="355" width="457" height="22" isinstance="0" showstereotype="2" text="solicitarNotificacion(usuarioEmail : string, usuario : string) : string" pretext="" posttext="" role="704"/>
+                </messagewidget>
+                <messagewidget xmi.id="uE0JHwV36qO37" localid="uL4BpcrzdrKHW" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="-193" y="482.377" width="1238" height="8" isinstance="0" showstereotype="2" seqnum="" widgetaid="uQMsLoqqyGdbA" widgetbid="uW3LUNtXzBKlN" operation="" sequencemessagetype="1001"/>
+                <messagewidget xmi.id="uUNF9XSW9xn35" localid="uUrCAgJa5Gt4M" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="637" y="251" width="232" height="8" isinstance="0" showstereotype="2" seqnum="3" widgetaid="u85mvYxoRJCvW" widgetbid="ux5K63Y3iZpgh" operation="uUNF9XSW9xn35" sequencemessagetype="1002" textid="uBTUc4rgjblo8">
+                  <floatingtext xmi.id="uBTUc4rgjblo8" localid="uwEzsD4PFWjgD" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="642" y="229" width="191" height="22" isinstance="0" showstereotype="2" text="usuarioCreado() : usuario" pretext="" posttext="" role="704"/>
                 </messagewidget>
               </messages>
               <associations/>
@@ -50,11 +55,6 @@
           </diagrams>
         </xmi:Extension>
       </uml:Package>
-      <packagedElement xmi:type="uml:Class" xmi:id="ujhrPn6TmrAQx" name="Base de datos">
-        <ownedOperation xmi:type="uml:Operation" xmi:id="uUwKx4FijrOW4" name="ObtenerUsuario">
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uSeztOiuSckW5" name="usuario" visibility="private" type="uzIazLFVcIKQp" value=""/>
-        </ownedOperation>
-      </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="u5cdKVAebyy34" name="Usuario">
         <ownedOperation xmi:type="uml:Operation" xmi:id="uaHtCbJaKwVuu" name="CrearUsuario"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="u77a2y9z44duI" name="ValidarContraseña">
@@ -66,6 +66,31 @@
           <ownedParameter xmi:type="uml:Parameter" xmi:id="urSR6RvRmqP2X" name="usuarioEmail" visibility="private" type="uzIazLFVcIKQp" value=""/>
         </ownedOperation>
       </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="u9qVImpsipxlh" name="Interfaz">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uSfta57xfs7Ph" name="solicitarRegistrarse">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uYxTogcSAMfkR" name="Usuario" visibility="private" type="uzIazLFVcIKQp" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uoMb8sYFlWmnh" name="contraseña" visibility="private" type="uzIazLFVcIKQp" value=""/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="uaZWsMr93hRGL" name="BasesDeDatos">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uSVcE7jkkvVuC" name="crearUsuario">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uJPnsFt1b534U" type="uzIazLFVcIKQp" direction="return"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uJwVustgFvtFv" name="usuario" visibility="private" type="uzIazLFVcIKQp" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="unQxhjqJOaT6e" name="contraseña" visibility="private" type="uzIazLFVcIKQp" value=""/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="ueDEx84ELToYM" name="usuario">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uUNF9XSW9xn35" name="usuarioCreado">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u1rlWhDODtNup" type="ueDEx84ELToYM" direction="return"/>
+        </ownedOperation>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="uA46nLvkxRM8L" name="Servicio email">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="uq5IhdbduhpP5" name="solicitarNotificacion">
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGOxOTmXbZiyZ" type="uzIazLFVcIKQp" direction="return"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uV2Ia8gA3oDCc" name="usuarioEmail" visibility="private" type="uzIazLFVcIKQp" value=""/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uVy4TeQ7sZrOw" name="usuario" visibility="private" type="uzIazLFVcIKQp" value=""/>
+        </ownedOperation>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Model" xmi:id="Use_Case_View" name="Use Case View">
       <packagedElement xmi:type="uml:Actor" xmi:id="ujtjZ80hm9zHH" name="Usuario"/>
@@ -75,22 +100,21 @@
     <packagedElement xmi:type="uml:Model" xmi:id="Entity_Relationship_Model" name="Entity Relationship Model"/>
   </uml:Model>
   <xmi:Extension extender="umbrello">
-    <docsettings viewid="uBsymb5rqOHIp" documentation="" uniqueid="uSeztOiuSckW5"/>
+    <docsettings viewid="uBsymb5rqOHIp" documentation="" uniqueid="uOyXuxNUOA8NC"/>
     <listview>
       <listitem id="Views" type="800" open="1">
         <listitem id="Component_View" type="821" open="1"/>
         <listitem id="Deployment_View" type="827" open="1"/>
         <listitem id="Entity_Relationship_Model" type="836" open="1"/>
         <listitem id="Logical_View" type="801" open="1">
-          <listitem id="ujhrPn6TmrAQx" type="813" open="1">
-            <listitem id="uUwKx4FijrOW4" type="815" open="0"/>
+          <listitem id="uaZWsMr93hRGL" type="813" open="1">
+            <listitem id="uSVcE7jkkvVuC" type="815" open="0"/>
           </listitem>
-          <listitem id="Datatypes" type="830" open="1">
+          <listitem id="Datatypes" type="830" open="0">
             <listitem id="uWLF54Rb3Zn4b" type="829" open="0"/>
             <listitem id="uerQjvegjiNGI" type="829" open="0"/>
             <listitem id="uB3aLw8VkpbnY" type="829" open="0"/>
             <listitem id="ucrMcHEj3Sh32" type="829" open="0"/>
-            <listitem id="udR8CFpt4JBYJ" type="829" open="0"/>
             <listitem id="uB2w4zMdQrLqk" type="829" open="0"/>
             <listitem id="u2lF1ZwHajoGS" type="829" open="0"/>
             <listitem id="uBsymb5rqOHIp" type="810" label="RegistrarUsuario" open="0"/>
@@ -106,8 +130,15 @@
             <listitem id="u5gfduKbxEpY7" type="829" open="0"/>
             <listitem id="uJX21wZxef7oR" type="829" open="0"/>
           </listitem>
+          <listitem id="u9qVImpsipxlh" type="813" open="1"/>
+          <listitem id="uA46nLvkxRM8L" type="813" open="1">
+            <listitem id="uq5IhdbduhpP5" type="815" open="0"/>
+          </listitem>
           <listitem id="u4lGlBMvfBZzr" type="813" open="1">
             <listitem id="u14IhoFIP55su" type="815" open="0"/>
+          </listitem>
+          <listitem id="ueDEx84ELToYM" type="813" open="1">
+            <listitem id="uUNF9XSW9xn35" type="815" open="0"/>
           </listitem>
           <listitem id="u5cdKVAebyy34" type="813" open="1">
             <listitem id="uaHtCbJaKwVuu" type="815" open="0"/>

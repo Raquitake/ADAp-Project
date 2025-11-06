@@ -97,10 +97,10 @@
               <floatingtext xmi.id="uDM2MCQVdyRBx" localid="ubEyhgPiMhToi" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1010.6" y="215.263" width="36" height="22" isinstance="0" showstereotype="2" text="true" pretext="" posttext="" role="700"/>
               <objectwidget xmi.id="upV43XFHKTXCc" localid="uAgAbf6RA4W0G" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="1" x="39.7782" y="17" width="128" height="63" isinstance="0" instancename="Visitante" showstereotype="2" drawasactor="1" multipleinstance="0" decon="0"/>
               <objectwidget xmi.id="ucZ73y5sP99tm" localid="uN65hj0YzerNa" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="1" x="535.053" y="80" width="120" height="28" isinstance="0" instancename="Acceso" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
-              <floatingtext xmi.id="unkIgNvYLHodq" localid="u2tPeVSbfXLl8" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="574.559" y="438.61" width="135" height="22" isinstance="0" showstereotype="2" text="ErrorAutenticación" pretext="" posttext="" role="700"/>
+              <floatingtext xmi.id="unkIgNvYLHodq" localid="u2tPeVSbfXLl8" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="596.257" y="438.61" width="135" height="22" isinstance="0" showstereotype="2" text="ErrorAutenticación" pretext="" posttext="" role="700"/>
               <floatingtext xmi.id="u2menG1Gd7jxt" localid="uwUHZjOn3ndnb" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="993.033" y="374.491" width="40" height="22" isinstance="0" showstereotype="2" text="false" pretext="" posttext="" role="700"/>
               <floatingtext xmi.id="uJrCVTutfvbY0" localid="uerkkMx7NWcQG" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="108.99" y="313.65" width="135" height="22" isinstance="0" showstereotype="2" text="ConfirmaciónLogin" pretext="" posttext="" role="700"/>
-              <floatingtext xmi.id="u01ReVM9X3GcR" localid="uFEDAbcps64Wf" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="588.079" y="272.784" width="106" height="22" isinstance="0" showstereotype="2" text="Sesión Iniciada" pretext="" posttext="" role="700"/>
+              <floatingtext xmi.id="u01ReVM9X3GcR" localid="uFEDAbcps64Wf" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="608.834" y="270.897" width="106" height="22" isinstance="0" showstereotype="2" text="Sesión Iniciada" pretext="" posttext="" role="700"/>
               <floatingtext xmi.id="uBdF0VhwJWcv1" localid="u4zicEHA6s3Hs" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="104.269" y="481.361" width="79" height="22" isinstance="0" showstereotype="2" text="ErrorLogin" pretext="" posttext="" role="700"/>
               <objectwidget xmi.id="uuDCTRZysHUsV" localid="uoyZ5vcm8upCv" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="923.45" y="99" width="130" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
               <objectwidget xmi.id="uU1YIXlnbrYWj" localid="ueZZYtmtrFn3F" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1595.03" y="108" width="72" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
@@ -121,7 +121,7 @@
             </messages>
             <associations/>
           </diagram>
-          <diagram xmi.id="ul6xvUM8s3JA6" name="HacerseSocio" type="3" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="106.087" canvasheight="928.867" canvaswidth="1534.25" isopen="1" autoincrementsequence="1">
+          <diagram xmi.id="ul6xvUM8s3JA6" name="HacerseSocio" type="3" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="10" canvasheight="928.867" canvaswidth="1534.25" isopen="1" autoincrementsequence="1">
             <widgets>
               <objectwidget xmi.id="urNiv77HP0HuN" localid="uijbUqO36kQzc" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0" autoresize="1" x="1419.25" y="164" width="115" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
               <objectwidget xmi.id="ucZ73y5sP99tm" localid="uoQCC31uP3W2f" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Ubuntu Sans,11,-1,5,50,0,0,0,0,0,Regular" autoresize="1" x="495.859" y="80" width="109" height="28" isinstance="0" instancename="Socio" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
@@ -192,7 +192,7 @@
     <packagedElement xmi:type="uml:Model" xmi:id="Entity_Relationship_Model" name="Entity Relationship Model"/>
   </uml:Model>
   <xmi:Extension extender="umbrello">
-    <docsettings viewid="ukviQHyss0Gk8" documentation="" uniqueid="uUjsmnypTKIEM"/>
+    <docsettings viewid="ukviQHyss0Gk8" documentation="" uniqueid="ulh2OVMzCnKCh"/>
     <listview>
       <listitem id="Views" type="800" open="1">
         <listitem id="Component_View" type="821" open="1"/>
@@ -204,9 +204,7 @@
           </listitem>
           <listitem id="Datatypes" type="830" open="0">
             <listitem id="uhO2bWaDhC1Ui" type="829" open="0"/>
-            <listitem id="uHNCXcbb6lTUG" type="829" open="0"/>
             <listitem id="umcDldp33NUQm" type="829" open="0"/>
-            <listitem id="up5ZoCjNel08J" type="829" open="0"/>
             <listitem id="uxCvJUERaElNN" type="829" open="0"/>
             <listitem id="uyg5rRxlPDrqD" type="829" open="0"/>
             <listitem id="uKuPHItHiOEd5" type="829" open="0"/>
@@ -226,7 +224,7 @@
             <listitem id="uo1aZV02qCGao" type="815" open="0"/>
             <listitem id="uUAP4T4J5a51F" type="815" open="0"/>
           </listitem>
-          <listitem id="uuDCTRZysHUsV" type="813" open="0">
+          <listitem id="uuDCTRZysHUsV" type="813" open="1">
             <listitem id="uajxAJcogXipl" type="815" open="0"/>
             <listitem id="uk6OgBbbK0AwB" type="815" open="0"/>
             <listitem id="u8dnZcaoa8K7V" type="815" open="0"/>

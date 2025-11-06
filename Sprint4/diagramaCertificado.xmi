@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://schema.omg.org/spec/UML/2.1">
+  <xmi:Documentation exporter="umbrello uml modeller 2.38.5 (Applications 23.08.5) http://umbrello.kde.org" exporterVersion="2.0.4"/>
+  <uml:Model xmi:id="m1" name="UML Model">
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="folder" name="folder"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="dataType" name="dataType"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Logical_View" name="Logical View" stereotype="folder">
+      <uml:Package xmi:id="Datatypes" name="Datatypes" stereotype="folder">
+        <packagedElement xmi:type="uml:DataType" xmi:id="uot0t3bSlKWK2" name="char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u2OyEvFrkimv3" name="int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uJKaHN6LzhldU" name="float" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u66Dr1E0tKMV0" name="double" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uiuDu4CDE0fXX" name="bool" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uGvfj8htCN3DA" name="string" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="umk0lMuh991uc" name="unsigned char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u4nCW4Y1PSuNa" name="signed char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="ujuGRC3SI7IqK" name="unsigned int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="usMzOVF78eUKq" name="signed int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u7uP31qnUnGVb" name="short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uvWLTeRG2i1MC" name="unsigned short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uGOsIYXH12nr6" name="signed short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u1xfKBTGGrMne" name="long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uUaq56ujj9xTq" name="signed long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u4k6Sw1cRAuSh" name="unsigned long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="ua9NO9wA4CRUc" name="long double" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="ujJVhr7qLaXIP" name="wchar_t" stereotype="dataType"/>
+      </uml:Package>
+      <packagedElement xmi:type="uml:Class" xmi:id="u9IVkSOJzuFLk" name="Cliente"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="uCvrJGNqOiwH8" name="INTERFAZ"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="u9RonQwIhSNjn" name="CRM_CUDECA"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="uIMai27iFRMwS" name="Correo_electronico"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="urQRLKWbB41HJ" name="Cliente_"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="umFM4Y46jgHnx" name="PAGINA_WEB_CUDECA_"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="uGTg3PE6JJ0IU" name="SISTEMA_DE_PAGO"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="u9dMLidsDCb5k" name="CRM_CUDECA_"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="uOywr8n4Bf9hK" name="Correo_electrónico"/>
+      <xmi:Extension extender="umbrello">
+        <diagrams resolution="120">
+          <diagram xmi.id="uw7WJRNUeycN3" name="class diagram" type="1" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="100" canvasheight="800" canvaswidth="1100" isopen="0">
+            <widgets/>
+            <messages/>
+            <associations/>
+          </diagram>
+          <diagram xmi.id="uMyjD9r9nHCmu" name="certificado" type="3" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="139.15" canvasheight="478" canvaswidth="1190" isopen="1" autoincrementsequence="1">
+            <widgets>
+              <notewidget xmi.id="urzNASiXSf8bn" localid="uDFj0vUbuqHPN" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="637.728" y="388.488" width="120" height="38" isinstance="0" showstereotype="2" text="6.ok&#10;" noteType="0"/>
+              <objectwidget xmi.id="uIMai27iFRMwS" localid="uTBAyay3OzkWv" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="1056" y="80" width="106" height="24" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <objectwidget xmi.id="u9RonQwIhSNjn" localid="uSt4VG2G6Pyt8" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="758" y="80" width="83" height="24" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <notewidget xmi.id="uVmStZGdM0kDH" localid="usOotfXlRSscp" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="582.667" y="212.979" width="120" height="38" isinstance="0" showstereotype="2" text="3.confirmarDatos" noteType="0"/>
+              <objectwidget xmi.id="uCvrJGNqOiwH8" localid="uszAfKZZYEXWT" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="397.861" y="80" width="127" height="24" isinstance="0" instancename="CERTIFICADO" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <floatingtext xmi.id="ub4TXZhAAcmOh" localid="usLLPVZMXA47K" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="57.4919" y="444.313" width="80" height="22" isinstance="0" showstereotype="2" text="certificado" pretext="" posttext="" role="700"/>
+              <objectwidget xmi.id="u9IVkSOJzuFLk" localid="u9FIji8qmXULa" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="35.2854" y="80" width="50" height="59" isinstance="0" showstereotype="2" drawasactor="1" multipleinstance="0" decon="0"/>
+            </widgets>
+            <messages>
+              <messagewidget xmi.id="uy5hkOwpcy1cJ" localid="uE3LvWIT8gHwf" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="461" y="363.635" width="346" height="20" isinstance="0" showstereotype="2" seqnum="5" widgetaid="uszAfKZZYEXWT" widgetbid="uSt4VG2G6Pyt8" operation="registrarCertificado" sequencemessagetype="1000" textid="uo4KVQa18T3TQ">
+                <floatingtext xmi.id="uo4KVQa18T3TQ" localid="u3bXr7xT0ispz" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="494" y="345" width="110" height="18" isinstance="0" showstereotype="2" text="registrarCertificado" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="u43PVGo5p5g0w" localid="uBlecAbHb9o35" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="462" y="288.347" width="336" height="8" isinstance="0" showstereotype="2" seqnum="4" widgetaid="uszAfKZZYEXWT" widgetbid="uSt4VG2G6Pyt8" operation="generarCertifcado" sequencemessagetype="1001" textid="ucvk0ZhKmbEF7">
+                <floatingtext xmi.id="ucvk0ZhKmbEF7" localid="uW873lCdsHWdi" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="495" y="270" width="104" height="18" isinstance="0" showstereotype="2" text="generarCertifcado" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uiUD2zViZnroU" localid="u85993sFOSkUD" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="461" y="196" width="346" height="20" isinstance="0" showstereotype="2" seqnum="2" widgetaid="uszAfKZZYEXWT" widgetbid="uSt4VG2G6Pyt8" operation="verificarDatosFiscales" sequencemessagetype="1000" textid="u3detxb5Rf027">
+                <floatingtext xmi.id="u3detxb5Rf027" localid="u6OSoJk54wqro" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="494" y="178" width="120" height="18" isinstance="0" showstereotype="2" text="verificarDatosFiscales" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="urHdHuq6k1GMF" localid="uLBosgXs2OTEL" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="0" x="60" y="157" width="409" height="310" isinstance="0" showstereotype="2" seqnum="1" widgetaid="u9FIji8qmXULa" widgetbid="uszAfKZZYEXWT" operation="solicitarCertificado" sequencemessagetype="1000" textid="ulYIiukhg7eDB">
+                <floatingtext xmi.id="ulYIiukhg7eDB" localid="ubetviVm7g4nS" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="109" y="139" width="107" height="18" isinstance="0" showstereotype="2" text="solicitarCertificado" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="u5X3bcG36on9S" localid="uJ4NzkM0TQkrs" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="462" y="441.665" width="646" height="8" isinstance="0" showstereotype="2" seqnum="7" widgetaid="uszAfKZZYEXWT" widgetbid="uTBAyay3OzkWv" operation="enviarCertificadoEmail" sequencemessagetype="1001" textid="uJ188z6tNJIgm">
+                <floatingtext xmi.id="uJ188z6tNJIgm" localid="ugr6msR1pIWgU" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="495" y="423" width="125" height="18" isinstance="0" showstereotype="2" text="enviarCertificadoEmail" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="ufxbSRXi96ACT" localid="udyZXcAdpji7x" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="61" y="506.5" width="1047" height="8" isinstance="0" showstereotype="2" seqnum="8" widgetaid="uTBAyay3OzkWv" widgetbid="u9FIji8qmXULa" operation="mensajeConfirmacion" sequencemessagetype="1001" textid="uwz1XAYNXcWqB">
+                <floatingtext xmi.id="uwz1XAYNXcWqB" localid="umfnaixeMwpo2" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="66" y="488" width="122" height="18" isinstance="0" showstereotype="2" text="mensajeConfirmacion" pretext="" posttext="" role="704"/>
+              </messagewidget>
+            </messages>
+            <associations/>
+          </diagram>
+        </diagrams>
+      </xmi:Extension>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="Use_Case_View" name="Use Case View" stereotype="folder"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Component_View" name="Component View" stereotype="folder"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Deployment_View" name="Deployment View" stereotype="folder"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Entity_Relationship_Model" name="Entity Relationship Model" stereotype="folder"/>
+  </uml:Model>
+  <xmi:Extension extender="umbrello">
+    <docsettings viewid="uMyjD9r9nHCmu" documentation="" uniqueid="usLLPVZMXA47K"/>
+    <listview>
+      <listitem id="Views" type="800" open="1">
+        <listitem id="Component_View" type="821" open="1"/>
+        <listitem id="Deployment_View" type="827" open="1"/>
+        <listitem id="Entity_Relationship_Model" type="836" open="1"/>
+        <listitem id="Logical_View" type="801" open="1">
+          <listitem id="uMyjD9r9nHCmu" type="810" label="certificado" open="0"/>
+          <listitem id="uw7WJRNUeycN3" type="807" label="class diagram" open="0"/>
+          <listitem id="u9IVkSOJzuFLk" type="813" open="1"/>
+          <listitem id="urQRLKWbB41HJ" type="813" open="1"/>
+          <listitem id="uIMai27iFRMwS" type="813" open="1"/>
+          <listitem id="uOywr8n4Bf9hK" type="813" open="1"/>
+          <listitem id="u9RonQwIhSNjn" type="813" open="1"/>
+          <listitem id="u9dMLidsDCb5k" type="813" open="1"/>
+          <listitem id="Datatypes" type="830" open="0">
+            <listitem id="uiuDu4CDE0fXX" type="829" open="0"/>
+            <listitem id="uot0t3bSlKWK2" type="829" open="0"/>
+            <listitem id="u66Dr1E0tKMV0" type="829" open="0"/>
+            <listitem id="uJKaHN6LzhldU" type="829" open="0"/>
+            <listitem id="u2OyEvFrkimv3" type="829" open="0"/>
+            <listitem id="ua9NO9wA4CRUc" type="829" open="0"/>
+            <listitem id="u1xfKBTGGrMne" type="829" open="0"/>
+            <listitem id="u7uP31qnUnGVb" type="829" open="0"/>
+            <listitem id="u4nCW4Y1PSuNa" type="829" open="0"/>
+            <listitem id="usMzOVF78eUKq" type="829" open="0"/>
+            <listitem id="uUaq56ujj9xTq" type="829" open="0"/>
+            <listitem id="uGOsIYXH12nr6" type="829" open="0"/>
+            <listitem id="uGvfj8htCN3DA" type="829" open="0"/>
+            <listitem id="umk0lMuh991uc" type="829" open="0"/>
+            <listitem id="ujuGRC3SI7IqK" type="829" open="0"/>
+            <listitem id="u4k6Sw1cRAuSh" type="829" open="0"/>
+            <listitem id="uvWLTeRG2i1MC" type="829" open="0"/>
+            <listitem id="ujJVhr7qLaXIP" type="829" open="0"/>
+          </listitem>
+          <listitem id="uCvrJGNqOiwH8" type="813" open="1"/>
+          <listitem id="umFM4Y46jgHnx" type="813" open="1"/>
+          <listitem id="uGTg3PE6JJ0IU" type="813" open="1"/>
+        </listitem>
+        <listitem id="Use_Case_View" type="802" open="1"/>
+      </listitem>
+    </listview>
+    <codegeneration>
+      <codegenerator language="C++"/>
+    </codegeneration>
+  </xmi:Extension>
+</xmi:XMI>

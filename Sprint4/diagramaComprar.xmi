@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uml="http://schema.omg.org/spec/UML/2.1">
+  <xmi:Documentation exporter="umbrello uml modeller 2.38.5 (Applications 23.08.5) http://umbrello.kde.org" exporterVersion="2.0.4"/>
+  <uml:Model xmi:id="m1" name="UML Model">
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="folder" name="folder"/>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="dataType" name="dataType"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Logical_View" name="Logical View" stereotype="folder">
+      <uml:Package xmi:id="Datatypes" name="Datatypes" stereotype="folder">
+        <packagedElement xmi:type="uml:DataType" xmi:id="uot0t3bSlKWK2" name="char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u2OyEvFrkimv3" name="int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uJKaHN6LzhldU" name="float" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u66Dr1E0tKMV0" name="double" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uiuDu4CDE0fXX" name="bool" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uGvfj8htCN3DA" name="string" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="umk0lMuh991uc" name="unsigned char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u4nCW4Y1PSuNa" name="signed char" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="ujuGRC3SI7IqK" name="unsigned int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="usMzOVF78eUKq" name="signed int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u7uP31qnUnGVb" name="short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uvWLTeRG2i1MC" name="unsigned short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uGOsIYXH12nr6" name="signed short int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u1xfKBTGGrMne" name="long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="uUaq56ujj9xTq" name="signed long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="u4k6Sw1cRAuSh" name="unsigned long int" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="ua9NO9wA4CRUc" name="long double" stereotype="dataType"/>
+        <packagedElement xmi:type="uml:DataType" xmi:id="ujJVhr7qLaXIP" name="wchar_t" stereotype="dataType"/>
+      </uml:Package>
+      <packagedElement xmi:type="uml:Class" xmi:id="u9IVkSOJzuFLk" name="Cliente"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="uCvrJGNqOiwH8" name="Página_WEB_CUDECA"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="u9RonQwIhSNjn" name="CRM_CUDECA"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="uIMai27iFRMwS" name="Correo_electronico"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="urQRLKWbB41HJ" name="Cliente_"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="umFM4Y46jgHnx" name="INTERFAZ"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="uGTg3PE6JJ0IU" name="SISTEMA_DE_PAGO"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="u9dMLidsDCb5k" name="CRM_CUDECA_"/>
+      <packagedElement xmi:type="uml:Class" xmi:id="uOywr8n4Bf9hK" name="Correo_electrónico"/>
+      <xmi:Extension extender="umbrello">
+        <diagrams resolution="120">
+          <diagram xmi.id="uw7WJRNUeycN3" name="class diagram" type="1" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="100" canvasheight="800" canvaswidth="1100" isopen="1">
+            <widgets/>
+            <messages/>
+            <associations/>
+          </diagram>
+          <diagram xmi.id="umiMzHxA0RF9h" name="compraEntradas" type="3" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" griddotcolor="#d3d3d3" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="152" canvasheight="581" canvaswidth="1287" isopen="1" autoincrementsequence="1">
+            <widgets>
+              <objectwidget xmi.id="umFM4Y46jgHnx" localid="uEYNGS3xQFxGV" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="314" y="80" width="107" height="24" isinstance="0" instancename="EVENTOS" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <objectwidget xmi.id="urQRLKWbB41HJ" localid="udFnoMXTTYyYp" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="50" y="80" width="76" height="63" isinstance="0" showstereotype="2" drawasactor="1" multipleinstance="0" decon="0"/>
+              <objectwidget xmi.id="uGTg3PE6JJ0IU" localid="uBsTO7O6SUwod" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="611" y="80" width="153" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <notewidget xmi.id="uofjVzKy7Lu9O" localid="umZtLXYDkU8k1" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="498.211" y="344.158" width="120" height="38" isinstance="0" showstereotype="2" text="5.confirmarPago" noteType="0"/>
+              <notewidget xmi.id="uHc89M8QtcLZO" localid="uww5fzOz3FYYH" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Sans Serif,7.8,-1,5,50,0,0,0,0,0" autoresize="0" x="659.974" y="432.263" width="180" height="44" isinstance="0" showstereotype="2" text="7.compraRegistrada" noteType="0"/>
+              <notewidget xmi.id="uQ2qo6ii8rls0" localid="ulxmkzQ779RcN" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="195.974" y="206.947" width="120" height="38" isinstance="0" showstereotype="2" text="2.infoEvento" noteType="0"/>
+              <floatingtext xmi.id="umkCKHtvwloxR" localid="uRekCMmHg2K5i" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="93.5641" y="535.297" width="58" height="18" isinstance="0" showstereotype="2" text="9:entradas" pretext="" posttext="" role="700"/>
+              <objectwidget xmi.id="u9dMLidsDCb5k" localid="uwLmmQwLNUP2r" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="903" y="80" width="124" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+              <objectwidget xmi.id="uOywr8n4Bf9hK" localid="uOKfazHPJHE5t" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="1137" y="80" width="150" height="28" isinstance="0" showstereotype="2" drawasactor="0" multipleinstance="0" decon="0"/>
+            </widgets>
+            <messages>
+              <messagewidget xmi.id="uUUeRNgKRVNNF" localid="unfWnof4dHlXj" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="0" x="88" y="278.213" width="287" height="282" isinstance="0" showstereotype="2" seqnum="3" widgetaid="udFnoMXTTYyYp" widgetbid="uEYNGS3xQFxGV" operation="comprarEntrada" sequencemessagetype="1000" textid="uY3NO6E4EoubQ">
+                <floatingtext xmi.id="uY3NO6E4EoubQ" localid="uoik95Iv3qmfL" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="129" y="260" width="96" height="18" isinstance="0" showstereotype="2" text="comprarEntrada" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="ugC2M9Z9Ep5Nr" localid="uAPejM42WYmGl" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="367" y="406" width="606" height="20" isinstance="0" showstereotype="2" seqnum="6" widgetaid="uEYNGS3xQFxGV" widgetbid="uwLmmQwLNUP2r" operation="registrarPago" sequencemessagetype="1000" textid="uvecvSXqJucj3">
+                <floatingtext xmi.id="uvecvSXqJucj3" localid="ushRKxL6CuHUR" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="411" y="388" width="83" height="18" isinstance="0" showstereotype="2" text="registrarPago" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uwYwnqRtek8kv" localid="uWD9bcWf9pHWA" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="368" y="500" width="843" height="8" isinstance="0" showstereotype="2" seqnum="8" widgetaid="uEYNGS3xQFxGV" widgetbid="uOKfazHPJHE5t" operation="enviarCorreoConfirmacion" sequencemessagetype="1001" textid="usG17IrdEc43a">
+                <floatingtext xmi.id="usG17IrdEc43a" localid="ufxuvtJcL9RFy" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="412" y="482" width="143" height="18" isinstance="0" showstereotype="2" text="enviarCorreoConfirmacion" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uXgHqXoR85HIf" localid="u5MLc3PtMGGf2" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="0" x="88" y="166.086" width="287" height="28" isinstance="0" showstereotype="2" seqnum="1" widgetaid="udFnoMXTTYyYp" widgetbid="uEYNGS3xQFxGV" operation="seleccionarEvento" sequencemessagetype="1000" textid="uwSv9wUmCMwYh">
+                <floatingtext xmi.id="uwSv9wUmCMwYh" localid="umx6BCcfTLaHH" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="129" y="148" width="104" height="18" isinstance="0" showstereotype="2" text="seleccionarEvento" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="uoQe7AeIpi1bJ" localid="uD7t7pMIR73wg" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="89" y="601.947" width="1122" height="8" isinstance="0" showstereotype="2" seqnum="10" widgetaid="uOKfazHPJHE5t" widgetbid="udFnoMXTTYyYp" operation="correoCompraConfirmada" sequencemessagetype="1001" textid="uE3M8szTa7ILT">
+                <floatingtext xmi.id="uE3M8szTa7ILT" localid="uVrzdYp4X2RTH" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="129" y="583" width="148" height="18" isinstance="0" showstereotype="2" text="correoCompraConfirmada" pretext="" posttext="" role="704"/>
+              </messagewidget>
+              <messagewidget xmi.id="urFxtPHrAH8eW" localid="udHO0SQX69KgQ" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="367" y="313" width="328" height="20" isinstance="0" showstereotype="2" seqnum="4" widgetaid="uEYNGS3xQFxGV" widgetbid="uBsTO7O6SUwod" operation="procesarPago" sequencemessagetype="1000" textid="uTsECRGQnGug5">
+                <floatingtext xmi.id="uTsECRGQnGug5" localid="upEvyitxQJSDe" textcolor="none" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="1" usesdiagramusefillcolor="1" fillcolor="none" font="MS Shell Dlg 2,7.8,-1,5,50,0,0,0,0,0" autoresize="1" x="411" y="295" width="84" height="18" isinstance="0" showstereotype="2" text="procesarPago" pretext="" posttext="" role="704"/>
+              </messagewidget>
+            </messages>
+            <associations/>
+          </diagram>
+        </diagrams>
+      </xmi:Extension>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Model" xmi:id="Use_Case_View" name="Use Case View" stereotype="folder"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Component_View" name="Component View" stereotype="folder"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Deployment_View" name="Deployment View" stereotype="folder"/>
+    <packagedElement xmi:type="uml:Model" xmi:id="Entity_Relationship_Model" name="Entity Relationship Model" stereotype="folder"/>
+  </uml:Model>
+  <xmi:Extension extender="umbrello">
+    <docsettings viewid="umiMzHxA0RF9h" documentation="" uniqueid="uRekCMmHg2K5i"/>
+    <listview>
+      <listitem id="Views" type="800" open="1">
+        <listitem id="Component_View" type="821" open="1"/>
+        <listitem id="Deployment_View" type="827" open="1"/>
+        <listitem id="Entity_Relationship_Model" type="836" open="1"/>
+        <listitem id="Logical_View" type="801" open="1">
+          <listitem id="uw7WJRNUeycN3" type="807" label="class diagram" open="0"/>
+          <listitem id="u9IVkSOJzuFLk" type="813" open="1"/>
+          <listitem id="urQRLKWbB41HJ" type="813" open="1"/>
+          <listitem id="umiMzHxA0RF9h" type="810" label="compraEntradas" open="0"/>
+          <listitem id="uIMai27iFRMwS" type="813" open="1"/>
+          <listitem id="uOywr8n4Bf9hK" type="813" open="1"/>
+          <listitem id="u9RonQwIhSNjn" type="813" open="1"/>
+          <listitem id="u9dMLidsDCb5k" type="813" open="1"/>
+          <listitem id="Datatypes" type="830" open="0">
+            <listitem id="uiuDu4CDE0fXX" type="829" open="0"/>
+            <listitem id="uot0t3bSlKWK2" type="829" open="0"/>
+            <listitem id="u66Dr1E0tKMV0" type="829" open="0"/>
+            <listitem id="uJKaHN6LzhldU" type="829" open="0"/>
+            <listitem id="ua9NO9wA4CRUc" type="829" open="0"/>
+            <listitem id="u1xfKBTGGrMne" type="829" open="0"/>
+            <listitem id="u7uP31qnUnGVb" type="829" open="0"/>
+            <listitem id="usMzOVF78eUKq" type="829" open="0"/>
+            <listitem id="uUaq56ujj9xTq" type="829" open="0"/>
+            <listitem id="uGOsIYXH12nr6" type="829" open="0"/>
+            <listitem id="uGvfj8htCN3DA" type="829" open="0"/>
+            <listitem id="umk0lMuh991uc" type="829" open="0"/>
+            <listitem id="ujuGRC3SI7IqK" type="829" open="0"/>
+            <listitem id="u4k6Sw1cRAuSh" type="829" open="0"/>
+            <listitem id="uvWLTeRG2i1MC" type="829" open="0"/>
+            <listitem id="ujJVhr7qLaXIP" type="829" open="0"/>
+          </listitem>
+          <listitem id="umFM4Y46jgHnx" type="813" open="1"/>
+          <listitem id="uCvrJGNqOiwH8" type="813" open="1"/>
+          <listitem id="uGTg3PE6JJ0IU" type="813" open="1"/>
+        </listitem>
+        <listitem id="Use_Case_View" type="802" open="1"/>
+      </listitem>
+    </listview>
+    <codegeneration>
+      <codegenerator language="C++"/>
+    </codegeneration>
+  </xmi:Extension>
+</xmi:XMI>

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="text-center mb-5">
+    <h1>Panel de Control</h1>
+    <p class="lead">Bienvenido, <strong>{{ user.nombre_usuario }}</strong>.</p>
+</div>
+
+{% if user.es_admin %}
+    <div class="card border-danger mb-3">
+        <div class="card-header bg-danger text-white">
+            🛠️ Administración
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Tienes privilegios de gestión</h5>
+            <p class="card-text">Como tu usuario está en la tabla 'Administrador', puedes ver esto.</p>
+            <div class="d-grid gap-2 d-md-block">
+                <button class="btn btn-outline-danger">Crear Evento</button>
+                <button class="btn btn-outline-danger">Gestionar Rifas</button>
+                <button class="btn btn-outline-danger">Ver Usuarios</button>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="card border-primary mb-3">
+        <div class="card-header bg-primary text-white">
+            👤 Zona de Usuario
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Bienvenido a la plataforma</h5>
+            <p class="card-text">
+                Estado de socio: 
+                {% if user.es_socio %}
+                    <span class="badge bg-success">Activo</span>
+                {% else %}
+                    <span class="badge bg-secondary">No eres socio</span>
+                {% endif %}
+            </p>
+            <div class="d-grid gap-2 d-md-block">
+                <button class="btn btn-primary">Ver Eventos Disponibles</button>
+                <button class="btn btn-outline-primary">Mis Entradas</button>
+                <button class="btn btn-outline-primary">Comprar Boletos de Rifa</button>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

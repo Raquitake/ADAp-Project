@@ -1,0 +1,68 @@
+{
+  "name": "CompraEntrada",
+  "type": "object",
+  "properties": {
+    "evento_id": {
+      "type": "string",
+      "description": "ID del evento"
+    },
+    "nombre": {
+      "type": "string",
+      "description": "Nombre del comprador"
+    },
+    "apellidos": {
+      "type": "string",
+      "description": "Apellidos del comprador"
+    },
+    "email": {
+      "type": "string",
+      "description": "Correo electr\u00f3nico"
+    },
+    "telefono": {
+      "type": "string",
+      "description": "Tel\u00e9fono de contacto"
+    },
+    "cantidad_entradas": {
+      "type": "number",
+      "description": "N\u00famero de entradas"
+    },
+    "donacion_adicional": {
+      "type": "number",
+      "default": 0,
+      "description": "Donaci\u00f3n adicional en euros"
+    },
+    "total": {
+      "type": "number",
+      "description": "Total pagado"
+    },
+    "metodo_pago": {
+      "type": "string",
+      "enum": [
+        "tarjeta",
+        "paypal",
+        "bizum"
+      ],
+      "description": "M\u00e9todo de pago"
+    },
+    "suscripcion_newsletter": {
+      "type": "boolean",
+      "default": false
+    },
+    "estado": {
+      "type": "string",
+      "enum": [
+        "pendiente",
+        "completado",
+        "cancelado"
+      ],
+      "default": "pendiente"
+    }
+  },
+  "required": [
+    "evento_id",
+    "nombre",
+    "apellidos",
+    "email",
+    "cantidad_entradas"
+  ]
+}

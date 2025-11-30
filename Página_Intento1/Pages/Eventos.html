@@ -1,0 +1,110 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+import { base44 } from '@/api/base44Client';
+import { useQuery } from '@tanstack/react-query';
+import { MapPin, Calendar, Loader2 } from 'lucide-react';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+
+export default function Eventos() {
+  const { data: eventos, isLoading } = useQuery({
+    queryKey: ['eventos'],
+    queryFn: () => base44.entities.Evento.filter({ activo: true }, '-fecha'),
+  });
+
+  return (
+    <div>
+      {/* Header Banner */}
+      <section className="bg-[#2E7D32] py-8">
+        <div className="max-w-7xl mx-auto px-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-white">PRÓXIMOS EVENTOS</h1>
+        </div>
+      </section>
+
+      {/* Events List */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          {isLoading ? (
+            <div className="flex justify-center py-12">
+              <Loader2 className="w-12 h-12 text-[#2E7D32] animate-spin" />
+            </div>
+          ) : eventos && eventos.length > 0 ? (
+            <div className="space-y-8">
+              {eventos.map((evento) => (
+                <article 
+                  key={evento.id}
+                  className="bg-white border-b-4 border-[#2E7D32] rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow"
+                >
+                  <div className="flex flex-col md:flex-row">
+                    {/* Event Image */}
+                    <div className="md:w-64 h-48 md:h-auto flex-shrink-0">
+                      {evento.imagen_url ? (
+                        <img 
+                          src={evento.imagen_url} 
+                          alt={evento.titulo}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-[#2E7D32] to-[#1B5E20] flex items-center justify-center">
+                          <Calendar className="w-16 h-16 text-white/50" />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Event Details */}
+                    <div className="flex-grow p-6">
+                      <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                        {evento.titulo}
+                      </h2>
+                      
+                      <div className="space-y-2 text-gray-600 mb-4">
+                        <p className="flex items-center gap-2">
+                          <MapPin className="w-5 h-5 text-[#2E7D32]" />
+                          {evento.ubicacion || 'Ubicación por confirmar'}
+                        </p>
+                        <p className="flex items-center gap-2">
+                          <Calendar className="w-5 h-5 text-[#2E7D32]" />
+                          {evento.fecha 
+                            ? format(new Date(evento.fecha), "d/MM/yyyy, HH:mm'H.'", { locale: es })
+                            : 'Fecha por confirmar'
+                          }
+                        </p>
+                      </div>
+
+                      {evento.descripcion && (
+                        <p className="text-gray-700 line-clamp-2 mb-4">
+                          {evento.descripcion}
+                        </p>
+                      )}
+
+                      <div className="flex flex-wrap items-center gap-4">
+                        {evento.categoria && (
+                          <span className="text-sm text-gray-500">
+                            <strong>Categoría:</strong> {evento.categoria.charAt(0).toUpperCase() + evento.categoria.slice(1)}
+                          </span>
+                        )}
+                        <Link
+                          to={createPageUrl(`ComprarEntrada?evento=${evento.id}`)}
+                          className="ml-auto bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+                        >
+                          Ver más
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <Calendar className="w-20 h-20 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">No hay eventos próximos</h3>
+              <p className="text-gray-500">Vuelve pronto para ver nuevos eventos benéficos</p>
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
+  );
+}

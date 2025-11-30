@@ -1,0 +1,129 @@
+import React from 'react';
+import { Phone, Mail, MapPin, Facebook, Instagram, MessageCircle } from 'lucide-react';
+
+export default function Contacto() {
+  return (
+    <div>
+      {/* Header */}
+      <section className="bg-[#2E7D32] py-6">
+        <div className="max-w-4xl mx-auto px-4">
+          <h1 className="text-2xl md:text-3xl font-bold text-white">Contacto</h1>
+        </div>
+      </section>
+
+      <div className="max-w-4xl mx-auto px-4 py-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-8">Información de contacto:</h2>
+
+        {/* Phone Numbers */}
+        <div className="mb-8">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <Phone className="w-5 h-5 text-[#2E7D32]" />
+            Números de teléfono:
+          </h3>
+          <div className="ml-6 border-l-4 border-[#2E7D32] pl-4">
+            <p className="text-gray-700">
+              <span className="font-medium">Número principal:</span>{' '}
+              <a href="tel:+34952564910" className="text-[#2E7D32] hover:underline font-semibold">
+                +34 952 564 910
+              </a>
+            </p>
+          </div>
+        </div>
+
+        {/* Emails */}
+        <div className="mb-8">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <Mail className="w-5 h-5 text-[#2E7D32]" />
+            Correos:
+          </h3>
+          <div className="ml-6 border-l-4 border-[#2E7D32] pl-4 space-y-2">
+            <p className="text-gray-700">
+              <span className="font-medium">Correo principal:</span>{' '}
+              <a href="mailto:cudeca@cudeca.org" className="text-[#2E7D32] hover:underline">
+                cudeca@cudeca.org
+              </a>
+            </p>
+            <p className="text-gray-700">
+              <span className="font-medium">Socios:</span>{' '}
+              <a href="mailto:socios@cudeca.org" className="text-[#2E7D32] hover:underline">
+                socios@cudeca.org
+              </a>
+            </p>
+            <p className="text-gray-700">
+              <span className="font-medium">Voluntariado:</span>{' '}
+              <a href="mailto:voluntariado@cudeca.org" className="text-[#2E7D32] hover:underline">
+                voluntariado@cudeca.org
+              </a>
+            </p>
+            <p className="text-gray-700">
+              <span className="font-medium">Eventos:</span>{' '}
+              <a href="mailto:eventos@cudeca.org" className="text-[#2E7D32] hover:underline">
+                eventos@cudeca.org
+              </a>
+            </p>
+          </div>
+        </div>
+
+        {/* Physical Address */}
+        <div className="mb-8">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <MapPin className="w-5 h-5 text-[#2E7D32]" />
+            Direcciones físicas:
+          </h3>
+          <div className="ml-6 border-l-4 border-[#2E7D32] pl-4">
+            <p className="text-gray-700">
+              <span className="font-medium">Centro de cuidados paliativos / oficina central:</span><br />
+              <span className="text-[#2E7D32]">
+                Avenida del Cosmos, s/n - 29631 - Arroyo de la Miel, Málaga
+              </span>
+            </p>
+          </div>
+        </div>
+
+        {/* Social Media */}
+        <div className="mb-8">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Redes sociales:</h3>
+          <div className="ml-6 border-l-4 border-[#2E7D32] pl-4 space-y-3">
+            <a 
+              href="https://www.instagram.com/voluntariadocudeca" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-[#2E7D32] hover:underline"
+            >
+              <Instagram className="w-5 h-5" />
+              https://www.instagram.com/voluntariadocudeca
+            </a>
+            <a 
+              href="https://www.facebook.com/voluntarioscudeca" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-[#2E7D32] hover:underline"
+            >
+              <Facebook className="w-5 h-5" />
+              https://www.facebook.com/voluntarioscudeca
+            </a>
+            <a 
+              href="https://api.whatsapp.com/send?phone=34671048304" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-[#2E7D32] hover:underline"
+            >
+              <MessageCircle className="w-5 h-5" />
+              https://api.whatsapp.com/send?phone=34671048304
+            </a>
+          </div>
+        </div>
+
+        {/* Map placeholder */}
+        <div className="mt-12 bg-gray-100 rounded-xl p-8 text-center">
+          <MapPin className="w-16 h-16 text-[#2E7D32] mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">Encuéntranos</h3>
+          <p className="text-gray-600">
+            Avenida del Cosmos, s/n<br />
+            29631 - Arroyo de la Miel, Málaga
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}

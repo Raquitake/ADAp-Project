@@ -1,0 +1,115 @@
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+import { Menu, X } from 'lucide-react';
+
+export default function Header({ currentPage }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navItems = [
+    { name: 'INICIO', page: 'Inicio' },
+    { name: 'QUIÉNES SOMOS', page: 'QuienesSomos' },
+    { name: 'EVENTOS', page: 'Eventos' },
+    { name: 'DONAR', page: 'Donar' },
+    { name: 'SOCIOS', page: 'Socios' },
+    { name: 'CONTACTO', page: 'Contacto' },
+  ];
+
+  return (
+    <header className="relative">
+      {/* Top section with logo and sunflower */}
+      <div className="bg-[#2E7D32] relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          {/* Logo */}
+          <div className="flex items-center gap-2 z-10">
+            <div className="text-white">
+              <svg viewBox="0 0 120 80" className="h-16 w-auto">
+                <path d="M30 20 Q35 10 40 20 Q45 30 35 35 Q25 30 30 20" fill="white" />
+                <path d="M38 25 L42 45" stroke="#ef4444" strokeWidth="2" fill="none" />
+                <text x="50" y="30" fill="white" fontSize="14" fontWeight="bold" fontFamily="serif">FUNDACIÓN</text>
+                <text x="50" y="55" fill="white" fontSize="24" fontWeight="bold" fontFamily="serif" fontStyle="italic">cudeca</text>
+                <text x="50" y="68" fill="white" fontSize="6" fontFamily="sans-serif">CUIDADOS DEL CÁNCER / CANCER CARE HOSPICE</text>
+              </svg>
+            </div>
+          </div>
+
+          {/* Sunflower decoration */}
+          <div className="absolute right-0 top-0 h-full">
+            <div className="relative h-full w-64 md:w-80">
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-32 h-32 md:w-40 md:h-40">
+                <div className="relative w-full h-full">
+                  {/* Sunflower petals */}
+                  {[...Array(16)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute w-8 h-16 bg-yellow-400 rounded-full origin-bottom"
+                      style={{
+                        left: '50%',
+                        bottom: '50%',
+                        transform: `translateX(-50%) rotate(${i * 22.5}deg)`,
+                      }}
+                    />
+                  ))}
+                  {/* Sunflower center */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 bg-amber-800 rounded-full" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden z-20 text-white p-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Navigation */}
+      <nav className="bg-[#2E7D32] border-t border-green-600">
+        <div className="max-w-7xl mx-auto">
+          {/* Desktop navigation */}
+          <ul className="hidden md:flex">
+            {navItems.map((item) => (
+              <li key={item.page}>
+                <Link
+                  to={createPageUrl(item.page)}
+                  className={`block px-4 lg:px-6 py-3 text-sm font-semibold transition-colors
+                    ${currentPage === item.page 
+                      ? 'bg-[#1B5E20] text-yellow-400' 
+                      : 'text-white hover:bg-[#1B5E20] hover:text-yellow-400'
+                    }`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Mobile navigation */}
+          {mobileMenuOpen && (
+            <ul className="md:hidden absolute left-0 right-0 bg-[#2E7D32] z-50 shadow-lg">
+              {navItems.map((item) => (
+                <li key={item.page}>
+                  <Link
+                    to={createPageUrl(item.page)}
+                    className={`block px-6 py-4 text-sm font-semibold border-b border-green-600
+                      ${currentPage === item.page 
+                        ? 'bg-[#1B5E20] text-yellow-400' 
+                        : 'text-white hover:bg-[#1B5E20]'
+                      }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </nav>
+    </header>
+  );
+}

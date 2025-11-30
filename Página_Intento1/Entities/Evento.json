@@ -1,0 +1,53 @@
+{
+  "name": "Evento",
+  "type": "object",
+  "properties": {
+    "titulo": {
+      "type": "string",
+      "description": "T\u00edtulo del evento"
+    },
+    "descripcion": {
+      "type": "string",
+      "description": "Descripci\u00f3n detallada del evento"
+    },
+    "fecha": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Fecha y hora del evento"
+    },
+    "ubicacion": {
+      "type": "string",
+      "description": "Direcci\u00f3n del evento"
+    },
+    "precio": {
+      "type": "number",
+      "description": "Precio de la entrada en euros"
+    },
+    "categoria": {
+      "type": "string",
+      "enum": [
+        "gala",
+        "cena",
+        "concierto",
+        "carrera",
+        "mercadillo",
+        "otro"
+      ],
+      "description": "Categor\u00eda del evento"
+    },
+    "imagen_url": {
+      "type": "string",
+      "description": "URL de la imagen del evento"
+    },
+    "activo": {
+      "type": "boolean",
+      "default": true,
+      "description": "Si el evento est\u00e1 activo"
+    }
+  },
+  "required": [
+    "titulo",
+    "fecha",
+    "precio"
+  ]
+}

@@ -1,0 +1,133 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+
+export default function QuienesSomos() {
+  return (
+    <div>
+      {/* Mission Section */}
+      <section className="relative bg-[#2E7D32] py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="text-white">
+              <h1 className="text-3xl md:text-4xl font-bold mb-6">Nuestra misión</h1>
+              <p className="text-lg leading-relaxed text-white/90">
+                Convertir el proceso de morir en un proceso de vida. Aunque no podemos añadir días a la vida, 
+                queremos <span className="text-yellow-400 font-semibold">añadir vida a los días</span>, 
+                a través de nuestra forma especial de cuidar.
+              </p>
+            </div>
+            <div className="flex justify-center">
+              <img 
+                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500&h=400&fit=crop"
+                alt="Cuidados paliativos"
+                className="rounded-2xl shadow-2xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* History Section */}
+      <section className="py-16 bg-gradient-to-r from-[#1B5E20] to-[#2E7D32]">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="order-2 md:order-1">
+              <img 
+                src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=500&h=400&fit=crop"
+                alt="Historia de Cudeca"
+                className="rounded-2xl shadow-2xl"
+              />
+            </div>
+            <div className="text-white order-1 md:order-2">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Breve historia de cudeca</h2>
+              <p className="text-lg leading-relaxed text-white/90">
+                Disfruta de una noche donde cada plato se convierte en apoyo. Tu participación 
+                en nuestras cenas nos permite asegurar el cuidado y la dignidad que merecen nuestros mayores.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="relative py-16" style={{
+        backgroundImage: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="text-white">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">El equipo</h2>
+              <p className="text-lg leading-relaxed text-white/90">
+                Gracias a un equipo entregado y a voluntarios solidarios, Cudeca transforma 
+                el cuidado en humanidad, ofreciendo consuelo, respeto y esperanza.
+              </p>
+            </div>
+            <div className="flex justify-center">
+              <img 
+                src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=500&h=400&fit=crop"
+                alt="Equipo de Cudeca"
+                className="rounded-2xl shadow-2xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Center Section */}
+      <section className="py-16 bg-gradient-to-r from-[#2E7D32] to-[#388E3C]">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="order-2 md:order-1">
+              <img 
+                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=500&h=400&fit=crop"
+                alt="Centro de Cudeca"
+                className="rounded-2xl shadow-2xl"
+              />
+            </div>
+            <div className="text-white order-1 md:order-2">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Nuestro centro</h2>
+              <p className="text-lg leading-relaxed text-white/90">
+                En nuestro centro de cuidados paliativos encontrarás: la unidad de 
+                Hospitalización y la unidad de Día y Rehabilitación. También enviamos 
+                profesionales a dar atención domiciliaria.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <div className="inline-block bg-[#2E7D32] text-white px-8 py-3 rounded-full mb-8">
+            <h2 className="text-xl font-semibold">¿Te animas a ayudarnos?</h2>
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              to={createPageUrl('Socios')}
+              className="bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg"
+            >
+              Hazte socio
+            </Link>
+            <Link
+              to={createPageUrl('Contacto')}
+              className="bg-white border-2 border-[#2E7D32] text-[#2E7D32] hover:bg-[#2E7D32] hover:text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300"
+            >
+              Hazte voluntario
+            </Link>
+            <Link
+              to={createPageUrl('Donar')}
+              className="bg-yellow-500 hover:bg-yellow-400 text-[#1B5E20] font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg"
+            >
+              Dona
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

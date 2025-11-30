@@ -1,0 +1,342 @@
+import React, { useState } from 'react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Loader2, CheckCircle, Heart } from 'lucide-react';
+
+export default function Donar() {
+  const [cantidad, setCantidad] = useState('');
+  const [enMemoria, setEnMemoria] = useState(false);
+  const [showFiscalData, setShowFiscalData] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const [formData, setFormData] = useState({
+    nombre: '',
+    apellidos: '',
+    email: '',
+    telefono: '',
+    movil: '',
+    fechaNacimiento: '',
+    formaConocernos: '',
+    dni: '',
+    direccion: '',
+    codigoPostal: '',
+    poblacion: '',
+    provincia: '',
+    pais: '',
+    metodoPago: 'tarjeta',
+    aceptaPrivacidad: false,
+    recibirInfo: false,
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    setIsSubmitting(false);
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center px-4">
+        <div className="text-center max-w-md">
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle className="w-10 h-10 text-[#2E7D32]" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">¡Gracias por tu donación!</h2>
+          <p className="text-gray-600 mb-6">
+            Tu generosidad nos permite seguir cuidando a quienes más lo necesitan.
+          </p>
+          <p className="text-[#2E7D32] font-semibold">Cada euro cuenta.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      {/* Header */}
+      <section className="bg-[#2E7D32] py-6">
+        <div className="max-w-4xl mx-auto px-4">
+          <h1 className="text-2xl md:text-3xl font-bold text-white flex items-center gap-3">
+            <Heart className="w-8 h-8" />
+            Donar
+          </h1>
+        </div>
+      </section>
+
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <form onSubmit={handleSubmit} className="space-y-8">
+          
+          {/* Cantidad */}
+          <div className="border-t-4 border-[#2E7D32] pt-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4 uppercase">Selecciona la cantidad a donar</h2>
+            
+            <div className="flex items-center gap-4">
+              <Label className="font-medium">Cantidad*:</Label>
+              <div className="flex items-center gap-2">
+                <Input
+                  type="number"
+                  min="1"
+                  placeholder="Cantidad (€)"
+                  value={cantidad}
+                  onChange={(e) => setCantidad(e.target.value)}
+                  className="w-40"
+                  required
+                />
+                <span className="text-lg font-medium">€</span>
+              </div>
+            </div>
+          </div>
+
+          {/* En memoria */}
+          <div className="border-t-4 border-yellow-400 pt-6">
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="enMemoria"
+                checked={enMemoria}
+                onCheckedChange={setEnMemoria}
+              />
+              <Label htmlFor="enMemoria" className="text-gray-700 cursor-pointer">
+                ¿Realizas esta donación en memoria de un familiar o amigo?
+              </Label>
+            </div>
+          </div>
+
+          {/* Datos personales */}
+          <div className="bg-gray-50 rounded-lg p-6 space-y-4">
+            <h3 className="font-semibold text-gray-900 uppercase">Introduce tus datos</h3>
+            
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <Label>Nombre*:</Label>
+                <Input
+                  value={formData.nombre}
+                  onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
+                  className="mt-1"
+                  required
+                />
+              </div>
+              <div>
+                <Label>Apellidos*:</Label>
+                <Input
+                  value={formData.apellidos}
+                  onChange={(e) => setFormData({ ...formData, apellidos: e.target.value })}
+                  className="mt-1"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label>Email*:</Label>
+              <Input
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="mt-1"
+                required
+              />
+            </div>
+
+            <p className="text-sm text-gray-600">Por favor indíquenos su número de teléfono y/o móvil.</p>
+            
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <Label>Teléfono:</Label>
+                <Input
+                  value={formData.telefono}
+                  onChange={(e) => setFormData({ ...formData, telefono: e.target.value })}
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <Label>Móvil:</Label>
+                <Input
+                  value={formData.movil}
+                  onChange={(e) => setFormData({ ...formData, movil: e.target.value })}
+                  className="mt-1"
+                />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <Label>Fecha de nacimiento:</Label>
+                <Input
+                  type="date"
+                  value={formData.fechaNacimiento}
+                  onChange={(e) => setFormData({ ...formData, fechaNacimiento: e.target.value })}
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <Label>Forma de conocernos:</Label>
+                <Select
+                  value={formData.formaConocernos}
+                  onValueChange={(value) => setFormData({ ...formData, formaConocernos: value })}
+                >
+                  <SelectTrigger className="mt-1">
+                    <SelectValue placeholder="Seleccionar..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="periodico">Periódico</SelectItem>
+                    <SelectItem value="internet">Internet</SelectItem>
+                    <SelectItem value="amigos">Amigos/Familia</SelectItem>
+                    <SelectItem value="evento">Evento</SelectItem>
+                    <SelectItem value="otro">Otro</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </div>
+
+          {/* Checkboxes */}
+          <div className="space-y-4">
+            <div className="flex items-start gap-2">
+              <Checkbox
+                id="extraData"
+                className="mt-1"
+              />
+              <Label htmlFor="extraData" className="text-sm text-gray-700 cursor-pointer">
+                Quiero dar datos adicionales a cudeca para que les sea más fácil contactar conmigo.
+              </Label>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <Checkbox
+                id="fiscalData"
+                checked={showFiscalData}
+                onCheckedChange={setShowFiscalData}
+                className="mt-1"
+              />
+              <Label htmlFor="fiscalData" className="text-sm text-gray-700 cursor-pointer">
+                Quiero beneficiarme de las deducciones fiscales disponibles. La Fundación Cudeca está acogida al Régimen Fiscal especial de la Ley 49/2002, por tanto su donación tiene derecho a las máximas deducciones fiscales, que pueden llegar hasta un 80% desde Enero 2020.
+              </Label>
+            </div>
+          </div>
+
+          {/* Fiscal Data */}
+          {showFiscalData && (
+            <div className="bg-green-50 border border-[#2E7D32]/30 rounded-lg p-6 space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <Label>DNI/NIF:</Label>
+                  <Input
+                    value={formData.dni}
+                    onChange={(e) => setFormData({ ...formData, dni: e.target.value })}
+                    className="mt-1 bg-white"
+                  />
+                </div>
+                <div>
+                  <Label>Dirección:</Label>
+                  <Input
+                    value={formData.direccion}
+                    onChange={(e) => setFormData({ ...formData, direccion: e.target.value })}
+                    className="mt-1 bg-white"
+                  />
+                </div>
+              </div>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div>
+                  <Label>Código Postal:</Label>
+                  <Input
+                    value={formData.codigoPostal}
+                    onChange={(e) => setFormData({ ...formData, codigoPostal: e.target.value })}
+                    className="mt-1 bg-white"
+                  />
+                </div>
+                <div>
+                  <Label>Población:</Label>
+                  <Input
+                    value={formData.poblacion}
+                    onChange={(e) => setFormData({ ...formData, poblacion: e.target.value })}
+                    className="mt-1 bg-white"
+                  />
+                </div>
+                <div>
+                  <Label>Provincia:</Label>
+                  <Input
+                    value={formData.provincia}
+                    onChange={(e) => setFormData({ ...formData, provincia: e.target.value })}
+                    className="mt-1 bg-white"
+                  />
+                </div>
+              </div>
+              <div>
+                <Label>País:</Label>
+                <Input
+                  value={formData.pais}
+                  onChange={(e) => setFormData({ ...formData, pais: e.target.value })}
+                  className="mt-1 bg-white"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Payment Method */}
+          <div>
+            <Label>Método de pago*:</Label>
+            <Select
+              value={formData.metodoPago}
+              onValueChange={(value) => setFormData({ ...formData, metodoPago: value })}
+            >
+              <SelectTrigger className="mt-1">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="tarjeta">Tarjeta de crédito/débito</SelectItem>
+                <SelectItem value="paypal">PayPal</SelectItem>
+                <SelectItem value="bizum">Bizum</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Final Checkboxes */}
+          <div className="space-y-4">
+            <div className="flex items-start gap-2">
+              <Checkbox
+                id="privacidad"
+                checked={formData.aceptaPrivacidad}
+                onCheckedChange={(checked) => setFormData({ ...formData, aceptaPrivacidad: checked })}
+                className="mt-1"
+                required
+              />
+              <Label htmlFor="privacidad" className="text-sm text-gray-700 cursor-pointer">
+                Acepto la <a href="#" className="text-[#2E7D32] underline">Política de Privacidad</a> y el <a href="#" className="text-[#2E7D32] underline">Aviso Legal</a>.
+              </Label>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <Checkbox
+                id="recibirInfo"
+                checked={formData.recibirInfo}
+                onCheckedChange={(checked) => setFormData({ ...formData, recibirInfo: checked })}
+                className="mt-1"
+              />
+              <Label htmlFor="recibirInfo" className="text-sm text-gray-700 cursor-pointer">
+                Quiero recibir información sobre la forma especial de cuidar de la Fundación Cudeca y las diferentes actividades que realiza.
+              </Label>
+            </div>
+          </div>
+
+          {/* Submit */}
+          <div className="text-center pt-4">
+            <Button
+              type="submit"
+              disabled={isSubmitting || !formData.aceptaPrivacidad || !cantidad}
+              className="bg-[#2E7D32] hover:bg-[#1B5E20] text-white font-bold px-12 py-6 rounded-full text-lg transition-all duration-300"
+            >
+              {isSubmitting && <Loader2 className="w-5 h-5 animate-spin mr-2" />}
+              Donar ahora
+            </Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}

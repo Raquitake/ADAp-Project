@@ -1,48 +1,76 @@
 {% extends "base.html" %}
+
 {% block content %}
+<div class="dashboard-container">
+    <!-- Cabecera del Dashboard -->
+    <div class="dashboard-header">
+        <h2>Hola, {{ user.nombre_usuario }}</h2>
+        <p>Bienvenido a tu área personal de Fundación Cudeca</p>
+    </div>
 
-<div class="text-center mb-5">
-    <h1>Panel de Control</h1>
-    <p class="lead">Bienvenido, <strong>{{ user.nombre_usuario }}</strong>.</p>
-</div>
-
-{% if user.es_admin %}
-    <div class="card border-danger mb-3">
-        <div class="card-header bg-danger text-white">
-            🛠️ Administración
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Tienes privilegios de gestión</h5>
-            <p class="card-text">Como tu usuario está en la tabla 'Administrador', puedes ver esto.</p>
-            <div class="d-grid gap-2 d-md-block">
-                <button class="btn btn-outline-danger">Crear Evento</button>
-                <button class="btn btn-outline-danger">Gestionar Rifas</button>
-                <button class="btn btn-outline-danger">Ver Usuarios</button>
+    <div class="dashboard-grid">
+        <!-- Columna Izquierda: Perfil -->
+        <div class="dashboard-card profile-card">
+            <div class="card-header">
+                <h3>Mi Perfil</h3>
+            </div>
+            <div class="card-body">
+                <div class="profile-avatar">
+                    <!-- Placeholder para avatar -->
+                    <span>{{ user.nombre_usuario[0].upper() }}</span>
+                </div>
+                <div class="profile-info">
+                    <p><strong>Email:</strong> {{ user.correo_electronico }}</p>
+                    <p><strong>Estado:</strong> 
+                        {% if user.es_socio %}
+                            <span class="badge badge-gold">Socio Activo</span>
+                        {% else %}
+                            <span class="badge badge-gray">Usuario</span>
+                        {% endif %}
+                    </p>
+                    {% if user.dni_nif %}
+                    <p><strong>DNI/NIF:</strong> {{ user.dni_nif }}</p>
+                    {% endif %}
+                </div>
+                <div class="profile-actions">
+                    <a href="#" class="btn btn-green btn-small">Editar Datos</a>
+                    <a href="{{ url_for('logout') }}" class="btn btn-outline-red">Cerrar Sesión</a>
+                </div>
             </div>
         </div>
-    </div>
-{% else %}
-    <div class="card border-primary mb-3">
-        <div class="card-header bg-primary text-white">
-            👤 Zona de Usuario
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Bienvenido a la plataforma</h5>
-            <p class="card-text">
-                Estado de socio: 
-                {% if user.es_socio %}
-                    <span class="badge bg-success">Activo</span>
+
+        <!-- Columna Derecha: Mis Entradas y Actividad -->
+        <div class="dashboard-card activity-card">
+            <div class="card-header">
+                <h3>Mis Entradas</h3>
+            </div>
+            <div class="card-body">
+                {% if entradas %}
+                    <ul class="ticket-list">
+                        {% for entrada in entradas %}
+                        <li class="ticket-item">
+                            <div class="ticket-info">
+                                <!-- Como Entrada tiene id_evento, necesitamos acceder al objeto Evento. 
+                                     Si no tienes la relación configurada en models, aquí mostramos el ID o fecha.
+                                     Idealmente usar entrada.evento.nombre_evento -->
+                                <h4>Entrada #{{ entrada.id }}</h4>
+                                <p>Precio: {{ entrada.precio }}€</p>
+                                <span class="qr-placeholder">QR: {{ entrada.codigo_qr }}</span>
+                            </div>
+                            <div class="ticket-action">
+                                <button class="btn btn-yellow btn-small">Descargar</button>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 {% else %}
-                    <span class="badge bg-secondary">No eres socio</span>
+                    <div class="empty-state">
+                        <p>Aún no tienes entradas para eventos.</p>
+                        <a href="{{ url_for('eventos') }}" class="btn btn-green">Ver Eventos</a>
+                    </div>
                 {% endif %}
-            </p>
-            <div class="d-grid gap-2 d-md-block">
-                <button class="btn btn-primary">Ver Eventos Disponibles</button>
-                <button class="btn btn-outline-primary">Mis Entradas</button>
-                <button class="btn btn-outline-primary">Comprar Boletos de Rifa</button>
             </div>
         </div>
     </div>
-{% endif %}
-
+</div>
 {% endblock %}

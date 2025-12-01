@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Hazte socio</h2>
+
+<div class="tabs">
+    <div class="tab-btn active" onclick="showTab('persona')">Persona</div>
+    <div class="tab-btn" onclick="showTab('empresa')">Empresa</div>
+</div>
+
+<form method="POST" id="socio-form">
+    <div id="tab-persona">
+        <h3>¿Con qué periodicidad desea colaborar?</h3>
+        <label><input type="radio" name="periodo" value="mensual"> Mensual</label>
+        <label><input type="radio" name="periodo" value="anual"> Anual</label>
+
+        <h3>¿Cuánto quieres aportar?</h3>
+        <div class="donation-options">
+            <div class="donation-btn">15€</div>
+            <div class="donation-btn">25€</div>
+            <div class="donation-btn">40€</div>
+            <div class="donation-btn">Otra</div>
+        </div>
+        
+        <h3>INTRODUCE TUS DATOS</h3>
+        <div class="form-group">
+            <label>Nombre*</label>
+            <input type="text" name="nombre">
+        </div>
+        <!-- Más campos según boceto... -->
+    </div>
+
+    <div id="tab-empresa" style="display:none;">
+        <h3>Datos de Empresa</h3>
+        <div class="form-group">
+            <label>Razón Social*</label>
+            <input type="text" name="empresa">
+        </div>
+         <!-- Más campos empresa... -->
+    </div>
+
+    <button type="submit" class="btn btn-green" style="width: 100%; margin-top: 20px;">Hacerme socio</button>
+</form>
+
+<script>
+function showTab(type) {
+    document.getElementById('tab-persona').style.display = type === 'persona' ? 'block' : 'none';
+    document.getElementById('tab-empresa').style.display = type === 'empresa' ? 'block' : 'none';
+    
+    // Toggle active class visually
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons[0].classList.toggle('active', type === 'persona');
+    buttons[1].classList.toggle('active', type === 'empresa');
+}
+</script>
+{% endblock %}

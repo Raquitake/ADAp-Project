@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="background-color: var(--dark-green); color: white; padding: 10px; border-radius: 10px;">
+    <h2>PRÓXIMOS EVENTOS</h2>
+</div>
+
+{% for evento in eventos %}
+<div class="event-card">
+    <img src="{{ url_for('static', filename='img/event_placeholder.jpg') }}" alt="Evento">
+    <div class="event-details">
+        <h3>{{ evento.nombre_evento }}</h3>
+        <p><strong>Lugar:</strong> {{ evento.localizacion }}</p>
+        <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
+        <a href="{{ url_for('ver_evento', id=evento.id) }}" class="btn btn-green">Ver más</a>
+    </div>
+</div>
+{% else %}
+    <p>No hay eventos próximos.</p>
+{% endfor %}
+{% endblock %}

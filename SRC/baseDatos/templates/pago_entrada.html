@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Compra de Entradas: {{ evento.nombre_evento }}</h2>
+
+<form method="POST">
+    <h3>PASO 1: Tus datos</h3>
+    <div class="form-group">
+        <label>Nombre*</label>
+        <input type="text" name="nombre" value="{{ current_user.nombre_usuario if current_user.is_authenticated else '' }}" required>
+    </div>
+    <div class="form-group">
+        <label>Correo*</label>
+        <input type="email" name="correo" value="{{ current_user.correo_electronico if current_user.is_authenticated else '' }}" required>
+    </div>
+
+    <h3>PASO 2: Resumen y Pago</h3>
+    <div class="form-group">
+        <label>Cantidad de entradas:</label>
+        <select name="cantidad">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+    
+    <div class="payment-methods">
+        <p>Seleccione método de pago (Simulado):</p>
+        <button type="submit" class="btn btn-green">Pagar con Tarjeta</button>
+        <button type="submit" class="btn btn-green">Paypal</button>
+        <button type="submit" class="btn btn-green">Bizum</button>
+    </div>
+</form>
+{% endblock %}

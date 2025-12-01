@@ -1,41 +1,23 @@
 {% extends "base.html" %}
-{% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-5">
-        <div class="card shadow-sm">
-            <div class="card-header bg-white">
-                <h4 class="mb-0">Crear Cuenta</h4>
-            </div>
-            <div class="card-body">
-                <form method="POST">
-                    <div class="mb-3">
-                        <label class="form-label">Nombre de Usuario</label>
-                        <input type="text" name="nombre" class="form-control" placeholder="Ej. MariaGarcia" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Correo Electrónico</label>
-                        <input type="email" name="email" class="form-control" placeholder="nombre@ejemplo.com" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Contraseña</label>
-                        <input type="password" name="password" class="form-control" required>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label class="form-label">Tipo de cuenta</label>
-                        <select name="tipo" class="form-select">
-                            <option value="cliente">Usuario Normal</option>
-                            <option value="admin">Administrador</option>
-                        </select>
-                        <div class="form-text">
-                            Selecciona "Administrador" para probar las funciones de gestión.
-                        </div>
-                    </div>
 
-                    <button type="submit" class="btn btn-dark w-100">Registrarse</button>
-                </form>
-            </div>
+{% block content %}
+<div style="max-width: 400px; margin: 0 auto; text-align: center;">
+    <h2>Registrarse</h2>
+    
+    <form method="POST" style="background: #a5d6a7; padding: 20px; border-radius: 10px;">
+        <div class="form-group">
+            <input type="email" name="email" placeholder="Email" required>
         </div>
-    </div>
+        <div class="form-group">
+            <input type="password" name="password" placeholder="Contraseña" required>
+        </div>
+        <div class="form-group">
+            <input type="password" name="password_repeat" placeholder="Repetir Contraseña" required>
+        </div>
+        <div class="form-group" style="text-align: left;">
+            <label><input type="checkbox" required> Acepto la Política de Privacidad</label>
+        </div>
+        <button type="submit" class="btn btn-green">Registrarse</button>
+    </form>
 </div>
 {% endblock %}

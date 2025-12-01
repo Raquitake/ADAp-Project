@@ -8,6 +8,8 @@ import Eventos from './pages/Eventos';
 import Donar from './pages/Donar';
 import Socios from './pages/Socios';
 import ComprarEntrada from './pages/ComprarEntrada';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 const queryClient = new QueryClient();
 
@@ -23,6 +25,8 @@ function App() {
           <Route path="/donar" element={<Donar />} />
           <Route path="/socios" element={<Socios />} />
           <Route path="/comprarentrada" element={<ComprarEntrada />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/registro" element={<Register />} />
           {/* Add other routes here as we migrate pages */}
         </Routes>
       </Router>

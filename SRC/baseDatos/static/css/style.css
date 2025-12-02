@@ -19,9 +19,10 @@ header {
     background-color: var(--primary-green);
     color: white;
     padding: 10px 0;
-    background-image: url('../img/sunflowers_banner.jpg'); /* Necesitarás una imagen */
-    background-size: cover;
-    background-position: center;
+    background-image: url('../img/sunflowers_banner.png'); /* Necesitarás una imagen */
+    background-size: 500px;
+    background-repeat: no-repeat;
+    background-position: right center;
 }
 
 .navbar {
@@ -70,6 +71,15 @@ header {
     font-weight: bold;
     cursor: pointer;
     border: none;
+    z-index: 10;
+}
+
+.btn-mid {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    padding: 10px 20px;
 }
 
 .btn-green { background-color: var(--dark-green); color: white; }
@@ -91,7 +101,7 @@ header {
     border-bottom: 1px solid #ddd;
     padding: 20px 0;
 }
-.event-card img { width: 150px; height: 150px; object-fit: cover; margin-right: 20px; }
+.event-card img { width: 200px; height: 300px; object-fit: cover; margin-right: 20px; }
 .donation-options { display: flex; gap: 10px; margin: 10px 0; }
 .donation-btn {
     background: var(--dark-green);

@@ -1,16 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="us-section">
-    <h2>Nuestra misión</h2>
-    <p>Convertir el proceso de morir en un proceso de vida...</p>
-    <img src="{{ url_for('static', filename='img/mision.jpg') }}" alt="Misión">
-</div>
 
-<div class="us-section">
-    <h2>Breve historia de Cudeca</h2>
-    <p>Disfruta de una noche donde cada plato se convierte en apoyo...</p>
-</div>
+
+<img class="mision-img" src="{{ url_for('static', filename='img/mision1.PNG') }}" alt="Misión_imagen_penpot_1">
+
+<img class="mision-img" src="{{ url_for('static', filename='img/mision2.PNG') }}" alt="Misión_imagen_penpot_2">
 
 <div class="cta-buttons" style="text-align: center; margin-top: 30px;">
     <a href="{{ url_for('hazte_socio') }}" class="btn btn-green">Hazte socio</a>

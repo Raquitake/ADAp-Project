@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div style="max-width: 400px; margin: 0 auto; text-align: center;">
+
+<div class="fondo-desenfocado"></div>
+
+<div class="login-container">
     <h2>Iniciar sesión</h2>
     <p>Cada pequeño gesto cuenta.</p>
     
-    <form method="POST" style="background: #a5d6a7; padding: 20px; border-radius: 10px;">
+    <form method="POST" class="login-form">
         <div class="form-group">
             <input type="email" name="email" placeholder="Email" required>
         </div>

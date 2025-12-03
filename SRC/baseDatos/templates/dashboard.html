@@ -15,26 +15,35 @@
                 <h3>Mi Perfil</h3>
             </div>
             <div class="card-body">
+                <!-- Foto de Perfil por defecto -->
                 <div class="profile-avatar">
-                    <!-- Placeholder para avatar -->
-                    <span>{{ user.nombre_usuario[0].upper() }}</span>
+                    <img src="{{ url_for('static', filename='img/default-profile.jpg') }}" alt="Perfil" style="border-radius:50%; width:120px; height:120px;">
                 </div>
+
+                <!-- Botón subir foto (no hace nada) -->
+                <form>
+                    <button type="button" class="btn btn-small btn-green">Subir Foto</button>
+                </form>
+
+                <!-- Información del Usuario -->
                 <div class="profile-info">
                     <p><strong>Email:</strong> {{ user.correo_electronico }}</p>
                     <p><strong>Estado:</strong>
                         {% if user.es_socio %}
-                        <span class="badge badge-gold">Socio Activo</span>
+                            <span class="badge badge-gold">Socio Activo</span>
                         {% else %}
-                        <span class="badge badge-gray">Usuario</span>
+                            <span class="badge badge-gray">Usuario</span>
                         {% endif %}
                         {% if user.es_admin %}
-                        <span class="badge badge-gold">Administrador</span>
+                            <span class="badge badge-gold">Administrador</span>
                         {% endif %}
                     </p>
                     {% if user.dni_nif %}
                     <p><strong>DNI/NIF:</strong> {{ user.dni_nif }}</p>
                     {% endif %}
                 </div>
+
+                <!-- Acciones de Perfil -->
                 <div class="profile-actions">
                     <a href="#" class="btn btn-green btn-small">Editar Datos</a>
                     <a href="{{ url_for('logout') }}" class="btn btn-outline-red">Cerrar Sesión</a>
@@ -42,7 +51,7 @@
             </div>
         </div>
 
-        <!-- Columna Derecha: Mis Entradas, Mis Rifas y Actividad -->
+        <!-- Mis Entradas -->
         <div class="dashboard-card activity-card">
             <div class="card-header">
                 <h3>Mis Entradas</h3>
@@ -72,8 +81,35 @@
             </div>
         </div>
 
+        <!-- Mis Rifas -->
+        <div class="dashboard-card activity-card">
+            <div class="card-header">
+                <h3>Mis Rifas</h3>
+            </div>
+            <div class="card-body">
+                {% if rifas %}
+                <ul class="ticket-list">
+                    {% for rifa in rifas %}
+                    <li class="ticket-item">
+                        <div class="ticket-info">
+                            <h4>Rifa #{{ rifa.id }}</h4>
+                            <p>Premio: {{ rifa.premio }}</p>
+                            <p>Fecha Sorteo: {{ rifa.fecha_sorteo }}</p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <div class="empty-state">
+                    <p>Aún no has participado en rifas.</p>
+                    <a href="{{ url_for('eventos') }}" class="btn btn-green">Ver Rifas</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
         {% if user.es_admin %}
-        <!-- Admin Panel -->
+        <!-- Panel de Administración -->
         <div class="dashboard-card admin-card">
             <div class="card-header">
                 <h3>Panel de Administración</h3>

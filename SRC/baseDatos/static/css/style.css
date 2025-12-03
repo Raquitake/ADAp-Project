@@ -14,7 +14,7 @@ body {
     background-color: var(--bg-light);
 }
 
-/* Header & Nav */
+/* Header y barra de navegación */
 header {
     background-color: var(--primary-green);
     color: white;
@@ -53,7 +53,7 @@ header {
     margin: 0 auto;
 }
 
-/* Main Content */
+/* Main content */
 .container {
     max-width: 1100px;
     margin: 20px auto;
@@ -85,13 +85,8 @@ header {
 .btn-green { background-color: var(--dark-green); color: white; }
 .btn-yellow { background-color: var(--accent-yellow); color: #333; }
 
-/* --------------------------------------------------------- */
-/* FORMULARIOS (ARREGLADO PARA NO ROMPER HAZTE_SOCIO)       */
-/* --------------------------------------------------------- */
 .form-group { margin-bottom: 15px; }
 
-/* 1. Comportamiento por defecto (Para Hazte Socio y campos de texto) */
-/* Las etiquetas se muestran en bloque (encima del input) */
 .form-group label { 
     display: block; 
     margin-bottom: 5px; 
@@ -99,7 +94,6 @@ header {
     color: #333;
 }
 
-/* Los inputs de texto ocupan todo el ancho */
 .form-group input:not([type="checkbox"]):not([type="radio"]), 
 .form-group select {
     width: 100%;
@@ -109,26 +103,22 @@ header {
     box-sizing: border-box;
 }
 
-/* 2. Excepción SOLO para Checkboxes y Radios (Para Donar y alineación) */
-/* Usamos :has() para detectar si el label contiene un checkbox dentro */
 .form-group label:has(input[type="checkbox"]), 
 .form-group label:has(input[type="radio"]) {
     display: flex;       /* Alinea horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    font-weight: normal; /* Texto normal */
+    align-items: center; 
+    font-weight: normal; 
     cursor: pointer;
 }
 
-/* Forzar que los checkboxes/radios NO sean del 100% de ancho */
 .form-group input[type="checkbox"],
 .form-group input[type="radio"] {
     width: auto !important;
-    margin-right: 8px; /* Espacio entre cajita y texto */
+    margin-right: 8px; 
     margin-top: 0;
     flex-shrink: 0;
 }
 
-/* 3. Estilos Específicos para la vista de Donación (Cantidad) */
 .inline-amount-group {
     display: flex;
     align-items: center;
@@ -148,7 +138,6 @@ header {
     color: #333;
 }
 
-/* 4. Estilos extra de Hazte Socio (Tabs y Cards) */
 .event-card {
     display: flex;
     border-bottom: 1px solid #ddd;
@@ -168,7 +157,6 @@ header {
 .tab-btn { background: #ddd; padding: 10px 20px; border-radius: 20px; cursor: pointer; }
 .tab-btn.active { background: var(--dark-green); color: white; }
 
-/* Utilidades varias */
 .mision-img {
     max-width: 100%;
     height: auto;

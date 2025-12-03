@@ -12,15 +12,15 @@
 }
 
 .form-group label {
-    display: flex !important; /* Fuerza el modo flex */
-    align-items: center; /* Centra verticalmente */
-    font-weight: normal !important; /* Texto normal, no negrita */
+    display: flex !important; 
+    align-items: center; 
+    font-weight: normal !important; 
     cursor: pointer;
     margin-bottom: 5px;
     text-align: left;
 }
 
-/* 3. Estilos generales de inputs de texto (manteniendo diseño original) */
+
 .form-group input[type="text"], 
 .form-group input[type="email"], 
 .form-group input[type="tel"], 
@@ -33,15 +33,15 @@
     box-sizing: border-box; 
 }
 
-/* 4. Corrección campo Cantidad y Euro */
+
 .inline-amount-group {
     display: flex;
     align-items: center;
-    gap: 10px; /* Espacio entre el input y el euro */
+    gap: 10px; 
 }
 .amount-input {
-    max-width: 120px !important; /* Ancho fijo pequeño para la cantidad */
-    width: 120px !important;     /* Forzar ancho */
+    max-width: 120px !important; 
+    width: 120px !important;     
     text-align: right;
 }
 .currency-symbol {
@@ -50,7 +50,7 @@
     color: #333;
 }
 
-/* 5. Títulos de sección */
+
 .form-title {
     margin-top: 25px;
     margin-bottom: 15px;
@@ -60,7 +60,7 @@
     color: var(--dark-green, #2E7D32);
 }
 
-/* 6. Pestañas (Tabs) */
+
 .tabs {
     display: flex;
     gap: 0;
@@ -84,22 +84,20 @@
 .tab-btn:not(:last-child) { border-right: none; }
 
 .tab-btn.active {
-    background: var(--dark-green, #2E7D32); /* Usa tu variable verde o el color directo */
+    background: var(--dark-green, #2E7D32); 
     color: white;
 }
 
-/* 7. Alineación Radios Particular/Empresa */
 .radio-group-inline {
     display: flex;
-    gap: 30px; /* Separación entre "Particular" y "Organización" */
+    gap: 30px; 
     align-items: center;
 }
-/* Forzar que el label dentro del grupo de radios no tenga margen inferior extra */
+
 .radio-group-inline label {
     margin-bottom: 0; 
 }
 
-/* Contenedor de información bancaria */
 .info-box {
     padding: 20px; 
     border-radius: 8px; 
@@ -108,7 +106,6 @@
 .info-box.transfer { background: #e8f5e9; border: 1px solid #c8e6c9; }
 .info-box.check { background: #fff3e0; border: 1px solid #ffe0b2; }
 
-/* Contenedor fiscal oculto */
 .fiscal-container {
     display:none; 
     padding: 20px; 
@@ -118,7 +115,6 @@
     margin-top: 10px;
 }
 
-/* Botón enviar */
 .btn-green {
     background-color: var(--dark-green, #2E7D32);
     color: white;
@@ -538,21 +534,17 @@
 </div>
 
 <script>
-// Manejo de Pestañas (Tabs)
 function showTab(tabId) {
-    // Ocultar todas
+    
     document.getElementById('tab-donaahora').style.display = 'none';
     document.getElementById('tab-transferencia').style.display = 'none';
     document.getElementById('tab-cheque').style.display = 'none';
     
-    // Mostrar seleccionada
     document.getElementById('tab-' + tabId).style.display = 'block';
 
-    // Actualizar botones
     const buttons = document.querySelectorAll('.tab-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
     
-    // Activar botón
     buttons.forEach(btn => {
         const text = btn.textContent.toLowerCase();
         if ((tabId === 'donaahora' && text.includes('dona')) ||
@@ -563,10 +555,9 @@ function showTab(tabId) {
     });
 }
 
-// Lógica de campos dinámicos
+
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- LÓGICA COMÚN: Función para mostrar/ocultar campos ---
     function setupToggle(triggerId, targetId, condition = 'checked') {
         const trigger = document.getElementById(triggerId);
         const target = document.getElementById(targetId);
@@ -576,7 +567,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if(condition === 'checked') target.style.display = trigger.checked ? 'block' : 'none';
         };
         trigger.addEventListener('change', update);
-        update(); // Estado inicial
+        update(); 
     }
 
     function setupRadioToggle(radioPartId, radioOrgId, targetId) {
@@ -594,21 +585,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ------------------------------------------
-    // 1. PESTAÑA: DONA AHORA (IDs: cudeca_donacionesform_...)
+    // Parte de "Dona ahora"
     // ------------------------------------------
     setupToggle('cudeca_donacionesform_enmemoria', 'div_campo_memoriatext');
     setupToggle('cudeca_donacionesform_certificado', 'div-certificado');
     setupRadioToggle('cudeca_donacionesform_tipodonante_0', 'cudeca_donacionesform_tipodonante_1', 'div_cudeca_donacionesform_empresa');
 
     // ------------------------------------------
-    // 2. PESTAÑA: TRANSFERENCIA (IDs: cudeca_donacionesformtransferencia_...)
+    // Parte de "Haz una transferencia"
     // ------------------------------------------
     setupToggle('cudeca_donacionesformtransferencia_enmemoria', 'div_campo_memoriatext_transferencia');
     setupToggle('cudeca_donacionesformtransferencia_certificado', 'div-certificado_transferencia');
     setupRadioToggle('cudeca_donacionesformtransferencia_tipodonante_0', 'cudeca_donacionesformtransferencia_tipodonante_1', 'div_cudeca_donacionesformtransferencia_empresa');
 
     // ------------------------------------------
-    // 3. PESTAÑA: CHEQUE (IDs: cudeca_donacionesformcheque_...)
+    // Parte de "Envía un cheque"
     // ------------------------------------------
     setupToggle('cudeca_donacionesformcheque_enmemoria', 'div_campo_memoriatext_cheque');
     setupToggle('cudeca_donacionesformcheque_certificado', 'div-certificado_cheque');

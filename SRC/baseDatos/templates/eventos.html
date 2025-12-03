@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div style="background-color: var(--dark-green); color: white; padding: 10px; border-radius: 10px;">
-    <h2>PRÓXIMOS EVENTOS</h2>
+<div
+    style="background-color: var(--dark-green); color: white; padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+    <h2 style="margin: 0;">PRÓXIMOS EVENTOS</h2>
     {% if current_user.is_authenticated and current_user.es_admin %}
-    <a href="{{ url_for('crear_evento') }}" class="btn btn-yellow" style="float: right;">➕ Crear Evento</a>
+    <a href="{{ url_for('crear_evento') }}" class="btn btn-yellow">Crear Evento</a>
     {% endif %}
 </div>
 
@@ -17,10 +18,10 @@
         <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
         <a href="{{ url_for('ver_evento', id=evento.id) }}" class="btn btn-green">Ver más</a>
         {% if current_user.is_authenticated and current_user.es_admin %}
-        <a href="{{ url_for('editar_evento', id=evento.id) }}" class="btn btn-small btn-outline-yellow">✏️ Editar</a>
+        <a href="{{ url_for('editar_evento', id=evento.id) }}" class="btn btn-small btn-outline-yellow">Editar</a>
         <form method="POST" action="{{ url_for('eliminar_evento', id=evento.id) }}" style="display:inline;">
             <button type="submit" class="btn btn-small btn-outline-red"
-                onclick="return confirm('¿Eliminar este evento?')">🗑️ Eliminar</button>
+                onclick="return confirm('¿Eliminar este evento?')">Eliminar</button>
         </form>
         {% endif %}
     </div>

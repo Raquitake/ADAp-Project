@@ -24,7 +24,7 @@
             </div>
             <div style="display:inline-block;">
                 <p>
-                    Página deEventos, informacion y compra de entradas.
+                    Página de eventos, informacion y compra de entradas.
                 </p>
             </div>
         </div>
@@ -38,7 +38,7 @@
             {% if current_user.is_authenticated %}
             <a href="{{ url_for('dashboard') }}">Mi Cuenta</a>
             {% if current_user.es_admin %}
-            <a href="{{ url_for('gestionar_socios') }}" style="color: gold;">🛠️ Admin</a>
+            <a href="{{ url_for('gestionar_socios') }}" style="color: gold;">Admin</a>
             {% endif %}
             <a href="{{ url_for('logout') }}">Log Out</a>
             {% else %}

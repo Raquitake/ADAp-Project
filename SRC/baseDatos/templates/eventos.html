@@ -3,6 +3,9 @@
 {% block content %}
 <div style="background-color: var(--dark-green); color: white; padding: 10px; border-radius: 10px;">
     <h2>PRÓXIMOS EVENTOS</h2>
+    {% if current_user.is_authenticated and current_user.es_admin %}
+    <a href="{{ url_for('crear_evento') }}" class="btn btn-yellow" style="float: right;">➕ Crear Evento</a>
+    {% endif %}
 </div>
 
 {% for evento in eventos %}
@@ -13,9 +16,16 @@
         <p><strong>Lugar:</strong> {{ evento.localizacion }}</p>
         <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
         <a href="{{ url_for('ver_evento', id=evento.id) }}" class="btn btn-green">Ver más</a>
+        {% if current_user.is_authenticated and current_user.es_admin %}
+        <a href="{{ url_for('editar_evento', id=evento.id) }}" class="btn btn-small btn-outline-yellow">✏️ Editar</a>
+        <form method="POST" action="{{ url_for('eliminar_evento', id=evento.id) }}" style="display:inline;">
+            <button type="submit" class="btn btn-small btn-outline-red"
+                onclick="return confirm('¿Eliminar este evento?')">🗑️ Eliminar</button>
+        </form>
+        {% endif %}
     </div>
 </div>
 {% else %}
-    <p>No hay eventos próximos.</p>
+<p>No hay eventos próximos.</p>
 {% endfor %}
 {% endblock %}

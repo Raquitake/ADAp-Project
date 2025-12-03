@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>Gestionar Socios</h2>
+        <p>Total de socios: {{ socios|length }}</p>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="card-body">
+            {% if socios %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>DNI/NIF</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for socio in socios %}
+                    <tr>
+                        <td>{{ socio.id }}</td>
+                        <td>{{ socio.nombre_usuario }}</td>
+                        <td>{{ socio.correo_electronico }}</td>
+                        <td>{{ socio.dni_nif if socio.dni_nif else 'N/A' }}</td>
+                        <td>
+                            <a href="#" class="btn btn-small btn-outline-green">Ver Detalles</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="empty-state">
+                <p>No hay socios registrados aún.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

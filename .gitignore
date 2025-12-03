@@ -1,3 +1,12 @@
 # Python compiled files
 *.pyc
 __pycache__/
+
+
+# Ignore DB
+database.db
+instance/database.db
+*.sqlite
+*.db
+
+

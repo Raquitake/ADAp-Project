@@ -84,6 +84,15 @@ def hazte_socio():
         return redirect(url_for('index'))
     return render_template('hazte_socio.html')
 
+@app.route('/hazte-voluntario', methods=['GET', 'POST'])
+def hazte_voluntario():
+    # BocetoHazteSocio_Persona y Empresa
+    if request.method == 'POST':
+        # Lógica para procesar el formulario de socio
+        flash('Gracias por tu solicitud de socio. Te contactaremos pronto.')
+        return redirect(url_for('index'))
+    return render_template('hazte_voluntario.html')
+
 @app.route('/donar')
 def donar():
     # Reutilizamos la vista de socios o una simplificada

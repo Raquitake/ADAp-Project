@@ -10,10 +10,35 @@
         <p>{{ rifa.descripcion }}</p>
 
         <form method="POST" style="margin-top: 20px;">
-            <label for="cantidad"><strong>Cantidad de boletos:</strong></label>
-            <input type="number" id="cantidad" name="cantidad" min="1" value="1" required>
 
-            <button type="submit" class="btn btn-green" style="margin-left: 10px;">
+            <!-- Cantidad de boletos -->
+            <div style="margin-bottom: 15px;">
+                <label for="cantidad"><strong>Cantidad de boletos:</strong></label>
+                <input type="number" id="cantidad" name="cantidad" min="1" value="1" required>
+            </div>
+
+            <!-- Métodos de pago, similar a pago_entrada -->
+            <div style="margin-bottom: 15px;">
+                <p><strong>Método de pago:</strong></p>
+
+                <label style="margin-right: 10px;">
+                    <input type="radio" name="metodo_pago" value="Bizum" checked>
+                    <span class="btn btn-green">Bizum</span>
+                </label>
+
+                <label style="margin-right: 10px;">
+                    <input type="radio" name="metodo_pago" value="Tarjeta">
+                    <span class="btn btn-green">Tarjeta</span>
+                </label>
+
+                <label>
+                    <input type="radio" name="metodo_pago" value="PayPal">
+                    <span class="btn btn-green">PayPal</span>
+                </label>
+            </div>
+
+            <!-- Botón de confirmar -->
+            <button type="submit" class="btn btn-green" style="margin-top: 10px;">
                 Confirmar participación
             </button>
         </form>

@@ -101,13 +101,14 @@ def participar_rifa(id):
         abort(404)
 
     if request.method == 'POST':
-        # cantidad de boletos para la rifa (como cantidad_entradas)
         cantidad_boletos = int(request.form.get('cantidad', 1))
+        metodo_pago = request.form.get('metodo_pago')
 
-        # Aquí podrías guardar en BD como haces con Entrada
-        # Por ahora solo simulamos la participación
-        flash(f'¡Has participado con {cantidad_boletos} boletos en la rifa "{rifa["titulo"]}"!')
+        # Aquí iría la lógica real de pago + guardar en BD
+        flash(f'Has comprado {cantidad_boletos} boletos para la rifa "{rifa["titulo"]}" pagando con {metodo_pago}.')
         return redirect(url_for('dashboard'))
+
+    return render_template('participar_rifa.html', rifa=rifa)
 
     # GET → mostramos página similar a pago_entrada
     return render_template('participar_rifa.html', rifa=rifa)

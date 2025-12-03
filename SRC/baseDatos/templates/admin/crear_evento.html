@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>Crear Nuevo Evento</h2>
+    </div>
+
+    <div class="dashboard-card">
+        <div class="card-body">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Evento:</label>
+                    <input type="text" id="nombre" name="nombre" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="localizacion">Localización:</label>
+                    <input type="text" id="localizacion" name="localizacion" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha">Fecha y Hora:</label>
+                    <input type="datetime-local" id="fecha" name="fecha" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="informacion">Información:</label>
+                    <textarea id="informacion" name="informacion" class="form-control" rows="5"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-yellow">Crear Evento</button>
+                    <a href="{{ url_for('eventos') }}" class="btn btn-outline-gray">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

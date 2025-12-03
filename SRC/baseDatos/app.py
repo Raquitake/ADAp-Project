@@ -1,6 +1,8 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, abort
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps
+from datetime import datetime
 from models import db, Usuario, Administrador, Evento, Entrada  # Importamos modelos necesarios
 
 app = Flask(__name__)
@@ -18,6 +20,15 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     return Usuario.query.get(int(user_id))
+
+# --- ADMIN DECORATOR ---
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not current_user.is_authenticated or not current_user.es_admin:
+            abort(403)  # Forbidden
+        return f(*args, **kwargs)
+    return decorated_function
 
 # --- RUTAS PRINCIPALES ---
 
@@ -72,6 +83,72 @@ def pago_entrada(id_evento):
         return redirect(url_for('dashboard'))
         
     return render_template('pago_entrada.html', evento=evento)
+
+# --- RUTAS DE ADMINISTRACIÓN ---
+
+@app.route('/admin/evento/crear', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def crear_evento():
+    if request.method == 'POST':
+        fecha_str = request.form.get('fecha')
+        fecha = None
+        if fecha_str:
+            try:
+                fecha = datetime.strptime(fecha_str, '%Y-%m-%dT%H:%M')
+            except ValueError:
+                fecha = None
+        
+        nuevo_evento = Evento(
+            nombre_evento=request.form.get('nombre'),
+            localizacion=request.form.get('localizacion'),
+            fecha=fecha,
+            informacion=request.form.get('informacion')
+        )
+        db.session.add(nuevo_evento)
+        db.session.commit()
+        flash('Evento creado exitosamente')
+        return redirect(url_for('eventos'))
+    return render_template('admin/crear_evento.html')
+
+@app.route('/admin/evento/editar/<int:id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def editar_evento(id):
+    evento = Evento.query.get_or_404(id)
+    if request.method == 'POST':
+        evento.nombre_evento = request.form.get('nombre')
+        evento.localizacion = request.form.get('localizacion')
+        evento.informacion = request.form.get('informacion')
+        
+        fecha_str = request.form.get('fecha')
+        if fecha_str:
+            try:
+                evento.fecha = datetime.strptime(fecha_str, '%Y-%m-%dT%H:%M')
+            except ValueError:
+                pass
+        
+        db.session.commit()
+        flash('Evento actualizado')
+        return redirect(url_for('ver_evento', id=id))
+    return render_template('admin/editar_evento.html', evento=evento)
+
+@app.route('/admin/evento/eliminar/<int:id>', methods=['POST'])
+@login_required
+@admin_required
+def eliminar_evento(id):
+    evento = Evento.query.get_or_404(id)
+    db.session.delete(evento)
+    db.session.commit()
+    flash('Evento eliminado')
+    return redirect(url_for('eventos'))
+
+@app.route('/admin/socios')
+@login_required
+@admin_required
+def gestionar_socios():
+    socios = Usuario.query.filter_by(es_socio=True).all()
+    return render_template('admin/gestionar_socios.html', socios=socios)
 
 # --- RUTAS DE SOCIOS / DONACIONES ---
 
@@ -150,7 +227,9 @@ def login():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html', user=current_user)
+    # Obtener las entradas del usuario
+    entradas = Entrada.query.filter_by(id_comprador=current_user.id).all()
+    return render_template('dashboard.html', user=current_user, entradas=entradas)
 
 @app.route('/logout')
 @login_required

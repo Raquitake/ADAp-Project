@@ -19,7 +19,7 @@ header {
     background-color: var(--primary-green);
     color: white;
     padding: 10px 0;
-    background-image: url('../img/sunflowers_banner.png'); /* Necesitarás una imagen */
+    background-image: url('../img/sunflowers_banner.png');
     background-size: 500px;
     background-repeat: no-repeat;
     background-position: right center;
@@ -85,17 +85,70 @@ header {
 .btn-green { background-color: var(--dark-green); color: white; }
 .btn-yellow { background-color: var(--accent-yellow); color: #333; }
 
-/* Forms */
+/* --------------------------------------------------------- */
+/* FORMULARIOS (ARREGLADO PARA NO ROMPER HAZTE_SOCIO)       */
+/* --------------------------------------------------------- */
 .form-group { margin-bottom: 15px; }
-.form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-.form-group input, .form-group select {
+
+/* 1. Comportamiento por defecto (Para Hazte Socio y campos de texto) */
+/* Las etiquetas se muestran en bloque (encima del input) */
+.form-group label { 
+    display: block; 
+    margin-bottom: 5px; 
+    font-weight: bold; 
+    color: #333;
+}
+
+/* Los inputs de texto ocupan todo el ancho */
+.form-group input:not([type="checkbox"]):not([type="radio"]), 
+.form-group select {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
-/* Specific Views */
+/* 2. Excepción SOLO para Checkboxes y Radios (Para Donar y alineación) */
+/* Usamos :has() para detectar si el label contiene un checkbox dentro */
+.form-group label:has(input[type="checkbox"]), 
+.form-group label:has(input[type="radio"]) {
+    display: flex;       /* Alinea horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    font-weight: normal; /* Texto normal */
+    cursor: pointer;
+}
+
+/* Forzar que los checkboxes/radios NO sean del 100% de ancho */
+.form-group input[type="checkbox"],
+.form-group input[type="radio"] {
+    width: auto !important;
+    margin-right: 8px; /* Espacio entre cajita y texto */
+    margin-top: 0;
+    flex-shrink: 0;
+}
+
+/* 3. Estilos Específicos para la vista de Donación (Cantidad) */
+.inline-amount-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Clase específica para el input de cantidad */
+.amount-input {
+    max-width: 150px !important;
+    width: 150px !important; 
+    text-align: right;
+}
+
+.currency-symbol {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 4. Estilos extra de Hazte Socio (Tabs y Cards) */
 .event-card {
     display: flex;
     border-bottom: 1px solid #ddd;
@@ -111,19 +164,17 @@ header {
     cursor: pointer;
 }
 
-/* Tabs for Hazte Socio */
 .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
 .tab-btn { background: #ddd; padding: 10px 20px; border-radius: 20px; cursor: pointer; }
 .tab-btn.active { background: var(--dark-green); color: white; }
 
-/* Este simple truco hace funcionar la página quienes somos*/
-
+/* Utilidades varias */
 .mision-img {
     max-width: 100%;
     height: auto;
     display: block;
 }
-/* Fondo desenfocado de pantalla completa */
+
 .fondo-desenfocado {
     background: url("/static/img/fondo.jpg") no-repeat center center fixed;
     background-size: cover;
@@ -136,18 +187,16 @@ header {
     z-index: -1;
 }
 
-/* Contenedor del login */
 .login-container {
     max-width: 400px;
     margin: 0 auto;
     text-align: center;
     position: relative;
-    z-index: 1; /* Para estar sobre el fondo */
+    z-index: 1; 
 }
 
-/* Formulario */
 .login-form {
-    background: rgba(165, 214, 167, 0.85); /* verde suave con transparencia */
+    background: rgba(165, 214, 167, 0.85); 
     padding: 20px;
     border-radius: 10px;
 }

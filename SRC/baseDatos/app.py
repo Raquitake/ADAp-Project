@@ -42,13 +42,64 @@ def contacto():
 def eventos():
     # (listado)Eventos
     lista_eventos = Evento.query.all()
-    return render_template('eventos.html', eventos=lista_eventos)
+    rifas = [
+        {
+            "id": 1,
+            "titulo": "Rifa Cesta Solidaria",
+            "premio": "Cesta con productos locales y artesanales.",
+            "fecha_sorteo": "20/12/2025",
+            "descripcion": "Incluye productos típicos del municipio.",
+            "imagen": "img/rifa-cesta.jpg"
+        }
+    ]
+    return render_template('eventos.html', eventos=lista_eventos, rifas=rifas)
 
 @app.route('/evento/<int:id>')
 def ver_evento(id):
     # verEvento
     evento = Evento.query.get_or_404(id)
     return render_template('ver_evento.html', evento=evento)
+
+def get_rifas():
+    return {
+        1: {
+            "id": 1,
+            "titulo": "Rifa Cesta Solidaria",
+            "premio": "Cesta con productos locales y artesanales.",
+            "fecha_sorteo": "20/12/2025",
+            "descripcion": "Incluye productos típicos del municipio.",
+            "imagen": "img/rifa-cesta.jpg"
+        }
+    }
+
+@app.route('/rifa/<int:id>')
+def ver_rifa(id):
+    rifas = get_rifas()
+    rifa = rifas.get(id)
+    if not rifa:
+        abort(404)
+    return render_template('rifa.html', rifa=rifa)
+
+@app.route('/rifa/<int:id>/participar', methods=['GET', 'POST'])
+@login_required
+def participar_rifa(id):
+    rifas = get_rifas()
+    rifa = rifas.get(id)
+
+    if not rifa:
+        abort(404)
+
+    if request.method == 'POST':
+        # cantidad de boletos para la rifa (como cantidad_entradas)
+        cantidad_boletos = int(request.form.get('cantidad', 1))
+
+        # Aquí podrías guardar en BD como haces con Entrada
+        # Por ahora solo simulamos la participación
+        flash(f'¡Has participado con {cantidad_boletos} boletos en la rifa "{rifa["titulo"]}"!')
+        return redirect(url_for('dashboard'))
+
+    # GET → mostramos página similar a pago_entrada
+    return render_template('participar_rifa.html', rifa=rifa)
 
 @app.route('/evento/comprar/<int:id_evento>', methods=['GET', 'POST'])
 @login_required

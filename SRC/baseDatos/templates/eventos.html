@@ -5,17 +5,51 @@
     <h2>PRÓXIMOS EVENTOS</h2>
 </div>
 
-{% for evento in eventos %}
-<div class="event-card">
-    <img src="{{ url_for('static', filename='img/evento-James-Bond.jpg') }}" alt="Evento">
-    <div class="event-details">
-        <h3>{{ evento.nombre_evento }}</h3>
-        <p><strong>Lugar:</strong> {{ evento.localizacion }}</p>
-        <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
-        <a href="{{ url_for('ver_evento', id=evento.id) }}" class="btn btn-green">Ver más</a>
+{% if eventos %}
+    {% for evento in eventos %}
+    <div class="event-card">
+        <img src="{{ url_for('static', filename='img/evento-James-Bond.jpg') }}" alt="Evento">
+        <div class="event-details">
+            <h3>{{ evento.nombre_evento }}</h3>
+            <p><strong>Lugar:</strong> {{ evento.localizacion }}</p>
+            <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
+            <a href="{{ url_for('ver_evento', id=evento.id) }}" class="btn btn-green">Ver más</a>
+        </div>
     </div>
-</div>
+    {% endfor %}
 {% else %}
     <p>No hay eventos próximos.</p>
-{% endfor %}
+{% endif %}
+
+
+
+<!-- ============================= -->
+<!-- PRÓXIMAS RIFAS -->
+<!-- ============================= -->
+<div style="background-color: var(--dark-green); color: white; padding: 10px; border-radius: 10px; margin-top: 40px;">
+    <h2>PRÓXIMAS RIFAS</h2>
+</div>
+
+{% if rifas %}
+    {% for rifa in rifas %}
+    {% set imagen_rifa = rifa.imagen if rifa.imagen else 'img/rifa-default.jpg' %}
+    <div class="event-card">
+        <img src="{{ url_for('static', filename='img/cesta_solidaria.jpg') }}" alt="Rifa">
+
+        <div class="event-details">
+            <h3>{{ rifa.titulo }}</h3>
+            <p><strong>Premio:</strong> {{ rifa.premio }}</p>
+            <p><strong>Fecha del sorteo:</strong> {{ rifa.fecha_sorteo }}</p>
+
+            <a href="{{ url_for('ver_rifa', id=rifa.id) }}" class="btn btn-green">Ver más</a>
+            <a href="{{ url_for('participar_rifa', id=rifa.id) }}" class="btn btn-green" style="margin-left: 10px;">
+                Participar
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No hay rifas disponibles.</p>
+{% endif %}
+
 {% endblock %}

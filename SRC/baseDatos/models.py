@@ -82,6 +82,7 @@ class Evento(db.Model):
     fecha = db.Column(db.DateTime)
     informacion = db.Column(db.Text)
     imagen_evento = db.Column(db.String(255), nullable=True)
+    precio = db.Column(db.Float, default=0.0)
 
 class Rifa(db.Model):
     __tablename__ = 'rifa'

@@ -1,34 +1,112 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Compra de Entradas: {{ evento.nombre_evento }}</h2>
+<div class="dashboard-container">
+    <div class="dashboard-card" style="max-width: 600px; margin: 0 auto;">
+        <div class="card-header">
+            <h2>Compra de Entradas</h2>
+            <p class="text-muted">{{ evento.nombre_evento }}</p>
+        </div>
+        
+        <div class="card-body">
+            <form method="POST" id="paymentForm">
+                <h4 style="margin-bottom: 15px; border-bottom: 2px solid var(--primary-green);">1. Tus datos</h4>
+                <div class="form-group">
+                    <label>Nombre:</label>
+                    <input type="text" class="form-control" value="{{ current_user.nombre_usuario }}" readonly style="background-color: #eee;">
+                </div>
+                <div class="form-group">
+                    <label>Correo:</label>
+                    <input type="email" class="form-control" value="{{ current_user.correo_electronico }}" readonly style="background-color: #eee;">
+                </div>
 
-<form method="POST">
-    <h3>PASO 1: Tus datos</h3>
-    <div class="form-group">
-        <label>Nombre*</label>
-        <input type="text" name="nombre" value="{{ current_user.nombre_usuario if current_user.is_authenticated else '' }}" required>
-    </div>
-    <div class="form-group">
-        <label>Correo*</label>
-        <input type="email" name="correo" value="{{ current_user.correo_electronico if current_user.is_authenticated else '' }}" required>
-    </div>
+                <h4 style="margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid var(--primary-green);">2. Selección de Entradas</h4>
+                
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <p style="font-size: 1.2rem;">Precio por entrada: <strong style="color: var(--dark-green);">{{ evento.precio }}€</strong></p>
+                    
+                    <div class="form-group">
+                        <label for="cantidad">Cantidad de entradas:</label>
+                        <input type="number" id="cantidad" name="cantidad" class="form-control" value="1" min="1" max="50" onchange="calcularTotal()" onkeyup="calcularTotal()">
+                    </div>
+                    
+                    <h3 style="text-align: right; margin-top: 10px;">Total a pagar: <span id="totalDisplay">{{ evento.precio }}</span>€</h3>
+                </div>
 
-    <h3>PASO 2: Resumen y Pago</h3>
-    <div class="form-group">
-        <label>Cantidad de entradas:</label>
-        <select name="cantidad">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-        </select>
+                <h4 style="margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid var(--primary-green);">3. Datos de Pago</h4>
+                
+                <div class="form-group">
+                    <label>Método de pago:</label>
+                    <select id="metodo_pago" name="metodo_pago" class="form-control" onchange="mostrarTarjeta()">
+                        <option value="tarjeta">Tarjeta de Crédito / Débito</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="bizum">Bizum</option>
+                    </select>
+                </div>
+
+                <div id="form-tarjeta" style="background: #f0f0f0; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                    <div class="form-group">
+                        <label>Número de Tarjeta</label>
+                        <input type="text" name="tarjeta_numero" class="form-control" placeholder="0000 0000 0000 0000" maxlength="19">
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Caducidad (MM/AA)</label>
+                            <input type="text" name="tarjeta_expiry" class="form-control" placeholder="MM/AA" maxlength="5">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>CVV</label>
+                            <input type="text" name="tarjeta_cvv" class="form-control" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-green" style="width: 100%; font-size: 1.2rem; padding: 15px;">
+                    Pagar y Finalizar
+                </button>
+            </form>
+        </div>
     </div>
-    
-    <div class="payment-methods">
-        <p>Seleccione método de pago (Simulado):</p>
-        <button type="submit" class="btn btn-green">Pagar con Tarjeta</button>
-        <button type="submit" class="btn btn-green">Paypal</button>
-        <button type="submit" class="btn btn-green">Bizum</button>
-    </div>
-</form>
+</div>
+
+<script>
+    // Inicializar total al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        calcularTotal();
+        mostrarTarjeta();
+    });
+
+    // Calcular el total en tiempo real
+    function calcularTotal() {
+        // Aseguramos que el precio sea un número flotante, incluso si viene como string
+        const precio = parseFloat("{{ evento.precio }}");
+        const cantidad = document.getElementById('cantidad').value;
+        
+        // Evitar números negativos o vacíos
+        if (cantidad < 1) return;
+
+        const total = (precio * cantidad).toFixed(2);
+        document.getElementById('totalDisplay').innerText = total;
+    }
+
+    // Ocultar/mostrar campos de tarjeta según selección
+    function mostrarTarjeta() {
+        const metodo = document.getElementById('metodo_pago').value;
+        const formTarjeta = document.getElementById('form-tarjeta');
+        
+        if (metodo === 'tarjeta') {
+            formTarjeta.style.display = 'block';
+            // Hacer requeridos los campos de tarjeta si está visible
+            document.querySelector('[name="tarjeta_numero"]').required = true;
+            document.querySelector('[name="tarjeta_expiry"]').required = true;
+            document.querySelector('[name="tarjeta_cvv"]').required = true;
+        } else {
+            formTarjeta.style.display = 'none';
+            // Quitar el required para que no bloquee el envío si paga con paypal/bizum
+            document.querySelector('[name="tarjeta_numero"]').required = false;
+            document.querySelector('[name="tarjeta_expiry"]').required = false;
+            document.querySelector('[name="tarjeta_cvv"]').required = false;
+        }
+    }
+</script>
 {% endblock %}

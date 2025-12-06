@@ -1,4 +1,5 @@
 import os
+import re
 
 from flask import Flask, render_template, redirect, url_for, request, flash, abort
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -127,22 +128,63 @@ def participar_rifa(id):
 @app.route('/evento/comprar/<int:id_evento>', methods=['GET', 'POST'])
 @login_required
 def pago_entrada(id_evento):
-    # pagoEntrada
     evento = Evento.query.get_or_404(id_evento)
+    
     if request.method == 'POST':
         cantidad_entradas = int(request.form.get('cantidad', 1))
-        # Aquí iría la lógica de pasarela de pago real
-        # Por ahora simulamos la creación de entradas
+        metodo_pago = request.form.get('metodo_pago')
+
+        # --- VALIDACIÓN DE TARJETA ---
+        if metodo_pago == 'tarjeta':
+            # Obtener datos y limpiar espacios en blanco
+            numero = request.form.get('tarjeta_numero', '').replace(' ', '')
+            expiry = request.form.get('tarjeta_expiry', '').strip()
+            cvv = request.form.get('tarjeta_cvv', '').strip()
+
+            # 1. Validar Número (16 dígitos numéricos)
+            if not re.match(r'^\d{16}$', numero):
+                flash('Error: El número de tarjeta debe tener 16 dígitos.')
+                return render_template('pago_entrada.html', evento=evento)
+
+            # 2. Validar CVV (3 dígitos numéricos)
+            if not re.match(r'^\d{3}$', cvv):
+                flash('Error: El CVV debe tener 3 dígitos.')
+                return render_template('pago_entrada.html', evento=evento)
+
+            # 3. Validar Caducidad (Formato MM/AA y fecha futura)
+            if not re.match(r'^(0[1-9]|1[0-2])\/\d{2}$', expiry):
+                flash('Error: La fecha de caducidad debe ser MM/AA (ej: 12/25).')
+                return render_template('pago_entrada.html', evento=evento)
+            
+            # Comprobación extra: ¿Ha caducado ya?
+            try:
+                mes, anio = map(int, expiry.split('/'))
+                anio += 2000 # Convertir 25 a 2025
+                fecha_actual = datetime.now()
+                # Si el año es menor al actual, o si es el mismo año pero el mes ya pasó
+                if anio < fecha_actual.year or (anio == fecha_actual.year and mes < fecha_actual.month):
+                    flash('Error: La tarjeta está caducada.')
+                    return render_template('pago_entrada.html', evento=evento)
+            except:
+                flash('Error al validar la fecha de la tarjeta.')
+                return render_template('pago_entrada.html', evento=evento)
+
+        # --- FIN VALIDACIÓN ---
+
+        # Si pasa la validación (o es otro método de pago), procesamos la compra
+        precio_total = evento.precio * cantidad_entradas # Asumiendo que has añadido precio al modelo
+
         for _ in range(cantidad_entradas):
             nueva_entrada = Entrada(
-                precio=20.0, # Precio ejemplo
+                precio=evento.precio,
                 id_evento=evento.id,
                 id_comprador=current_user.id,
-                codigo_qr="QR_GENERADO_SIMULADO"
+                codigo_qr=f"QR_{evento.id}_{current_user.id}_{datetime.now().timestamp()}"
             )
             db.session.add(nueva_entrada)
+        
         db.session.commit()
-        flash('¡Entradas compradas con éxito!')
+        flash(f'¡Pago aceptado! Has comprado {cantidad_entradas} entradas.')
         return redirect(url_for('dashboard'))
         
     return render_template('pago_entrada.html', evento=evento)
@@ -179,7 +221,8 @@ def crear_evento():
             localizacion=request.form.get('localizacion'),
             fecha=fecha,
             informacion=request.form.get('informacion'),
-            imagen_evento=imagen_path
+            imagen_evento=imagen_path,
+            precio=float(request.form.get('precio', 0.0))
         )
         db.session.add(nuevo_evento)
         db.session.commit()
@@ -196,6 +239,7 @@ def editar_evento(id):
         evento.nombre_evento = request.form.get('nombre')
         evento.localizacion = request.form.get('localizacion')
         evento.informacion = request.form.get('informacion')
+        evento.precio = float(request.form.get('precio', 0.0))
         
         fecha_str = request.form.get('fecha')
         if fecha_str:

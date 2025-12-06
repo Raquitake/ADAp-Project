@@ -131,61 +131,73 @@ def pago_entrada(id_evento):
     evento = Evento.query.get_or_404(id_evento)
     
     if request.method == 'POST':
-        cantidad_entradas = int(request.form.get('cantidad', 1))
+        # 1. Recogemos datos básicos
+        try:
+            cantidad_entradas = int(request.form.get('cantidad', 1))
+        except ValueError:
+            cantidad_entradas = 1
+            
         metodo_pago = request.form.get('metodo_pago')
 
-        # --- VALIDACIÓN DE TARJETA ---
+        # 2. VALIDACIÓN DE TARJETA
         if metodo_pago == 'tarjeta':
-            # Obtener datos y limpiar espacios en blanco
+            # Limpiamos espacios por si el usuario pone "1234 5678..."
             numero = request.form.get('tarjeta_numero', '').replace(' ', '')
             expiry = request.form.get('tarjeta_expiry', '').strip()
             cvv = request.form.get('tarjeta_cvv', '').strip()
 
-            # 1. Validar Número (16 dígitos numéricos)
+            # A) Validar Número (Debe tener 16 dígitos exactos)
             if not re.match(r'^\d{16}$', numero):
-                flash('Error: El número de tarjeta debe tener 16 dígitos.')
+                flash('❌ Error: El número de tarjeta no es válido (debe tener 16 dígitos).')
                 return render_template('pago_entrada.html', evento=evento)
 
-            # 2. Validar CVV (3 dígitos numéricos)
+            # B) Validar CVV (Debe tener 3 dígitos)
             if not re.match(r'^\d{3}$', cvv):
-                flash('Error: El CVV debe tener 3 dígitos.')
+                flash('❌ Error: El CVV es incorrecto (deben ser 3 dígitos).')
                 return render_template('pago_entrada.html', evento=evento)
 
-            # 3. Validar Caducidad (Formato MM/AA y fecha futura)
+            # C) Validar Formato Fecha (MM/AA)
             if not re.match(r'^(0[1-9]|1[0-2])\/\d{2}$', expiry):
-                flash('Error: La fecha de caducidad debe ser MM/AA (ej: 12/25).')
+                flash('❌ Error: La fecha debe ser MM/AA (ej: 08/25).')
                 return render_template('pago_entrada.html', evento=evento)
-            
-            # Comprobación extra: ¿Ha caducado ya?
+
+            # D) Validar que no esté Caducada
             try:
-                mes, anio = map(int, expiry.split('/'))
-                anio += 2000 # Convertir 25 a 2025
-                fecha_actual = datetime.now()
-                # Si el año es menor al actual, o si es el mismo año pero el mes ya pasó
-                if anio < fecha_actual.year or (anio == fecha_actual.year and mes < fecha_actual.month):
-                    flash('Error: La tarjeta está caducada.')
+                mes, anio_corto = map(int, expiry.split('/'))
+                anio_completo = 2000 + anio_corto # Convertir "25" en "2025"
+                
+                ahora = datetime.now()
+                # Si el año es menor al actual, o es el mismo año pero el mes ya pasó
+                if anio_completo < ahora.year or (anio_completo == ahora.year and mes < ahora.month):
+                    flash('❌ Error: Su tarjeta está caducada.')
                     return render_template('pago_entrada.html', evento=evento)
             except:
-                flash('Error al validar la fecha de la tarjeta.')
+                flash('❌ Error al validar la fecha de la tarjeta.')
                 return render_template('pago_entrada.html', evento=evento)
 
-        # --- FIN VALIDACIÓN ---
-
-        # Si pasa la validación (o es otro método de pago), procesamos la compra
-        precio_total = evento.precio * cantidad_entradas # Asumiendo que has añadido precio al modelo
-
-        for _ in range(cantidad_entradas):
-            nueva_entrada = Entrada(
-                precio=evento.precio,
-                id_evento=evento.id,
-                id_comprador=current_user.id,
-                codigo_qr=f"QR_{evento.id}_{current_user.id}_{datetime.now().timestamp()}"
-            )
-            db.session.add(nueva_entrada)
-        
-        db.session.commit()
-        flash(f'¡Pago aceptado! Has comprado {cantidad_entradas} entradas.')
-        return redirect(url_for('dashboard'))
+        # 3. Si todo está correcto (o es Paypal/Bizum), procesamos la compra
+        try:
+            for _ in range(cantidad_entradas):
+                # Generamos un código QR único simulado
+                codigo_unico = f"ENTRADA-{evento.id}-{current_user.id}-{datetime.now().strftime('%f')}"
+                
+                nueva_entrada = Entrada(
+                    precio=evento.precio,
+                    id_evento=evento.id,
+                    id_comprador=current_user.id,
+                    codigo_qr=codigo_unico
+                )
+                db.session.add(nueva_entrada)
+            
+            db.session.commit()
+            flash(f'✅ ¡Pago realizado con éxito! Has comprado {cantidad_entradas} entradas.')
+            return redirect(url_for('dashboard'))
+            
+        except Exception as e:
+            db.session.rollback()
+            print(f"Error en base de datos: {e}")
+            flash('❌ Hubo un error al procesar la compra. Inténtalo de nuevo.')
+            return render_template('pago_entrada.html', evento=evento)
         
     return render_template('pago_entrada.html', evento=evento)
 

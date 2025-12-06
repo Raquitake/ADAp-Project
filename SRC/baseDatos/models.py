@@ -109,6 +109,8 @@ class Entrada(db.Model):
     # Claves foráneas
     id_evento = db.Column(db.Integer, db.ForeignKey('evento.id'))
     id_comprador = db.Column(db.Integer, db.ForeignKey('usuario.id')) 
+    
+    evento = db.relationship('Evento', backref='entradas')
 
 class Boleto(db.Model):
     __tablename__ = 'boleto'

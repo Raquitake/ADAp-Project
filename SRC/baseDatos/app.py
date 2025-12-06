@@ -225,6 +225,10 @@ def crear_evento():
                 # For simplicity, we keep original filename but secure it.
                 timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
                 filename = f"{timestamp}_{filename}"
+                
+                if not os.path.exists(app.config['UPLOAD_FOLDER']):
+                    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+                    
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 imagen_path = f"img/eventos/{filename}"
 
@@ -266,6 +270,10 @@ def editar_evento(id):
                 filename = secure_filename(file.filename)
                 timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
                 filename = f"{timestamp}_{filename}"
+                
+                if not os.path.exists(app.config['UPLOAD_FOLDER']):
+                    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+                    
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 evento.imagen_evento = f"img/eventos/{filename}"
 
@@ -372,6 +380,9 @@ def crear_rifa():
                 timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
                 filename = f"rifa_{timestamp}_{filename}"
                 
+                if not os.path.exists(app.config['RIFA_UPLOAD_FOLDER']):
+                    os.makedirs(app.config['RIFA_UPLOAD_FOLDER'], exist_ok=True)
+
                 # Guardar en static/img/rifas usando config
                 file.save(os.path.join(app.config['RIFA_UPLOAD_FOLDER'], filename))
                 imagen_path = f"img/rifas/{filename}"
@@ -411,6 +422,9 @@ def editar_rifa(id):
             if file and file.filename != '':
                 timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
                 filename = f"rifa_{timestamp}_{filename}"
+                
+                if not os.path.exists(app.config['RIFA_UPLOAD_FOLDER']):
+                    os.makedirs(app.config['RIFA_UPLOAD_FOLDER'], exist_ok=True)
                 
                 file.save(os.path.join(app.config['RIFA_UPLOAD_FOLDER'], filename))
                 

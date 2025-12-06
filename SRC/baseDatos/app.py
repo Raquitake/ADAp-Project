@@ -511,12 +511,11 @@ def hazte_voluntario():
         return redirect(url_for('index'))
     return render_template('hazte_voluntario.html')
 
-@app.route('/donar')
+@app.route('/donar', methods=['GET', 'POST'])
 def donar():
     if request.method == 'POST':
-        # Lógica para procesar el formulario de donar
         flash('Gracias por tu donación.')
-        return redirect(url_for('index'))
+        return redirect(url_for('dashboard'))
     return render_template('donar.html')
 
 # --- RUTAS DE AUTENTICACIÓN (Tus rutas originales mejoradas) ---

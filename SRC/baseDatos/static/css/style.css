@@ -28,7 +28,7 @@ header {
 .navbar {
     display: flex;
     justify-content: center;
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     padding: 10px;
 }
 
@@ -42,7 +42,8 @@ header {
     font-size: 0.9rem;
 }
 
-.navbar a:hover, .navbar a.active {
+.navbar a:hover,
+.navbar a.active {
     background-color: var(--dark-green);
 }
 
@@ -59,7 +60,7 @@ header {
     margin: 20px auto;
     padding: 20px;
     background: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Botones */
@@ -75,26 +76,35 @@ header {
 }
 
 .btn-mid {
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 10px 20px;
 }
 
-.btn-green { background-color: var(--dark-green); color: white; }
-.btn-yellow { background-color: var(--accent-yellow); color: #333; }
+.btn-green {
+    background-color: var(--dark-green);
+    color: white;
+}
 
-.form-group { margin-bottom: 15px; }
-
-.form-group label { 
-    display: block; 
-    margin-bottom: 5px; 
-    font-weight: bold; 
+.btn-yellow {
+    background-color: var(--accent-yellow);
     color: #333;
 }
 
-.form-group input:not([type="checkbox"]):not([type="radio"]), 
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input:not([type="checkbox"]):not([type="radio"]),
 .form-group select {
     width: 100%;
     padding: 8px;
@@ -103,18 +113,19 @@ header {
     box-sizing: border-box;
 }
 
-.form-group label:has(input[type="checkbox"]), 
+.form-group label:has(input[type="checkbox"]),
 .form-group label:has(input[type="radio"]) {
-    display: flex;       /* Alinea horizontalmente */
-    align-items: center; 
-    font-weight: normal; 
+    display: flex;
+    /* Alinea horizontalmente */
+    align-items: center;
+    font-weight: normal;
     cursor: pointer;
 }
 
 .form-group input[type="checkbox"],
 .form-group input[type="radio"] {
     width: auto !important;
-    margin-right: 8px; 
+    margin-right: 8px;
     margin-top: 0;
     flex-shrink: 0;
 }
@@ -128,7 +139,7 @@ header {
 /* Clase específica para el input de cantidad */
 .amount-input {
     max-width: 150px !important;
-    width: 150px !important; 
+    width: 150px !important;
     text-align: right;
 }
 
@@ -143,8 +154,20 @@ header {
     border-bottom: 1px solid #ddd;
     padding: 20px 0;
 }
-.event-card img { width: 200px; height: 300px; object-fit: cover; margin-right: 20px; }
-.donation-options { display: flex; gap: 10px; margin: 10px 0; }
+
+.event-card img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.donation-options {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
 .donation-btn {
     background: var(--dark-green);
     color: white;
@@ -153,9 +176,23 @@ header {
     cursor: pointer;
 }
 
-.tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-.tab-btn { background: #ddd; padding: 10px 20px; border-radius: 20px; cursor: pointer; }
-.tab-btn.active { background: var(--dark-green); color: white; }
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    background: #ddd;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background: var(--dark-green);
+    color: white;
+}
 
 .mision-img {
     max-width: 100%;
@@ -180,11 +217,33 @@ header {
     margin: 0 auto;
     text-align: center;
     position: relative;
-    z-index: 1; 
+    z-index: 1;
 }
 
 .login-form {
-    background: rgba(165, 214, 167, 0.85); 
+    background: rgba(165, 214, 167, 0.85);
     padding: 20px;
     border-radius: 10px;
+}
+
+.profile-avatar {
+    width: 100px;
+    /* O el tamaño que prefieras */
+    height: 100px;
+    border-radius: 50%;
+    /* Esto lo hace redondo */
+    overflow: hidden;
+    /* Recorta lo que sobresalga del círculo */
+    margin: 0 auto 15px;
+    /* Centrado horizontal */
+    border: 3px solid var(--primary-green, #2E7D32);
+    /* Borde opcional */
+    background-color: #f0f0f0;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Asegura que la imagen cubra todo el espacio */
 }

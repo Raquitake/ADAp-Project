@@ -7,6 +7,42 @@ from functools import wraps
 from datetime import datetime
 from models import db, Usuario, Administrador, Evento, Entrada 
 
+def validar_dni_nie(documento):
+    # Limpiamos el input (mayúsculas y sin espacios)
+    documento = documento.upper().strip()
+    
+    # Comprobamos formato básico (longitud 9 caracteres)
+    if len(documento) != 9:
+        return False
+
+    # Tabla de letras oficial
+    letras_validas = "TRWAGMYFPDXBNJZSQVHLCKE"
+    
+    # Separamos letra final y parte numérica
+    letra_usuario = documento[-1]
+    parte_numerica = documento[:-1]
+
+    # Gestión de NIEs (X, Y, Z se sustituyen por 0, 1, 2)
+    if parte_numerica.startswith('X'):
+        parte_numerica = '0' + parte_numerica[1:]
+    elif parte_numerica.startswith('Y'):
+        parte_numerica = '1' + parte_numerica[1:]
+    elif parte_numerica.startswith('Z'):
+        parte_numerica = '2' + parte_numerica[1:]
+
+    # Si tras el reemplazo no son todo números, es inválido
+    if not parte_numerica.isdigit():
+        return False
+
+    # Calculamos el resto de dividir por 23
+    resto = int(parte_numerica) % 23
+    
+    # Comparamos la letra calculada con la que puso el usuario
+    if letras_validas[resto] == letra_usuario:
+        return True
+    else:
+        return False
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'tu_clave_secreta_muy_segura'
 
@@ -289,6 +325,43 @@ def dashboard():
     # Obtener las entradas del usuario
     entradas = Entrada.query.filter_by(id_comprador=current_user.id).all()
     return render_template('dashboard.html', user=current_user, entradas=entradas)
+
+@app.route('/perfil/editar', methods=['GET', 'POST'])
+@login_required
+def editar_perfil():
+    if request.method == 'POST':
+        nuevo_nombre = request.form.get('nombre')
+        nuevo_email = request.form.get('email')
+        nuevo_dni = request.form.get('dni')
+
+        # 1. Validación de Email duplicado
+        usuario_existente = Usuario.query.filter_by(correo_electronico=nuevo_email).first()
+        if usuario_existente and usuario_existente.id != current_user.id:
+            flash('Ese correo electrónico ya está en uso por otro usuario.')
+            return redirect(url_for('editar_perfil'))
+
+        # 2. NUEVA VALIDACIÓN DE DNI/NIF
+        if nuevo_dni: # Solo validamos si el usuario escribió algo
+            if not validar_dni_nie(nuevo_dni):
+                flash('El DNI/NIE introducido no es válido. Revisa la letra.')
+                return redirect(url_for('editar_perfil'))
+
+        # Actualizar datos
+        current_user.nombre_usuario = nuevo_nombre
+        current_user.correo_electronico = nuevo_email
+        # Guardamos el DNI siempre en mayúsculas para consistencia
+        current_user.dni_nif = nuevo_dni.upper() if nuevo_dni else None
+        
+        try:
+            db.session.commit()
+            flash('Tus datos se han actualizado correctamente.')
+            return redirect(url_for('dashboard'))
+        except:
+            db.session.rollback()
+            flash('Error al actualizar la base de datos.')
+            return redirect(url_for('editar_perfil'))
+
+    return render_template('editar_perfil.html')
 
 @app.route('/logout')
 @login_required

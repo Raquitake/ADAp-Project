@@ -3,7 +3,7 @@ from models import db, Usuario, Administrador
 
 with app.app_context():
     # Buscar el usuario
-    usuario = Usuario.query.filter_by(correo_electronico='fernandeztoledosamuel@uma.es').first()
+    usuario = Usuario.query.filter_by(correo_electronico='ricardoallitt@gmail.com').first()
     
     if usuario:
         # Verificar si ya es admin

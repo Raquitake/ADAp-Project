@@ -16,19 +16,19 @@
             </div>
             <div class="card-body">
                 <div class="profile-avatar">
-                    <!-- Placeholder para avatar -->
-                    <span>{{ user.nombre_usuario[0].upper() }}</span>
+                    <img src="https://api.dicebear.com/7.x/initials/svg?seed={{ user.nombre_usuario }}&backgroundColor=2E7D32&textColor=ffffff" 
+                        alt="Avatar de {{ user.nombre_usuario }}">
                 </div>
                 <div class="profile-info">
                     <p><strong>Email:</strong> {{ user.correo_electronico }}</p>
                     <p><strong>Estado:</strong>
                         {% if user.es_socio %}
-                        <span class="badge badge-gold">Socio Activo</span>
+                        <span class="badge badge-gold text-dark">Socio Activo</span>
                         {% else %}
-                        <span class="badge badge-gray">Usuario</span>
+                        <span class="badge badge-gray text-dark">Usuario</span>
                         {% endif %}
                         {% if user.es_admin %}
-                        <span class="badge badge-gold">Administrador</span>
+                        <span class="badge badge-gold text-dark">Administrador</span>
                         {% endif %}
                     </p>
                     {% if user.dni_nif %}
@@ -36,7 +36,7 @@
                     {% endif %}
                 </div>
                 <div class="profile-actions">
-                    <a href="#" class="btn btn-green btn-small">Editar Datos</a>
+                    <a href="{{ url_for('editar_perfil') }}" class="btn btn-green btn-small">Editar Datos</a>
                     <a href="{{ url_for('logout') }}" class="btn btn-outline-red">Cerrar Sesión</a>
                 </div>
             </div>

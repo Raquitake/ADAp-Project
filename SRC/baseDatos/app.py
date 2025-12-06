@@ -1,13 +1,17 @@
+import os
+
 from flask import Flask, render_template, redirect, url_for, request, flash, abort
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from datetime import datetime
-from models import db, Usuario, Administrador, Evento, Entrada  # Importamos modelos necesarios
+from models import db, Usuario, Administrador, Evento, Entrada 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'tu_clave_secreta_muy_segura'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'instance', 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)

@@ -51,6 +51,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'instance', 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'eventos')
+app.config['RIFA_UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'rifas')
 
 db.init_app(app)
 
@@ -288,13 +289,9 @@ def crear_rifa():
                 timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
                 filename = f"rifa_{timestamp}_{filename}"
                 
-                # Guardar en static/img
-                save_dir = os.path.join(basedir, 'static', 'img')
-                if not os.path.exists(save_dir):
-                    os.makedirs(save_dir)
-                    
-                file.save(os.path.join(save_dir, filename))
-                imagen_path = f"img/{filename}"
+                # Guardar en static/img/rifas usando config
+                file.save(os.path.join(app.config['RIFA_UPLOAD_FOLDER'], filename))
+                imagen_path = f"img/rifas/{filename}"
 
         nueva_rifa = Rifa(
             nombre=nombre,
@@ -329,13 +326,12 @@ def editar_rifa(id):
         if 'imagen' in request.files:
             file = request.files['imagen']
             if file and file.filename != '':
-                filename = secure_filename(file.filename)
                 timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
                 filename = f"rifa_{timestamp}_{filename}"
-                save_dir = os.path.join(basedir, 'static', 'img')
-                file.save(os.path.join(save_dir, filename))
                 
-                rifa.imagen = f"img/{filename}"
+                file.save(os.path.join(app.config['RIFA_UPLOAD_FOLDER'], filename))
+                
+                rifa.imagen = f"img/rifas/{filename}"
 
         db.session.commit()
         flash('Rifa actualizada')
@@ -350,9 +346,11 @@ def eliminar_rifa(id):
     # Borrar imagen si existe
     if rifa.imagen:
         try:
-            full_path = os.path.join(basedir, 'static', rifa.imagen.replace('/', os.sep))
-            if os.path.exists(full_path):
-                os.remove(full_path)
+            filename = os.path.basename(rifa.imagen)
+            image_path = os.path.join(app.config['RIFA_UPLOAD_FOLDER'], filename)
+            
+            if os.path.exists(image_path):
+                os.remove(image_path)
         except Exception as e:
             print(f"Error borrando imagen rifa: {e}")
             

@@ -81,6 +81,7 @@ class Evento(db.Model):
     localizacion = db.Column(db.String(200))
     fecha = db.Column(db.DateTime)
     informacion = db.Column(db.Text)
+    imagen_evento = db.Column(db.String(255), nullable=True)
 
 class Rifa(db.Model):
     __tablename__ = 'rifa'

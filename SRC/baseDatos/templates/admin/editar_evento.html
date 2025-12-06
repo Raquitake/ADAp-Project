@@ -8,7 +8,7 @@
 
     <div class="dashboard-card">
         <div class="card-body">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nombre">Nombre del Evento:</label>
                     <input type="text" id="nombre" name="nombre" class="form-control" value="{{ evento.nombre_evento }}"
@@ -25,6 +25,17 @@
                     <label for="fecha">Fecha y Hora:</label>
                     <input type="datetime-local" id="fecha" name="fecha" class="form-control"
                         value="{% if evento.fecha %}{{ evento.fecha.strftime('%Y-%m-%dT%H:%M') }}{% endif %}">
+                </div>
+
+                <div class="form-group">
+                    <label for="imagen">Imagen del Evento (Dejar en blanco para mantener la actual):</label>
+                    {% if evento.imagen_evento %}
+                    <div style="margin-bottom: 10px;">
+                        <img src="{{ url_for('static', filename=evento.imagen_evento) }}" alt="Imagen actual"
+                            style="max-width: 200px; display: block;">
+                    </div>
+                    {% endif %}
+                    <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*">
                 </div>
 
                 <div class="form-group">

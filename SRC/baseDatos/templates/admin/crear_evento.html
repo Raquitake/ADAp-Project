@@ -8,7 +8,7 @@
 
     <div class="dashboard-card">
         <div class="card-body">
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nombre">Nombre del Evento:</label>
                     <input type="text" id="nombre" name="nombre" class="form-control" required>
@@ -22,6 +22,11 @@
                 <div class="form-group">
                     <label for="fecha">Fecha y Hora:</label>
                     <input type="datetime-local" id="fecha" name="fecha" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="imagen">Imagen del Evento:</label>
+                    <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*">
                 </div>
 
                 <div class="form-group">

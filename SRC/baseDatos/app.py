@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, redirect, url_for, request, flash, abort
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from functools import wraps
 from datetime import datetime
 from models import db, Usuario, Administrador, Evento, Entrada 
@@ -49,6 +50,7 @@ app.config['SECRET_KEY'] = 'tu_clave_secreta_muy_segura'
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'instance', 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'eventos')
 
 db.init_app(app)
 
@@ -191,11 +193,24 @@ def crear_evento():
             except ValueError:
                 fecha = None
         
+        imagen_path = None
+        if 'imagen' in request.files:
+            file = request.files['imagen']
+            if file and file.filename != '':
+                filename = secure_filename(file.filename)
+                # Ensure filename is unique or handle collisions if necessary. 
+                # For simplicity, we keep original filename but secure it.
+                timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+                filename = f"{timestamp}_{filename}"
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                imagen_path = f"img/eventos/{filename}"
+
         nuevo_evento = Evento(
             nombre_evento=request.form.get('nombre'),
             localizacion=request.form.get('localizacion'),
             fecha=fecha,
-            informacion=request.form.get('informacion')
+            informacion=request.form.get('informacion'),
+            imagen_evento=imagen_path
         )
         db.session.add(nuevo_evento)
         db.session.commit()
@@ -220,6 +235,15 @@ def editar_evento(id):
             except ValueError:
                 pass
         
+        if 'imagen' in request.files:
+            file = request.files['imagen']
+            if file and file.filename != '':
+                filename = secure_filename(file.filename)
+                timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+                filename = f"{timestamp}_{filename}"
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                evento.imagen_evento = f"img/eventos/{filename}"
+
         db.session.commit()
         flash('Evento actualizado')
         return redirect(url_for('ver_evento', id=id))

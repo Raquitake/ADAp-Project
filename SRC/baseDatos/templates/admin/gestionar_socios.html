@@ -28,7 +28,7 @@
                         <td>{{ socio.correo_electronico }}</td>
                         <td>{{ socio.dni_nif if socio.dni_nif else 'N/A' }}</td>
                         <td>
-                            <a href="#" class="btn btn-small btn-outline-green">Ver Detalles</a>
+                            <a href="{{ url_for('ver_socio_admin', id=socio.id) }}" class="btn btn-small btn-outline-green">Ver Detalles</a>
                         </td>
                     </tr>
                     {% endfor %}

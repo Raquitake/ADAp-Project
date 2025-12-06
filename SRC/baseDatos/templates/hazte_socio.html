@@ -1,153 +1,192 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <style>
-/* ------------------------------------------- */
-/* Estilos generales (Originales + Nuevos)     */
-/* ------------------------------------------- */
+    /* ------------------------------------------- */
+    /* Estilos generales                           */
+    /* ------------------------------------------- */
 
-.periodicidad-options {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
-    flex-wrap: wrap; 
-}
-.periodicidad-options label {
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-.periodicidad-options input[type="radio"],
-.form-group input[type="checkbox"] {
-    margin-right: 5px;
-}
+    .periodicidad-options {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+        flex-wrap: wrap; 
+    }
+    
+    .periodicidad-options label {
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    .periodicidad-options input[type="radio"],
+    .form-group input[type="checkbox"] {
+        margin-right: 5px;
+    }
 
-/* ESTILOS NUEVOS PARA LA SELECCIÓN DE CANTIDAD */
-.donation-options {
-    display: flex;
-    gap: 10px;
-    margin: 10px 0 10px 0;
-    justify-content: space-around;
-}
+    /* ESTILOS NUEVOS: Botones de Donación Interactivos */
+    .donation-options {
+        display: flex;
+        gap: 10px;
+        margin: 10px 0 20px 0;
+        justify-content: space-around;
+    }
 
-.donation-btn, .btn-otra-cantidad {
-    background: white; /* Fondo blanco por defecto */
-    border: 2px solid var(--dark-green);
-    color: var(--dark-green);
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    text-align: center;
-    flex-grow: 1;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-}
+    .donation-btn, .btn-otra-cantidad {
+        background: white; /* Blanco por defecto */
+        border: 2px solid var(--dark-green); /* Borde verde */
+        color: var(--dark-green);
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        text-align: center;
+        flex-grow: 1;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
 
-/* Clase para botón seleccionado (Feedback visual) */
-.donation-btn.selected, .btn-otra-cantidad.selected {
-    background: var(--dark-green);
-    color: white;
-    box-shadow: 0 0 8px rgba(46, 125, 50, 0.5);
-    transform: translateY(-2px);
-}
+    /* Estado seleccionado de los botones */
+    .donation-btn.selected, .btn-otra-cantidad.selected {
+        background: var(--dark-green);
+        color: white;
+        box-shadow: 0 0 8px rgba(46, 125, 50, 0.5);
+        transform: translateY(-2px);
+    }
 
-.custom-amount-container {
-    display: none; /* Oculto por defecto */
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
+    /* Contenedor para input de "Otra Cantidad" */
+    .custom-amount-container {
+        display: none; /* Oculto por defecto */
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
 
-.mensaje-aporte {
-    background-color: #e8f5e9;
-    color: var(--dark-green);
-    padding: 15px;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 1px solid var(--dark-green);
-}
+    /* Caja de feedback visual de la cantidad seleccionada */
+    .mensaje-aporte {
+        background-color: #e8f5e9;
+        color: var(--dark-green);
+        padding: 15px;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: 1px solid var(--dark-green);
+    }
 
-.info-adicional-box {
-    background-color: #d4e7d4;
-    padding: 15px;
-    border-radius: 4px;
-    margin-top: 20px;
-}
+    /* Cajas de Información Adicional (Fiscal) */
+    .info-adicional-box {
+        background-color: #d4e7d4;
+        padding: 15px;
+        border-radius: 4px;
+        margin-top: 20px;
+    }
 
-.inline-form-group {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    margin-bottom: 10px;
-}
-.inline-form-group label {
-    flex-basis: 30%;
-    min-width: 120px; 
-    font-weight: bold;
-    text-align: right; 
-}
-.inline-form-group input, .inline-form-group select {
-    flex-grow: 1;
-}
+    /* Formularios en línea para dirección */
+    .inline-form-group {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .inline-form-group label {
+        flex-basis: 30%;
+        min-width: 120px; 
+        font-weight: bold;
+        text-align: right; 
+    }
+    
+    .inline-form-group input, .inline-form-group select {
+        flex-grow: 1;
+    }
 
-.tabs {
-    display: flex;
-    gap: 0;
-    margin-bottom: 20px;
-}
-.tab-btn {
-    background: #ddd;
-    padding: 8px 20px;
-    border-radius: 0;
-    cursor: pointer;
-    border-right: 1px solid #ccc;
-}
-.tab-btn:first-child {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-    border-right: none;
-}
-.tab-btn:last-child {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-}
-.tab-btn.active {
-    background: var(--dark-green);
-    color: white;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
-}
+    /* Pestañas (Tabs) */
+    .tabs {
+        display: flex;
+        gap: 0;
+        margin-bottom: 20px;
+    }
+    
+    .tab-btn {
+        background: #ddd;
+        padding: 10px 20px;
+        border-radius: 0;
+        cursor: pointer;
+        border-right: 1px solid #ccc;
+        font-weight: bold;
+        flex: 1;
+        text-align: center;
+    }
+    
+    .tab-btn:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        border-right: none;
+    }
+    
+    .tab-btn:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+    
+    .tab-btn.active {
+        background: var(--dark-green);
+        color: white;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+    }
 
-.checkbox-group {
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-}
+    /* Grupo de Checkboxes */
+    .checkbox-group {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #f9f9f9;
+    }
 
-.checkbox-group label {
-    display: flex; 
-    align-items: flex-start; 
-    font-weight: normal;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
+    .checkbox-group label {
+        display: flex; 
+        align-items: flex-start; 
+        font-weight: normal;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
 
-.checkbox-group label input[type="checkbox"] {
-    margin-top: 2px;
-    flex-shrink: 0; 
-}
+    .checkbox-group label input[type="checkbox"] {
+        margin-top: 4px;
+        flex-shrink: 0; 
+        margin-right: 10px;
+    }
+    
+    /* Cajas de Formularios de Pago (Tarjeta/Banco) */
+    .payment-box {
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        margin-top: 10px;
+    }
+    
+    .payment-box-card {
+        background: #f0f0f0; 
+        border: 1px solid #ccc;
+        display: none;
+    }
+    
+    .payment-box-bank {
+        background: #e3f2fd; 
+        border: 1px solid #90caf9;
+        display: none;
+    }
 </style>
 
 <h2>Hazte socio</h2>
 
 <div class="tabs">
-    <div class="tab-btn active" onclick="showTab('persona')">Persona</div>
+    <div class="tab-btn active" onclick="showTab('persona')">Particular</div>
     <div class="tab-btn" onclick="showTab('empresa')">Empresa</div>
 </div>
 
@@ -155,7 +194,7 @@
     
     <div id="tab-persona">
         
-        <input type="hidden" name="cantidad" id="cantidad_final_p" required>
+        <input type="hidden" name="cantidad" id="cantidad_final_p">
 
         <h3 style="margin-bottom: 5px;">¿Con qué periodicidad desea colaborar?</h3>
         <div class="periodicidad-options">
@@ -167,19 +206,17 @@
         </div>
 
         <h3>¿Cuánto quieres aportar?*</h3>
-        
         <div class="donation-options">
             <div class="donation-btn" onclick="seleccionarCantidad('p', 15, this)">15€</div>
             <div class="donation-btn" onclick="seleccionarCantidad('p', 25, this)">25€</div>
             <div class="donation-btn" onclick="seleccionarCantidad('p', 40, this)">40€</div>
         </div>
         
-        <div class="btn-otra-cantidad" onclick="activarOtraCantidad('p', this)" style="margin-bottom: 10px;">Otra cantidad</div>
+        <div class="btn-otra-cantidad" onclick="activarOtraCantidad('p', this)">Otra cantidad</div>
 
         <div id="custom-input-p" class="custom-amount-container">
             <label>Introduce tu cantidad (€):</label>
-            <input type="number" id="input_otra_cantidad_p" class="form-control" placeholder="Ej: 50" min="1" 
-                   onkeyup="actualizarDesdeInput('p')" onchange="actualizarDesdeInput('p')">
+            <input type="number" id="input_otra_cantidad_p" class="form-control" placeholder="Ej: 50" min="1" onkeyup="actualizarDesdeInput('p')" onchange="actualizarDesdeInput('p')">
         </div>
 
         <div class="mensaje-aporte">
@@ -200,7 +237,7 @@
             <input type="email" id="email_p" name="email_p" placeholder="Email" required>
         </div>
         
-        <p style="font-size: 0.8rem; margin-top: -10px;">Por favor indíquenos su número de teléfono y/o móvil.</p>
+        <p style="font-size: 0.9rem; margin-top: 10px; color: #666;">Por favor indíquenos su número de teléfono y/o móvil.</p>
 
         <div class="form-group">
             <label for="telefono_p">Teléfono:</label>
@@ -221,31 +258,33 @@
                 <option value="periodico">Periódico</option>
                 <option value="redes">Redes Sociales</option>
                 <option value="amigo">Amigo/Familiar</option>
+                <option value="otro">Otro</option>
             </select>
         </div>
 
         <div class="form-group">
             <label>
-                <input type="checkbox" name="datos_adicionales_p" value="si"> Quiero dar datos adicionales a cudeca para que les sea más fácil contactar conmigo.
+                <input type="checkbox" name="datos_adicionales_p" value="si" onchange="toggleInfo('p', this)"> 
+                Quiero beneficiarme de las deducciones fiscales (rellenar datos adicionales).
             </label>
         </div>
 
-        <p style="font-size: 0.9rem; margin-top: 20px;">
-            Quiero beneficiarme de las deducciones fiscales disponibles. La Fundación Cudeca está acogida al Régimen Especial de la Ley 49/2002 (...). Para ello, es imprescindible marcar la opción anterior y completar los campos adicionales.
+        <p style="font-size: 0.9rem; margin-top: 10px;">
+            La Fundación Cudeca está acogida al Régimen Especial de la Ley 49/2002. Para beneficiarse de las deducciones, es imprescindible completar los siguientes campos.
         </p>
 
-        <div class="info-adicional-box">
+        <div id="info-box-p" class="info-adicional-box" style="display:none;">
             <div class="inline-form-group">
-                <label for="cif_p">CIF:</label>
-                <input type="text" id="cif_p" name="cif_p" placeholder="Código de identificación">
+                <label for="cif_p">DNI/NIF:</label>
+                <input type="text" id="cif_p" name="dni_p" placeholder="Número de documento">
             </div>
             <div class="inline-form-group">
                 <label for="direccion_p">Dirección:</label>
-                <input type="text" id="direccion_p" name="direccion_p" placeholder="Dirección">
+                <input type="text" id="direccion_p" name="direccion_p" placeholder="Calle, número, piso...">
             </div>
             <div class="inline-form-group">
                 <label for="codigo_postal_p">Código Postal:</label>
-                <input type="text" id="codigo_postal_p" name="codigo_postal_p" placeholder="Código postal">
+                <input type="text" id="codigo_postal_p" name="codigo_postal_p" placeholder="Ej: 29000">
             </div>
             <div class="inline-form-group">
                 <label for="poblacion_p">Población:</label>
@@ -261,25 +300,24 @@
             </div>
         </div>
 
-        <div class="form-group" style="margin-top: 20px;">
+        <div class="form-group" style="margin-top: 30px;">
             <label for="metodo_pago_p">Método de pago*:</label>
-            <select id="metodo_pago_p" name="metodo_pago_p" class="form-control" onchange="mostrarTarjetaSocio('p')" required>
-                <option value="">Seleccione:</option>
+            <select id="metodo_pago_p" name="metodo_pago_p" class="form-control" onchange="gestionarPagoSocio('p')" required>
+                <option value="">Seleccione un método:</option>
                 <option value="tarjeta">Tarjeta de crédito/débito</option>
                 <option value="domiciliacion">Domiciliación Bancaria</option>
             </select>
         </div>
         
-        <div id="form-tarjeta-p" style="background: #f0f0f0; padding: 15px; border-radius: 5px; margin-bottom: 20px; display: none; border: 1px solid #ccc;">
-            <h4 style="margin-top: 0; margin-bottom: 10px; font-size: 1rem; color: var(--dark-green);">Datos de la tarjeta</h4>
-            
+        <div id="form-tarjeta-p" class="payment-box payment-box-card">
+            <h4 style="margin-top:0; color: var(--dark-green);">Datos de la Tarjeta</h4>
             <div class="form-group">
                 <label>Número de Tarjeta</label>
                 <input type="text" name="tarjeta_numero_p" class="form-control" placeholder="0000 0000 0000 0000" maxlength="19">
             </div>
             <div style="display: flex; gap: 10px;">
                 <div class="form-group" style="flex: 1;">
-                    <label>Caducidad (MM/AA)</label>
+                    <label>Caducidad</label>
                     <input type="text" name="tarjeta_expiry_p" class="form-control" placeholder="MM/AA" maxlength="5">
                 </div>
                 <div class="form-group" style="flex: 1;">
@@ -288,13 +326,28 @@
                 </div>
             </div>
         </div>
+
+        <div id="form-domiciliacion-p" class="payment-box payment-box-bank">
+            <h4 style="margin-top:0; color: #1565c0;">Domiciliación Bancaria (SEPA)</h4>
+            <div class="form-group">
+                <label>Titular de la Cuenta</label>
+                <input type="text" name="domiciliacion_titular_p" class="form-control" placeholder="Nombre y Apellidos del titular">
+            </div>
+            <div class="form-group">
+                <label>IBAN (Cuenta Española)</label>
+                <input type="text" name="domiciliacion_iban_p" class="form-control" placeholder="ES00 0000 0000 0000 0000 0000" maxlength="34" style="text-transform: uppercase;">
+                <small>Introduzca los 24 caracteres sin espacios.</small>
+            </div>
+        </div>
         
         <div class="checkbox-group">
             <label>
-                <input type="checkbox" name="acepto_privacidad_p" value="si" required> Acepto la <strong>Política de Privacidad y el Aviso Legal</strong>
+                <input type="checkbox" name="acepto_privacidad_p" value="si" required> 
+                Acepto la <strong>Política de Privacidad y el Aviso Legal</strong>.*
             </label>
             <label>
-                <input type="checkbox" name="recibir_informacion_p" value="si"> Quiero recibir información sobre la forma especial de cuidar de la Fundación Cudeca y las diferentes actividades que realiza.
+                <input type="checkbox" name="recibir_informacion_p" value="si"> 
+                Quiero recibir información sobre la forma especial de cuidar de la Fundación Cudeca y las diferentes actividades que realiza.
             </label>
         </div>
 
@@ -302,9 +355,11 @@
 
     <div id="tab-empresa" style="display:none;">
         
+        <input type="hidden" name="cantidad_empresa" id="cantidad_final_e">
+
         <h3 style="margin-bottom: 5px;">¿Con qué periodicidad desea colaborar?</h3>
-         <div class="periodicidad-options">
-            <label><input type="radio" name="periodo_empresa" value="mensual"> Mensual</label>
+        <div class="periodicidad-options">
+            <label><input type="radio" name="periodo_empresa" value="mensual" checked> Mensual</label>
             <label><input type="radio" name="periodo_empresa" value="bimensual"> Bimensual</label>
             <label><input type="radio" name="periodo_empresa" value="trimestral"> Trimestral</label>
             <label><input type="radio" name="periodo_empresa" value="semestral"> Semestral</label>
@@ -312,70 +367,88 @@
         </div>
 
         <h3>¿Cuánto quieres aportar?*</h3>
+        
         <div class="donation-options">
-            <div class="donation-btn">15€</div>
-            <div class="donation-btn">25€</div>
-            <div class="donation-btn">40€</div>
+            <div class="donation-btn" onclick="seleccionarCantidad('e', 50, this)">50€</div>
+            <div class="donation-btn" onclick="seleccionarCantidad('e', 100, this)">100€</div>
+            <div class="donation-btn" onclick="seleccionarCantidad('e', 200, this)">200€</div>
         </div>
-        <div class="btn-otra-cantidad">Otra cantidad</div>
+        
+        <div class="btn-otra-cantidad" onclick="activarOtraCantidad('e', this)">Otra cantidad</div>
 
-        <h3>INTRODUCE TUS DATOS</h3>
+        <div id="custom-input-e" class="custom-amount-container">
+            <label>Introduce cantidad (€):</label>
+            <input type="number" id="input_otra_cantidad_e" class="form-control" placeholder="Ej: 500" min="1" onkeyup="actualizarDesdeInput('e')" onchange="actualizarDesdeInput('e')">
+        </div>
+
+        <div class="mensaje-aporte">
+            Has seleccionado aportar: <span id="texto-cantidad-e">0</span>€
+        </div>
+
+        <h3>INTRODUCE LOS DATOS DE LA EMPRESA</h3>
         <div class="form-group">
-            <label for="empresa_e">Empresa*</label>
-            <input type="text" id="empresa_e" name="empresa_e" placeholder="Empresa" required>
+            <label for="empresa_e">Razón Social / Empresa*</label>
+            <input type="text" id="empresa_e" name="empresa_e" placeholder="Nombre de la empresa" required>
         </div>
         <div class="form-group">
-            <label for="nombre_e">Nombre*</label>
+            <label for="nombre_e">Nombre Persona de Contacto*</label>
             <input type="text" id="nombre_e" name="nombre_e" placeholder="Nombre" required>
         </div>
         <div class="form-group">
-            <label for="apellidos_e">Apellidos*</label>
+            <label for="apellidos_e">Apellidos Persona de Contacto*</label>
             <input type="text" id="apellidos_e" name="apellidos_e" placeholder="Apellidos" required>
         </div>
         <div class="form-group">
-            <label for="email_e">Email*</label>
-            <input type="email" id="email_e" name="email_e" placeholder="Email" required>
+            <label for="email_e">Email de Contacto*</label>
+            <input type="email" id="email_e" name="email_e" placeholder="Email corporativo" required>
         </div>
         
-        <p style="font-size: 0.8rem; margin-top: -10px;">Por favor indíquenos su número de teléfono y/o móvil.</p>
+        <p style="font-size: 0.9rem; margin-top: 10px; color: #666;">Por favor indíquenos un teléfono de contacto.</p>
 
         <div class="form-group">
             <label for="telefono_e">Teléfono:</label>
-            <input type="tel" id="telefono_e" name="telefono_e" placeholder="Teléfono">
+            <input type="tel" id="telefono_e" name="telefono_e" placeholder="Teléfono Fijo">
         </div>
         <div class="form-group">
             <label for="movil_e">Móvil:</label>
             <input type="tel" id="movil_e" name="movil_e" placeholder="Móvil">
         </div>
+        
         <div class="form-group">
-            <label for="fecha_nacimiento_e">Fecha de nacimiento:</label>
+            <label for="fecha_nacimiento_e">Fecha de constitución (Opcional):</label>
             <input type="text" id="fecha_nacimiento_e" name="fecha_nacimiento_e" placeholder="dd/mm/aaaa">
         </div>
+        
         <div class="form-group">
             <label for="forma_conocer_e">Forma de conocernos:</label>
             <select id="forma_conocer_e" name="forma_conocer_e">
-                <option value="">Periódico</option>
+                <option value="">Seleccione:</option>
+                <option value="periodico">Periódico</option>
+                <option value="redes">Redes Sociales</option>
+                <option value="evento">Evento Corporativo</option>
+                <option value="otro">Otro</option>
             </select>
         </div>
 
         <div class="form-group">
             <label>
-                <input type="checkbox" name="datos_adicionales_e" value="si"> Quiero dar datos adicionales a cudeca para que les sea más fácil contactar conmigo.
+                <input type="checkbox" name="datos_adicionales_e" value="si" onchange="toggleInfo('e', this)"> 
+                Quiero beneficiarme de las deducciones fiscales (rellenar datos adicionales).
             </label>
         </div>
-
-        <p style="font-size: 0.9rem; margin-top: 20px;">
-            Quiero beneficiarme de las deducciones fiscales disponibles. La Fundación Cudeca está acogida al Régimen Especial de la Ley 49/2002 (...). Para ello, es imprescindible marcar la opción anterior y completar los campos adicionales.
+        
+        <p style="font-size: 0.9rem; margin-top: 10px;">
+             Para beneficiarse de las deducciones fiscales como empresa, es imprescindible completar el CIF y la Dirección Fiscal.
         </p>
 
-        <div class="info-adicional-box">
+        <div id="info-box-e" class="info-adicional-box" style="display:none;">
             <div class="inline-form-group">
                 <label for="cif_e">CIF:</label>
-                <input type="text" id="cif_e" name="cif_e" placeholder="Código de identific...">
+                <input type="text" id="cif_e" name="cif_e" placeholder="CIF de la empresa">
             </div>
             <div class="inline-form-group">
-                <label for="direccion_e">Dirección:</label>
-                <input type="text" id="direccion_e" name="direccion_e" placeholder="Dirección">
+                <label for="direccion_e">Dirección Fiscal:</label>
+                <input type="text" id="direccion_e" name="direccion_e" placeholder="Dirección completa">
             </div>
             <div class="inline-form-group">
                 <label for="codigo_postal_e">Código Postal:</label>
@@ -395,19 +468,54 @@
             </div>
         </div>
 
-        <div class="form-group" style="margin-top: 20px;">
+        <div class="form-group" style="margin-top: 30px;">
             <label for="metodo_pago_e">Método de pago*:</label>
-            <select id="metodo_pago_e" name="metodo_pago_e" required>
-                <option value="">Tarjeta de crédito/débito</option>
+            <select id="metodo_pago_e" name="metodo_pago_e" class="form-control" onchange="gestionarPagoSocio('e')" required>
+                <option value="">Seleccione un método:</option>
+                <option value="tarjeta">Tarjeta de crédito/débito</option>
+                <option value="domiciliacion">Domiciliación Bancaria</option>
             </select>
+        </div>
+        
+        <div id="form-tarjeta-e" class="payment-box payment-box-card">
+            <h4 style="margin-top:0; color: var(--dark-green);">Datos de la Tarjeta (Corporativa)</h4>
+            <div class="form-group">
+                <label>Número de Tarjeta</label>
+                <input type="text" name="tarjeta_numero_e" class="form-control" placeholder="0000 0000 0000 0000" maxlength="19">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <div class="form-group" style="flex: 1;">
+                    <label>Caducidad</label>
+                    <input type="text" name="tarjeta_expiry_e" class="form-control" placeholder="MM/AA" maxlength="5">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>CVV</label>
+                    <input type="text" name="tarjeta_cvv_e" class="form-control" placeholder="CVV" maxlength="3">
+                </div>
+            </div>
+        </div>
+
+        <div id="form-domiciliacion-e" class="payment-box payment-box-bank">
+            <h4 style="margin-top:0; color: #1565c0;">Domiciliación Bancaria (SEPA)</h4>
+            <div class="form-group">
+                <label>Titular de la Cuenta</label>
+                <input type="text" name="domiciliacion_titular_e" class="form-control" placeholder="Razón Social o Titular">
+            </div>
+            <div class="form-group">
+                <label>IBAN (Cuenta Española)</label>
+                <input type="text" name="domiciliacion_iban_e" class="form-control" placeholder="ES00 0000 0000 0000 0000 0000" maxlength="34" style="text-transform: uppercase;">
+                <small>Introduzca los 24 caracteres sin espacios.</small>
+            </div>
         </div>
         
         <div class="checkbox-group">
             <label>
-                <input type="checkbox" name="acepto_privacidad_e" value="si" required> Acepto la <strong>Política de Privacidad y el Aviso Legal</strong>
+                <input type="checkbox" name="acepto_privacidad_e" value="si" required> 
+                Acepto la <strong>Política de Privacidad y el Aviso Legal</strong>.*
             </label>
             <label>
-                <input type="checkbox" name="recibir_informacion_e" value="si"> Quiero recibir información sobre la forma especial de cuidar de la Fundación Cudeca y las diferentes actividades que realiza.
+                <input type="checkbox" name="recibir_informacion_e" value="si"> 
+                Quiero recibir información sobre la forma especial de cuidar de la Fundación Cudeca y las diferentes actividades que realiza.
             </label>
         </div>
 
@@ -417,90 +525,125 @@
 </form>
 
 <script>
-    // Función para cambiar de pestaña y gestionar los campos obligatorios
-    function showTab(type) {
-        // 1. Mostrar/Ocultar pestañas visualmente
-        document.getElementById('tab-persona').style.display = type === 'persona' ? 'block' : 'none';
-        document.getElementById('tab-empresa').style.display = type === 'empresa' ? 'block' : 'none';
-        
-        const buttons = document.querySelectorAll('.tab-btn');
-        buttons[0].classList.toggle('active', type === 'persona');
-        buttons[1].classList.toggle('active', type === 'empresa');
+/**
+ * LÓGICA DE CONTROL DE PESTAÑAS
+ * Muestra/Oculta y gestiona los campos REQUIRED para evitar bloqueos.
+ */
+function showTab(type) {
+    document.getElementById('tab-persona').style.display = type === 'persona' ? 'block' : 'none';
+    document.getElementById('tab-empresa').style.display = type === 'empresa' ? 'block' : 'none';
     
-        // 2. GESTIÓN DE REQUIRED (Para que no bloquee el envío)
-        // Si estamos en Persona: Hacemos obligatorios los campos _p y quitamos obligatoriedad a _e
-        // Si estamos en Empresa: Hacemos obligatorios los campos _e y quitamos obligatoriedad a _p
-        
-        const camposPersona = document.querySelectorAll('#tab-persona input[data-required="true"], #tab-persona select[data-required="true"]');
-        const camposEmpresa = document.querySelectorAll('#tab-empresa input[data-required="true"], #tab-empresa select[data-required="true"]');
-    
-        if (type === 'persona') {
-            camposPersona.forEach(el => el.required = true);
-            camposEmpresa.forEach(el => el.required = false);
-        } else {
-            camposPersona.forEach(el => el.required = false);
-            camposEmpresa.forEach(el => el.required = true);
-        }
-    }
-    
-    // -----------------------------------------------------
-    // Lógica para Botones de Cantidad 
-    // -----------------------------------------------------
-    
-    function limpiarSeleccion() {
-        // Quita la clase 'selected' de todos los botones en la pestaña activa
-        document.querySelectorAll('.donation-btn, .btn-otra-cantidad').forEach(btn => btn.classList.remove('selected'));
-    }
-    
-    function seleccionarCantidad(tipo, valor, elemento) {
-        limpiarSeleccion();
-        elemento.classList.add('selected');
-        document.getElementById('custom-input-' + tipo).style.display = 'none';
-        document.getElementById('cantidad_final_' + tipo).value = valor;
-        document.getElementById('texto-cantidad-' + tipo).innerText = valor;
-    }
-    
-    function activarOtraCantidad(tipo, elemento) {
-        limpiarSeleccion();
-        elemento.classList.add('selected');
-        document.getElementById('custom-input-' + tipo).style.display = 'block';
-        document.getElementById('texto-cantidad-' + tipo).innerText = "0";
-        document.getElementById('cantidad_final_' + tipo).value = "";
-        document.getElementById('input_otra_cantidad_' + tipo).focus();
-    }
-    
-    function actualizarDesdeInput(tipo) {
-        const valorInput = document.getElementById('input_otra_cantidad_' + tipo).value;
-        document.getElementById('cantidad_final_' + tipo).value = valorInput;
-        document.getElementById('texto-cantidad-' + tipo).innerText = valorInput ? valorInput : "0";
-    }
-    
-    document.addEventListener('DOMContentLoaded', () => {
-        // Marcamos con un atributo especial los campos que queremos que sean required dinámicamente
-        // Esto es un truco para no perder la referencia de cuáles eran obligatorios
-        const inputs = document.querySelectorAll('input[required], select[required]');
-        inputs.forEach(input => {
-            input.setAttribute('data-required', 'true');
-        });
-    
-        showTab('persona');
-    });
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(type === 'persona' ? '.tab-btn:first-child' : '.tab-btn:last-child').classList.add('active');
 
-    function mostrarTarjetaSocio(sufijo) {
-        const selector = document.getElementById('metodo_pago_' + sufijo);
-        const bloqueTarjeta = document.getElementById('form-tarjeta-' + sufijo);
-        const inputsTarjeta = bloqueTarjeta.querySelectorAll('input');
-    
-        if (selector.value === 'tarjeta') {
-            bloqueTarjeta.style.display = 'block';
-            // Hacemos los campos requeridos si se elige tarjeta
-            inputsTarjeta.forEach(input => input.required = true);
-        } else {
-            bloqueTarjeta.style.display = 'none';
-            // Quitamos required si cambia de opinión
-            inputsTarjeta.forEach(input => input.required = false);
-            inputsTarjeta.forEach(input => input.value = ""); // Limpiar datos
-        }
+    // Referencias a inputs
+    const inputsPersona = document.querySelectorAll('#tab-persona input, #tab-persona select');
+    const inputsEmpresa = document.querySelectorAll('#tab-empresa input, #tab-empresa select');
+
+    // Desactivar validación (disabled) en la pestaña oculta
+    if (type === 'persona') {
+        inputsEmpresa.forEach(el => el.disabled = true);
+        inputsPersona.forEach(el => el.disabled = false);
+        
+        // Gestión manual del campo cantidad oculto
+        document.getElementById('cantidad_final_p').required = true;
+        document.getElementById('cantidad_final_e').required = false;
+    } else {
+        inputsPersona.forEach(el => el.disabled = true);
+        inputsEmpresa.forEach(el => el.disabled = false);
+        
+        document.getElementById('cantidad_final_p').required = false;
+        document.getElementById('cantidad_final_e').required = true;
     }
-    </script>
+}
+
+/**
+ * MOSTRAR/OCULTAR CAJA DE INFO FISCAL
+ */
+function toggleInfo(sufijo, checkbox) {
+    const box = document.getElementById('info-box-' + sufijo);
+    box.style.display = checkbox.checked ? 'block' : 'none';
+    
+    // Si se muestra, podríamos hacer los campos required si quisiéramos ser estrictos
+    // box.querySelectorAll('input').forEach(i => i.required = checkbox.checked);
+}
+
+/**
+ * LÓGICA DE SELECCIÓN DE CANTIDAD
+ * Funciona igual para Persona ('p') y Empresa ('e')
+ */
+function limpiarSeleccion(sufijo) {
+    const contenedor = document.getElementById(sufijo === 'p' ? 'tab-persona' : 'tab-empresa');
+    contenedor.querySelectorAll('.donation-btn, .btn-otra-cantidad').forEach(btn => btn.classList.remove('selected'));
+}
+
+function seleccionarCantidad(sufijo, valor, elemento) {
+    limpiarSeleccion(sufijo);
+    elemento.classList.add('selected');
+    
+    // Ocultar input manual
+    document.getElementById('custom-input-' + sufijo).style.display = 'none';
+    
+    // Asignar valor al input oculto (que se envía al server)
+    const inputName = sufijo === 'p' ? 'cantidad' : 'cantidad_empresa';
+    document.querySelector(`input[name="${inputName}"]`).value = valor;
+    
+    // Feedback visual
+    document.getElementById('texto-cantidad-' + sufijo).innerText = valor;
+}
+
+function activarOtraCantidad(sufijo, elemento) {
+    limpiarSeleccion(sufijo);
+    elemento.classList.add('selected');
+    
+    // Mostrar input manual
+    document.getElementById('custom-input-' + sufijo).style.display = 'block';
+    
+    // Limpiar valores para obligar a escribir
+    const inputName = sufijo === 'p' ? 'cantidad' : 'cantidad_empresa';
+    document.querySelector(`input[name="${inputName}"]`).value = "";
+    document.getElementById('texto-cantidad-' + sufijo).innerText = "0";
+    
+    // Poner el foco
+    document.getElementById('input_otra_cantidad_' + sufijo).focus();
+}
+
+function actualizarDesdeInput(sufijo) {
+    const valor = document.getElementById('input_otra_cantidad_' + sufijo).value;
+    const inputName = sufijo === 'p' ? 'cantidad' : 'cantidad_empresa';
+    
+    document.querySelector(`input[name="${inputName}"]`).value = valor;
+    document.getElementById('texto-cantidad-' + sufijo).innerText = valor ? valor : "0";
+}
+
+/**
+ * LÓGICA DE PAGO (Tarjeta vs Domiciliación)
+ */
+function gestionarPagoSocio(sufijo) {
+    const metodo = document.getElementById('metodo_pago_' + sufijo).value;
+    const divTarjeta = document.getElementById('form-tarjeta-' + sufijo);
+    const divBanco = document.getElementById('form-domiciliacion-' + sufijo);
+    
+    // Ocultar ambos por defecto
+    divTarjeta.style.display = 'none';
+    divBanco.style.display = 'none';
+    
+    // Quitar required por defecto
+    divTarjeta.querySelectorAll('input').forEach(i => i.required = false);
+    divBanco.querySelectorAll('input').forEach(i => i.required = false);
+
+    if (metodo === 'tarjeta') {
+        divTarjeta.style.display = 'block';
+        divTarjeta.querySelectorAll('input').forEach(i => i.required = true);
+    } else if (metodo === 'domiciliacion') {
+        divBanco.style.display = 'block';
+        divBanco.querySelectorAll('input').forEach(i => i.required = true);
+    }
+}
+
+// Inicialización
+document.addEventListener('DOMContentLoaded', () => {
+    showTab('persona');
+});
+</script>
 {% endblock %}

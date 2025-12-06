@@ -2,14 +2,16 @@
 
 {% block content %}
 <div class="event-card" style="margin-top: 20px;">
-    <img src="{{ url_for('static', filename='img/cesta_solidaria.jpg') }}" alt="Rifa">
+    <img src="{{ url_for('static', filename=rifa.imagen) if rifa.imagen else url_for('static', filename='img/cesta_solidaria.jpg') }}"
+        alt="Rifa">
 
     <div class="event-details">
-        <h2>{{ rifa.titulo }}</h2>
+        <h2>{{ rifa.nombre }}</h2>
 
         <p><strong>Premio:</strong> {{ rifa.premio }}</p>
-        <p><strong>Fecha del sorteo:</strong> {{ rifa.fecha_sorteo }}</p>
-        <p><strong>Descripción:</strong> {{ rifa.descripcion }}</p>
+        <p><strong>Fecha del sorteo:</strong> {{ rifa.fecha_fin.strftime('%d/%m/%Y %H:%M') if rifa.fecha_fin else 'Sin
+            fecha' }}</p>
+        <p><strong>Descripción:</strong> {{ rifa.informacion }}</p>
 
         <div style="margin-top: 20px;">
             <a href="{{ url_for('participar_rifa', id=rifa.id) }}" class="btn btn-green">
@@ -18,6 +20,16 @@
             <a href="{{ url_for('eventos') }}" class="btn btn-green" style="margin-left: 10px;">
                 Volver a eventos
             </a>
+
+            {% if current_user.is_authenticated and current_user.es_admin %}
+            <div style="margin-top: 15px;">
+                <a href="{{ url_for('editar_rifa', id=rifa.id) }}" class="btn btn-warning">Editar Rifa</a>
+                <form action="{{ url_for('eliminar_rifa', id=rifa.id) }}" method="POST" class="d-inline"
+                    onsubmit="return confirm('¿Estás seguro de borrar esta rifa?');">
+                    <button type="submit" class="btn btn-danger" style="margin-left: 10px;">Eliminar Rifa</button>
+                </form>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>

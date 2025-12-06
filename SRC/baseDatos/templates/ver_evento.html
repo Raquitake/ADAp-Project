@@ -9,6 +9,12 @@
     {% endif %}
     <h1>{{ evento.nombre_evento }}</h1>
     <p class="date">{{ evento.fecha }}</p>
+    {% if current_user.is_authenticated and current_user.es_admin %}
+    <div style="margin-top: 15px;">
+        <a href="{{ url_for('editar_evento', id=evento.id) }}" class="btn btn-warning">Editar Evento</a>
+        <a href="{{ url_for('confirmar_eliminar_evento', id=evento.id) }}" class="btn btn-danger">Eliminar Evento</a>
+    </div>
+    {% endif %}
 </div>
 
 <div style="text-align: center; margin: 20px 0;">

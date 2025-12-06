@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from functools import wraps
 from datetime import datetime
-from models import db, Usuario, Administrador, Evento, Entrada 
+from models import db, Usuario, Administrador, Evento, Entrada, Rifa 
 
 def validar_dni_nie(documento):
     # Limpiamos el input (mayúsculas y sin espacios)
@@ -93,19 +93,9 @@ def contacto():
 
 @app.route('/eventos')
 def eventos():
-    # (listado)Eventos
     lista_eventos = Evento.query.all()
-    rifas = [
-        {
-            "id": 1,
-            "titulo": "Rifa Cesta Solidaria",
-            "premio": "Cesta con productos locales y artesanales.",
-            "fecha_sorteo": "20/12/2025",
-            "descripcion": "Incluye productos típicos del municipio.",
-            "imagen": "img/rifa-cesta.jpg"
-        }
-    ]
-    return render_template('eventos.html', eventos=lista_eventos, rifas=rifas)
+    lista_rifas = Rifa.query.all()
+    return render_template('eventos.html', eventos=lista_eventos, rifas=lista_rifas)
 
 @app.route('/evento/<int:id>')
 def ver_evento(id):
@@ -113,46 +103,24 @@ def ver_evento(id):
     evento = Evento.query.get_or_404(id)
     return render_template('ver_evento.html', evento=evento)
 
-def get_rifas():
-    return {
-        1: {
-            "id": 1,
-            "titulo": "Rifa Cesta Solidaria",
-            "premio": "Cesta con productos locales y artesanales.",
-            "fecha_sorteo": "20/12/2025",
-            "descripcion": "Incluye productos típicos del municipio.",
-            "imagen": "img/rifa-cesta.jpg"
-        }
-    }
-
 @app.route('/rifa/<int:id>')
 def ver_rifa(id):
-    rifas = get_rifas()
-    rifa = rifas.get(id)
-    if not rifa:
-        abort(404)
+    rifa = Rifa.query.get_or_404(id)
     return render_template('rifa.html', rifa=rifa)
 
 @app.route('/rifa/<int:id>/participar', methods=['GET', 'POST'])
 @login_required
 def participar_rifa(id):
-    rifas = get_rifas()
-    rifa = rifas.get(id)
-
-    if not rifa:
-        abort(404)
+    rifa = Rifa.query.get_or_404(id)
 
     if request.method == 'POST':
         cantidad_boletos = int(request.form.get('cantidad', 1))
         metodo_pago = request.form.get('metodo_pago')
 
-        # Aquí iría la lógica real de pago + guardar en BD
-        flash(f'Has comprado {cantidad_boletos} boletos para la rifa "{rifa["titulo"]}" pagando con {metodo_pago}.')
+        # Aquí iría la lógica real de pago + guardar en BD (Modelo Boleto)
+        flash(f'Has comprado {cantidad_boletos} boletos para la rifa "{rifa.nombre}" pagando con {metodo_pago}.')
         return redirect(url_for('dashboard'))
 
-    return render_template('participar_rifa.html', rifa=rifa)
-
-    # GET → mostramos página similar a pago_entrada
     return render_template('participar_rifa.html', rifa=rifa)
 
 @app.route('/evento/comprar/<int:id_evento>', methods=['GET', 'POST'])
@@ -249,14 +217,34 @@ def editar_evento(id):
         return redirect(url_for('ver_evento', id=id))
     return render_template('admin/editar_evento.html', evento=evento)
 
+@app.route('/admin/evento/eliminar/confirmar/<int:id>')
+@login_required
+@admin_required
+def confirmar_eliminar_evento(id):
+    evento = Evento.query.get_or_404(id)
+    return render_template('admin/confirmar_eliminar_evento.html', evento=evento)
+
 @app.route('/admin/evento/eliminar/<int:id>', methods=['POST'])
 @login_required
 @admin_required
 def eliminar_evento(id):
     evento = Evento.query.get_or_404(id)
+    
+    # 1. Eliminar imagen del sistema de archivos si existe
+    if evento.imagen_evento:
+        filename = os.path.basename(evento.imagen_evento)
+        image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        
+        if os.path.exists(image_path):
+            try:
+                os.remove(image_path)
+            except Exception as e:
+                print(f"Error al eliminar imagen: {e}")
+
+    # 2. Eliminar evento de la BD
     db.session.delete(evento)
     db.session.commit()
-    flash('Evento eliminado')
+    flash('Evento e imagen eliminados correctamente')
     return redirect(url_for('eventos'))
 
 @app.route('/admin/socios')
@@ -265,6 +253,113 @@ def eliminar_evento(id):
 def gestionar_socios():
     socios = Usuario.query.filter_by(es_socio=True).all()
     return render_template('admin/gestionar_socios.html', socios=socios)
+
+# --- GESTIÓN DE RIFAS (ADMIN) ---
+
+@app.route('/admin/rifas')
+@login_required
+@admin_required
+def gestionar_rifas():
+    rifas = Rifa.query.all()
+    return render_template('admin/gestionar_rifas.html', rifas=rifas)
+
+@app.route('/admin/rifa/crear', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def crear_rifa():
+    if request.method == 'POST':
+        nombre = request.form.get('nombre')
+        premio = request.form.get('premio')
+        informacion = request.form.get('informacion')
+        fecha_str = request.form.get('fecha')
+        
+        fecha_fin = None
+        if fecha_str:
+            try:
+                fecha_fin = datetime.strptime(fecha_str, '%Y-%m-%dT%H:%M')
+            except ValueError:
+                pass
+
+        imagen_path = None
+        if 'imagen' in request.files:
+            file = request.files['imagen']
+            if file and file.filename != '':
+                filename = secure_filename(file.filename)
+                timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+                filename = f"rifa_{timestamp}_{filename}"
+                
+                # Guardar en static/img
+                save_dir = os.path.join(basedir, 'static', 'img')
+                if not os.path.exists(save_dir):
+                    os.makedirs(save_dir)
+                    
+                file.save(os.path.join(save_dir, filename))
+                imagen_path = f"img/{filename}"
+
+        nueva_rifa = Rifa(
+            nombre=nombre,
+            premio=premio,
+            informacion=informacion,
+            fecha_fin=fecha_fin,
+            imagen=imagen_path
+        )
+        db.session.add(nueva_rifa)
+        db.session.commit()
+        flash('Rifa creada exitosamente')
+        return redirect(url_for('gestionar_rifas'))
+    return render_template('admin/crear_rifa.html')
+
+@app.route('/admin/rifa/editar/<int:id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def editar_rifa(id):
+    rifa = Rifa.query.get_or_404(id)
+    if request.method == 'POST':
+        rifa.nombre = request.form.get('nombre')
+        rifa.premio = request.form.get('premio')
+        rifa.informacion = request.form.get('informacion')
+        
+        fecha_str = request.form.get('fecha')
+        if fecha_str:
+            try:
+                rifa.fecha_fin = datetime.strptime(fecha_str, '%Y-%m-%dT%H:%M')
+            except ValueError:
+                pass
+        
+        if 'imagen' in request.files:
+            file = request.files['imagen']
+            if file and file.filename != '':
+                filename = secure_filename(file.filename)
+                timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+                filename = f"rifa_{timestamp}_{filename}"
+                save_dir = os.path.join(basedir, 'static', 'img')
+                file.save(os.path.join(save_dir, filename))
+                
+                rifa.imagen = f"img/{filename}"
+
+        db.session.commit()
+        flash('Rifa actualizada')
+        return redirect(url_for('gestionar_rifas'))
+    return render_template('admin/editar_rifa.html', rifa=rifa)
+
+@app.route('/admin/rifa/eliminar/<int:id>', methods=['POST'])
+@login_required
+@admin_required
+def eliminar_rifa(id):
+    rifa = Rifa.query.get_or_404(id)
+    # Borrar imagen si existe
+    if rifa.imagen:
+        try:
+            full_path = os.path.join(basedir, 'static', rifa.imagen.replace('/', os.sep))
+            if os.path.exists(full_path):
+                os.remove(full_path)
+        except Exception as e:
+            print(f"Error borrando imagen rifa: {e}")
+            
+    db.session.delete(rifa)
+    db.session.commit()
+    flash('Rifa eliminada')
+    return redirect(url_for('gestionar_rifas'))
 
 # --- RUTAS DE SOCIOS / DONACIONES ---
 

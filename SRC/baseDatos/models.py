@@ -90,6 +90,8 @@ class Rifa(db.Model):
     nombre = db.Column(db.String(150))
     fecha_fin = db.Column(db.DateTime)
     informacion = db.Column(db.Text)
+    premio = db.Column(db.String(255))
+    imagen = db.Column(db.String(255), nullable=True)
     ganador_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=True) 
 
 # --- TRANSACCIONES (ENTRADAS Y BOLETOS) ---

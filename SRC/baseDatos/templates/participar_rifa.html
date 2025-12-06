@@ -3,11 +3,12 @@
 {% block content %}
 <div class="event-card" style="margin-top: 20px;">
     <div class="event-details">
-        <h2>Participar en: {{ rifa.titulo }}</h2>
+        <h2>Participar en: {{ rifa.nombre }}</h2>
 
         <p><strong>Premio:</strong> {{ rifa.premio }}</p>
-        <p><strong>Fecha del sorteo:</strong> {{ rifa.fecha_sorteo }}</p>
-        <p>{{ rifa.descripcion }}</p>
+        <p><strong>Fecha del sorteo:</strong> {{ rifa.fecha_fin.strftime('%d/%m/%Y %H:%M') if rifa.fecha_fin else 'Sin
+            fecha' }}</p>
+        <p>{{ rifa.informacion }}</p>
 
         <form method="POST" style="margin-top: 20px;">
 

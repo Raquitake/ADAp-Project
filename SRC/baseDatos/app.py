@@ -616,15 +616,16 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
         
-        # --- DATOS DE PRUEBA (SOLO PARA VER QUE FUNCIONA) ---
         if not Evento.query.first():
             evento_demo = Evento(
                 nombre_evento="Gala Benéfica James Bond",
                 localizacion="Rotary Club Marbella",
-                fecha=None, # Pon un datetime real aquí
-                informacion="Una velada inolvidable..."
+                fecha=datetime(2026, 1, 1, 21, 0), 
+                informacion="Una velada inolvidable...",
+                precio=20.0 
             )
             db.session.add(evento_demo)
             db.session.commit()
+            print("✅ Evento de prueba creado: Gala James Bond (01/01/2026 - 20€)")
             
     app.run(debug=True)

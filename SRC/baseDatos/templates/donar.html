@@ -2,132 +2,154 @@
 
 {% block content %}
 <style>
-.form-group input[type="checkbox"], 
-.form-group input[type="radio"] {
-    width: auto !important; 
-    margin-right: 10px; 
-    margin-top: 0;
-    flex-shrink: 0; 
-    cursor: pointer;
-}
+    .form-group input[type="checkbox"],
+    .form-group input[type="radio"] {
+        width: auto !important;
+        margin-right: 10px;
+        margin-top: 0;
+        flex-shrink: 0;
+        cursor: pointer;
+    }
 
-.form-group label {
-    display: flex !important; 
-    align-items: center; 
-    font-weight: normal !important; 
-    cursor: pointer;
-    margin-bottom: 5px;
-    text-align: left;
-}
-
-
-.form-group input[type="text"], 
-.form-group input[type="email"], 
-.form-group input[type="tel"], 
-.form-group input[type="date"], 
-.form-group select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; 
-}
+    .form-group label {
+        display: flex !important;
+        align-items: center;
+        font-weight: normal !important;
+        cursor: pointer;
+        margin-bottom: 5px;
+        text-align: left;
+    }
 
 
-.inline-amount-group {
-    display: flex;
-    align-items: center;
-    gap: 10px; 
-}
-.amount-input {
-    max-width: 120px !important; 
-    width: 120px !important;     
-    text-align: right;
-}
-.currency-symbol {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-}
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group input[type="date"],
+    .form-group select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
 
 
-.form-title {
-    margin-top: 25px;
-    margin-bottom: 15px;
-    font-size: 1.4rem;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 8px;
-    color: var(--dark-green, #2E7D32);
-}
+    .inline-amount-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .amount-input {
+        max-width: 120px !important;
+        width: 120px !important;
+        text-align: right;
+    }
+
+    .currency-symbol {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+    }
 
 
-.tabs {
-    display: flex;
-    gap: 0;
-    margin-bottom: 25px;
-    border-bottom: 1px solid #ccc;
-}
-.tab-btn {
-    background: #f1f1f1;
-    padding: 10px 20px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-bottom: none;
-    flex-grow: 1; 
-    text-align: center;
-    font-weight: bold;
-    color: #555;
-    transition: background 0.3s;
-}
-.tab-btn:first-child { border-top-left-radius: 5px; }
-.tab-btn:last-child { border-top-right-radius: 5px; border-right: 1px solid #ccc; }
-.tab-btn:not(:last-child) { border-right: none; }
+    .form-title {
+        margin-top: 25px;
+        margin-bottom: 15px;
+        font-size: 1.4rem;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 8px;
+        color: var(--dark-green, #2E7D32);
+    }
 
-.tab-btn.active {
-    background: var(--dark-green, #2E7D32); 
-    color: white;
-}
 
-.radio-group-inline {
-    display: flex;
-    gap: 30px; 
-    align-items: center;
-}
+    .tabs {
+        display: flex;
+        gap: 0;
+        margin-bottom: 25px;
+        border-bottom: 1px solid #ccc;
+    }
 
-.radio-group-inline label {
-    margin-bottom: 0; 
-}
+    .tab-btn {
+        background: #f1f1f1;
+        padding: 10px 20px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        border-bottom: none;
+        flex-grow: 1;
+        text-align: center;
+        font-weight: bold;
+        color: #555;
+        transition: background 0.3s;
+    }
 
-.info-box {
-    padding: 20px; 
-    border-radius: 8px; 
-    margin-bottom: 20px;
-}
-.info-box.transfer { background: #e8f5e9; border: 1px solid #c8e6c9; }
-.info-box.check { background: #fff3e0; border: 1px solid #ffe0b2; }
+    .tab-btn:first-child {
+        border-top-left-radius: 5px;
+    }
 
-.fiscal-container {
-    display:none; 
-    padding: 20px; 
-    border: 1px solid #e0e0e0; 
-    background-color: #fafafa; 
-    border-radius: 8px; 
-    margin-top: 10px;
-}
+    .tab-btn:last-child {
+        border-top-right-radius: 5px;
+        border-right: 1px solid #ccc;
+    }
 
-.btn-green {
-    background-color: var(--dark-green, #2E7D32);
-    color: white;
-    border: none;
-    padding: 12px;
-    font-size: 1.1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-.btn-green:hover {
-    background-color: #1b5e20;
-}
+    .tab-btn:not(:last-child) {
+        border-right: none;
+    }
+
+    .tab-btn.active {
+        background: var(--dark-green, #2E7D32);
+        color: white;
+    }
+
+    .radio-group-inline {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .radio-group-inline label {
+        margin-bottom: 0;
+    }
+
+    .info-box {
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .info-box.transfer {
+        background: #e8f5e9;
+        border: 1px solid #c8e6c9;
+    }
+
+    .info-box.check {
+        background: #fff3e0;
+        border: 1px solid #ffe0b2;
+    }
+
+    .fiscal-container {
+        display: none;
+        padding: 20px;
+        border: 1px solid #e0e0e0;
+        background-color: #fafafa;
+        border-radius: 8px;
+        margin-top: 10px;
+    }
+
+    .btn-green {
+        background-color: var(--dark-green, #2E7D32);
+        color: white;
+        border: none;
+        padding: 12px;
+        font-size: 1.1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn-green:hover {
+        background-color: #1b5e20;
+    }
 </style>
 
 <h2>Haz una donación</h2>
@@ -139,82 +161,95 @@
 </div>
 
 <div id="tab-donaahora">
-    <form method="POST" id="cudeca-formulario-donacion" action="{{ url_for('donar') }}"> 
-        
+    <form method="POST" id="cudeca-formulario-donacion" action="{{ url_for('donar') }}">
+
         <h2 class="form-title">Selecciona la cantidad del donativo</h2>
         <div class="form-group">
             <label for="cudeca_donacionesform_cantidad">Cantidad <span style="color:red">*</span></label>
-            <div class="inline-amount-group"> 
-                <input type="text" id="cudeca_donacionesform_cantidad" name="cudeca_donacionesform[cantidad]" required="required" placeholder="Cantidad" class="amount-input"> 
-                <span class="currency-symbol">€</span> 
+            <div class="inline-amount-group">
+                <input type="text" id="cudeca_donacionesform_cantidad" name="cudeca_donacionesform[cantidad]"
+                    required="required" placeholder="Cantidad" class="amount-input">
+                <span class="currency-symbol">€</span>
             </div>
         </div>
-        
+
         <div class="form-group">
             <label for="cudeca_donacionesform_enmemoria">
-                <input type="checkbox" id="cudeca_donacionesform_enmemoria" name="cudeca_donacionesform[enmemoria]" value="1">
+                <input type="checkbox" id="cudeca_donacionesform_enmemoria" name="cudeca_donacionesform[enmemoria]"
+                    value="1">
                 ¿Realizas esta donación en memoria de un familiar o amigo?
             </label>
         </div>
-        
+
         <div id="div_campo_memoriatext" class="form-group" style="display:none; margin-left: 25px;">
             <label for="cudeca_donacionesform_memoriatext">¿Nos podrías indicar su nombre?</label>
-            <input type="text" id="cudeca_donacionesform_memoriatext" name="cudeca_donacionesform[memoriatext]" maxlength="2048" placeholder="Nombre de la persona...">
+            <input type="text" id="cudeca_donacionesform_memoriatext" name="cudeca_donacionesform[memoriatext]"
+                maxlength="2048" placeholder="Nombre de la persona...">
         </div>
 
         <h2 class="form-title">Introduce tus datos</h2>
-        
+
         <div class="form-group">
             <div class="radio-group-inline">
                 <label for="cudeca_donacionesform_tipodonante_0">
-                    <input type="radio" id="cudeca_donacionesform_tipodonante_0" name="cudeca_donacionesform[tipodonante]" value="particular" checked="checked">
+                    <input type="radio" id="cudeca_donacionesform_tipodonante_0"
+                        name="cudeca_donacionesform[tipodonante]" value="particular" checked="checked">
                     Particular
                 </label>
-                
+
                 <label for="cudeca_donacionesform_tipodonante_1">
-                    <input type="radio" id="cudeca_donacionesform_tipodonante_1" name="cudeca_donacionesform[tipodonante]" value="organizacion">
+                    <input type="radio" id="cudeca_donacionesform_tipodonante_1"
+                        name="cudeca_donacionesform[tipodonante]" value="organizacion">
                     Organización
                 </label>
             </div>
         </div>
-        
+
         <div id="div_cudeca_donacionesform_empresa" class="form-group" style="display: none;">
             <label for="cudeca_donacionesform_empresa">Empresa <span style="color:red">*</span></label>
-            <input type="text" id="cudeca_donacionesform_empresa" name="cudeca_donacionesform[empresa]" placeholder="Nombre de la empresa">
+            <input type="text" id="cudeca_donacionesform_empresa" name="cudeca_donacionesform[empresa]"
+                placeholder="Nombre de la empresa">
         </div>
-        
+
         <div class="form-group">
             <label for="cudeca_donacionesform_nombre">Nombre <span style="color:red">*</span></label>
             <div style="display: flex; gap: 10px;">
-                <select id="cudeca_donacionesform_tratamiento" name="cudeca_donacionesform[tratamiento]" style="width: 80px; flex-shrink: 0;">
+                <select id="cudeca_donacionesform_tratamiento" name="cudeca_donacionesform[tratamiento]"
+                    style="width: 80px; flex-shrink: 0;">
                     <option value=""></option>
                     <option value="D.">D.</option>
                     <option value="Dña.">Dña</option>
                 </select>
-                <input type="text" id="cudeca_donacionesform_nombre" name="cudeca_donacionesform[nombre]" required="required" placeholder="Nombre">
+                <input type="text" id="cudeca_donacionesform_nombre" name="cudeca_donacionesform[nombre]"
+                    required="required" placeholder="Nombre">
             </div>
         </div>
-        
+
         <div class="form-group">
             <label for="cudeca_donacionesform_apellidos">Apellidos <span style="color:red">*</span></label>
-            <input type="text" id="cudeca_donacionesform_apellidos" name="cudeca_donacionesform[apellidos]" required="required" placeholder="Apellidos">
+            <input type="text" id="cudeca_donacionesform_apellidos" name="cudeca_donacionesform[apellidos]"
+                required="required" placeholder="Apellidos">
         </div>
-        
+
         <div class="form-group">
             <label for="cudeca_donacionesform_email">Email <span style="color:red">*</span></label>
-            <input type="email" id="cudeca_donacionesform_email" name="cudeca_donacionesform[email]" required="required" placeholder="ejemplo@email.com">
+            <input type="email" id="cudeca_donacionesform_email" name="cudeca_donacionesform[email]" required="required"
+                placeholder="ejemplo@email.com">
         </div>
-        
+
         <div class="form-group">
-            <p style="margin: 20px 0 5px 0; font-size: 0.9em; color: #666;">Por favor indíquenos su número de teléfono y/o móvil:</p>
+            <p style="margin: 20px 0 5px 0; font-size: 0.9em; color: #666;">Por favor indíquenos su número de teléfono
+                y/o móvil:</p>
             <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                 <div style="flex: 1;">
                     <label for="cudeca_donacionesform_telefono">Teléfono</label>
-                    <input type="tel" id="cudeca_donacionesform_telefono" name="cudeca_donacionesform[telefono]" placeholder="Fijo">
+                    <input type="tel" id="cudeca_donacionesform_telefono" name="cudeca_donacionesform[telefono]"
+                        placeholder="Fijo">
                 </div>
                 <div style="flex: 1;">
                     <label for="cudeca_donacionesform_movil">Móvil</label>
-                    <input type="tel" id="cudeca_donacionesform_movil" name="cudeca_donacionesform[movil]" placeholder="Móvil">
+                    <input type="tel" id="cudeca_donacionesform_movil" name="cudeca_donacionesform[movil]"
+                        placeholder="Móvil">
                 </div>
             </div>
         </div>
@@ -225,65 +260,75 @@
         </div>
 
         <h2 class="form-title">Deducciones fiscales</h2>
-        
+
         <div class="form-group">
             <label for="cudeca_donacionesform_certificado" style="align-items: flex-start;">
-                <input type="checkbox" id="cudeca_donacionesform_certificado" name="cudeca_donacionesform[certificado]" value="1" style="margin-top: 4px;">
-                <span>Quiero beneficiarme de las deducciones fiscales disponibles (imprescindible marcar y completar datos).</span>
+                <input type="checkbox" id="cudeca_donacionesform_certificado" name="cudeca_donacionesform[certificado]"
+                    value="1" style="margin-top: 4px;">
+                <span>Quiero beneficiarme de las deducciones fiscales disponibles (imprescindible marcar y completar
+                    datos).</span>
             </label>
         </div>
 
         <div id="div-certificado" class="fiscal-container">
-             <h4 style="margin-top: 0; margin-bottom: 15px;">Datos para el certificado</h4>
-            
+            <h4 style="margin-top: 0; margin-bottom: 15px;">Datos para el certificado</h4>
+
             <div class="form-group">
                 <label for="cudeca_donacionesform_nif">DNI / CIF <span style="color:red">*</span></label>
-                <input type="text" id="cudeca_donacionesform_nif" name="cudeca_donacionesform[nif]" placeholder="Número de documento">
+                <input type="text" id="cudeca_donacionesform_nif" name="cudeca_donacionesform[nif]"
+                    placeholder="Número de documento">
             </div>
-            
+
             <div class="form-group">
                 <label for="cudeca_donacionesform_calle">Dirección <span style="color:red">*</span></label>
                 <div style="display: flex; gap: 10px;">
-                    <select id="cudeca_donacionesform_tipo_via" name="cudeca_donacionesform[tipo_via]" style="width: 120px;">
+                    <select id="cudeca_donacionesform_tipo_via" name="cudeca_donacionesform[tipo_via]"
+                        style="width: 120px;">
                         <option value="Calle">Calle</option>
                         <option value="Avenida">Avenida</option>
                         <option value="Plaza">Plaza</option>
                         <option value="Otro">Otro</option>
                     </select>
-                    <input type="text" id="cudeca_donacionesform_calle" name="cudeca_donacionesform[calle]" placeholder="Dirección completa">
+                    <input type="text" id="cudeca_donacionesform_calle" name="cudeca_donacionesform[calle]"
+                        placeholder="Dirección completa">
                 </div>
             </div>
-            
+
             <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                 <div class="form-group" style="flex: 1; min-width: 120px;">
                     <label for="cudeca_donacionesform_cp">C. Postal <span style="color:red">*</span></label>
-                    <input type="text" id="cudeca_donacionesform_cp" name="cudeca_donacionesform[cp]" placeholder="29000">
+                    <input type="text" id="cudeca_donacionesform_cp" name="cudeca_donacionesform[cp]"
+                        placeholder="29000">
                 </div>
                 <div class="form-group" style="flex: 2; min-width: 150px;">
-                    <label for="cudeca_donacionesform_poblacion_ciudad_select">Población <span style="color:red">*</span></label>
-                    <input type="text" id="cudeca_donacionesform_poblacion" name="cudeca_donacionesform[poblacion]" placeholder="Ciudad">
+                    <label for="cudeca_donacionesform_poblacion_ciudad_select">Población <span
+                            style="color:red">*</span></label>
+                    <input type="text" id="cudeca_donacionesform_poblacion" name="cudeca_donacionesform[poblacion]"
+                        placeholder="Ciudad">
                 </div>
             </div>
-            
+
             <div class="form-group">
-                 <label for="cudeca_donacionesform_pais">País <span style="color:red">*</span></label>
-                 <select id="cudeca_donacionesform_pais" name="cudeca_donacionesform[pais]">
+                <label for="cudeca_donacionesform_pais">País <span style="color:red">*</span></label>
+                <select id="cudeca_donacionesform_pais" name="cudeca_donacionesform[pais]">
                     <option value="España">España</option>
                     <option value="Reino Unido">Reino Unido</option>
                     <option value="Otro">Otro</option>
-                 </select>
+                </select>
             </div>
         </div>
 
         <h2 class="form-title" style="border: none; margin-top: 30px;"></h2>
-        
+
         <div class="form-group">
             <label for="cudeca_donacionesform_legal">
-                <input type="checkbox" id="cudeca_donacionesform_legal" name="cudeca_donacionesform[legal]" required="required"> 
-                <span>Acepto la <a href="#" target="_blank">Política de Privacidad</a> y el <a href="#" target="_blank">Aviso Legal.</a> <span style="color:red">*</span></span>
+                <input type="checkbox" id="cudeca_donacionesform_legal" name="cudeca_donacionesform[legal]"
+                    required="required">
+                <span>Acepto la <a href="#" target="_blank">Política de Privacidad</a> y el <a href="#"
+                        target="_blank">Aviso Legal.</a> <span style="color:red">*</span></span>
             </label>
         </div>
-        
+
         <div class="form-group">
             <label for="cudeca_donacionesform_noinfo">
                 <input type="checkbox" id="cudeca_donacionesform_noinfo" name="cudeca_donacionesform[noinfo]" value="1">
@@ -315,37 +360,44 @@
     <p>Por favor, <strong>rellena este formulario</strong> y envíalo para poder identificar tu transferencia:</p>
 
     <form method="POST" id="cudeca-formulario-transferencia" action="{{ url_for('donar') }}">
-        
+
         <h2 class="form-title">Detalles de la donación</h2>
         <div class="form-group">
-            <label for="cudeca_donacionesformtransferencia_cantidad">Cantidad transferida <span style="color:red">*</span></label>
-            <div class="inline-amount-group"> 
-                <input type="text" id="cudeca_donacionesformtransferencia_cantidad" name="cudeca_donacionesformtransferencia[cantidad]" required="required" placeholder="Cantidad" class="amount-input"> 
-                <span class="currency-symbol">€</span> 
+            <label for="cudeca_donacionesformtransferencia_cantidad">Cantidad transferida <span
+                    style="color:red">*</span></label>
+            <div class="inline-amount-group">
+                <input type="text" id="cudeca_donacionesformtransferencia_cantidad"
+                    name="cudeca_donacionesformtransferencia[cantidad]" required="required" placeholder="Cantidad"
+                    class="amount-input">
+                <span class="currency-symbol">€</span>
             </div>
         </div>
-        
+
         <div class="form-group">
             <label for="cudeca_donacionesformtransferencia_enmemoria">
-                <input type="checkbox" id="cudeca_donacionesformtransferencia_enmemoria" name="cudeca_donacionesformtransferencia[enmemoria]" value="1">
+                <input type="checkbox" id="cudeca_donacionesformtransferencia_enmemoria"
+                    name="cudeca_donacionesformtransferencia[enmemoria]" value="1">
                 ¿Realizas esta donación en memoria de un familiar o amigo?
             </label>
         </div>
-        
+
         <div id="div_campo_memoriatext_transferencia" class="form-group" style="display:none; margin-left: 25px;">
             <label for="cudeca_donacionesformtransferencia_memoriatext">¿Nos podrías indicar su nombre?</label>
-            <input type="text" id="cudeca_donacionesformtransferencia_memoriatext" name="cudeca_donacionesformtransferencia[memoriatext]" maxlength="2048" placeholder="Nombre...">
+            <input type="text" id="cudeca_donacionesformtransferencia_memoriatext"
+                name="cudeca_donacionesformtransferencia[memoriatext]" maxlength="2048" placeholder="Nombre...">
         </div>
 
         <h2 class="form-title">Tus datos</h2>
         <div class="form-group">
             <div class="radio-group-inline">
                 <label for="cudeca_donacionesformtransferencia_tipodonante_0">
-                    <input type="radio" id="cudeca_donacionesformtransferencia_tipodonante_0" name="cudeca_donacionesformtransferencia[tipodonante]" value="particular" checked="checked">
+                    <input type="radio" id="cudeca_donacionesformtransferencia_tipodonante_0"
+                        name="cudeca_donacionesformtransferencia[tipodonante]" value="particular" checked="checked">
                     Particular
                 </label>
                 <label for="cudeca_donacionesformtransferencia_tipodonante_1">
-                    <input type="radio" id="cudeca_donacionesformtransferencia_tipodonante_1" name="cudeca_donacionesformtransferencia[tipodonante]" value="organizacion">
+                    <input type="radio" id="cudeca_donacionesformtransferencia_tipodonante_1"
+                        name="cudeca_donacionesformtransferencia[tipodonante]" value="organizacion">
                     Organización
                 </label>
             </div>
@@ -353,31 +405,39 @@
 
         <div id="div_cudeca_donacionesformtransferencia_empresa" class="form-group" style="display: none;">
             <label for="cudeca_donacionesformtransferencia_empresa">Empresa <span style="color:red">*</span></label>
-            <input type="text" id="cudeca_donacionesformtransferencia_empresa" name="cudeca_donacionesformtransferencia[empresa]" placeholder="Nombre de la empresa">
+            <input type="text" id="cudeca_donacionesformtransferencia_empresa"
+                name="cudeca_donacionesformtransferencia[empresa]" placeholder="Nombre de la empresa">
         </div>
 
         <div class="form-group">
-            <label for="cudeca_donacionesformtransferencia_nombre">Nombre y Apellidos <span style="color:red">*</span></label>
+            <label for="cudeca_donacionesformtransferencia_nombre">Nombre y Apellidos <span
+                    style="color:red">*</span></label>
             <div style="display: flex; gap: 10px;">
-                 <input type="text" id="cudeca_donacionesformtransferencia_nombre" name="cudeca_donacionesformtransferencia[nombre]" required="required" placeholder="Nombre">
-                 <input type="text" id="cudeca_donacionesformtransferencia_apellidos" name="cudeca_donacionesformtransferencia[apellidos]" required="required" placeholder="Apellidos">
+                <input type="text" id="cudeca_donacionesformtransferencia_nombre"
+                    name="cudeca_donacionesformtransferencia[nombre]" required="required" placeholder="Nombre">
+                <input type="text" id="cudeca_donacionesformtransferencia_apellidos"
+                    name="cudeca_donacionesformtransferencia[apellidos]" required="required" placeholder="Apellidos">
             </div>
         </div>
 
         <div class="form-group">
             <label for="cudeca_donacionesformtransferencia_email">Email <span style="color:red">*</span></label>
-            <input type="email" id="cudeca_donacionesformtransferencia_email" name="cudeca_donacionesformtransferencia[email]" required="required">
+            <input type="email" id="cudeca_donacionesformtransferencia_email"
+                name="cudeca_donacionesformtransferencia[email]" required="required">
         </div>
 
         <div class="form-group">
-             <label for="cudeca_donacionesformtransferencia_telefono">Teléfono / Móvil <span style="color:red">*</span></label>
-             <input type="text" id="cudeca_donacionesformtransferencia_telefono" name="cudeca_donacionesformtransferencia[telefono]" placeholder="Teléfono">
+            <label for="cudeca_donacionesformtransferencia_telefono">Teléfono / Móvil <span
+                    style="color:red">*</span></label>
+            <input type="text" id="cudeca_donacionesformtransferencia_telefono"
+                name="cudeca_donacionesformtransferencia[telefono]" placeholder="Teléfono">
         </div>
 
         <h2 class="form-title">Deducciones fiscales</h2>
         <div class="form-group">
             <label for="cudeca_donacionesformtransferencia_certificado" style="align-items: flex-start;">
-                <input type="checkbox" id="cudeca_donacionesformtransferencia_certificado" name="cudeca_donacionesformtransferencia[certificado]" value="1" style="margin-top: 4px;">
+                <input type="checkbox" id="cudeca_donacionesformtransferencia_certificado"
+                    name="cudeca_donacionesformtransferencia[certificado]" value="1" style="margin-top: 4px;">
                 <span>Quiero certificado fiscal (imprescindible completar datos).</span>
             </label>
         </div>
@@ -385,25 +445,31 @@
         <div id="div-certificado_transferencia" class="fiscal-container">
             <div class="form-group">
                 <label for="cudeca_donacionesformtransferencia_nif">DNI / CIF <span style="color:red">*</span></label>
-                <input type="text" id="cudeca_donacionesformtransferencia_nif" name="cudeca_donacionesformtransferencia[nif]" placeholder="Número de documento">
+                <input type="text" id="cudeca_donacionesformtransferencia_nif"
+                    name="cudeca_donacionesformtransferencia[nif]" placeholder="Número de documento">
             </div>
             <div class="form-group">
-                <label for="cudeca_donacionesformtransferencia_calle">Dirección, CP y Población <span style="color:red">*</span></label>
-                <input type="text" id="cudeca_donacionesformtransferencia_calle" name="cudeca_donacionesformtransferencia[calle]" placeholder="Dirección completa">
+                <label for="cudeca_donacionesformtransferencia_calle">Dirección, CP y Población <span
+                        style="color:red">*</span></label>
+                <input type="text" id="cudeca_donacionesformtransferencia_calle"
+                    name="cudeca_donacionesformtransferencia[calle]" placeholder="Dirección completa">
                 <div style="display:flex; gap:10px; margin-top:10px;">
-                    <input type="text" id="cudeca_donacionesformtransferencia_cp" name="cudeca_donacionesformtransferencia[cp]" placeholder="CP" style="width:100px;">
-                    <input type="text" id="cudeca_donacionesformtransferencia_poblacion" name="cudeca_donacionesformtransferencia[poblacion]" placeholder="Población">
+                    <input type="text" id="cudeca_donacionesformtransferencia_cp"
+                        name="cudeca_donacionesformtransferencia[cp]" placeholder="CP" style="width:100px;">
+                    <input type="text" id="cudeca_donacionesformtransferencia_poblacion"
+                        name="cudeca_donacionesformtransferencia[poblacion]" placeholder="Población">
                 </div>
             </div>
         </div>
 
         <div class="form-group" style="margin-top:20px;">
             <label for="cudeca_donacionesformtransferencia_acepto">
-                <input type="checkbox" id="cudeca_donacionesformtransferencia_acepto" name="cudeca_donacionesformtransferencia[acepto]" required="required" value="1">
+                <input type="checkbox" id="cudeca_donacionesformtransferencia_acepto"
+                    name="cudeca_donacionesformtransferencia[acepto]" required="required" value="1">
                 He leído y acepto la política de privacidad. <span style="color:red">*</span>
             </label>
         </div>
-        
+
         <button type="submit" class="btn btn-green" style="width: 100%; margin-top: 20px;">
             Informar de transferencia realizada
         </button>
@@ -422,48 +488,56 @@
             Málaga
         </address>
     </div>
-    
+
     <p>Por favor, <strong>rellena este formulario</strong> para poder identificar tu cheque cuando llegue:</p>
 
     <form method="POST" id="cudeca-formulario-cheque" action="{{ url_for('donar') }}">
-        
+
         <h2 class="form-title">Datos del cheque</h2>
         <div class="form-group">
             <label for="cudeca_donacionesformcheque_cantidad">Cantidad <span style="color:red">*</span></label>
-            <div class="inline-amount-group"> 
-                <input type="text" id="cudeca_donacionesformcheque_cantidad" name="cudeca_donacionesformcheque[cantidad]" required="required" placeholder="Cantidad" class="amount-input"> 
-                <span class="currency-symbol">€</span> 
+            <div class="inline-amount-group">
+                <input type="text" id="cudeca_donacionesformcheque_cantidad"
+                    name="cudeca_donacionesformcheque[cantidad]" required="required" placeholder="Cantidad"
+                    class="amount-input">
+                <span class="currency-symbol">€</span>
             </div>
         </div>
-        
+
         <div class="form-group">
             <label for="cudeca_donacionesformcheque_numcheque">Nº de cheque <span style="color:red">*</span></label>
-            <input type="text" id="cudeca_donacionesformcheque_numcheque" name="cudeca_donacionesformcheque[numcheque]" required="required">
+            <input type="text" id="cudeca_donacionesformcheque_numcheque" name="cudeca_donacionesformcheque[numcheque]"
+                required="required">
         </div>
         <div class="form-group">
             <label for="cudeca_donacionesformcheque_banco">Entidad bancaria <span style="color:red">*</span></label>
-            <input type="text" id="cudeca_donacionesformcheque_banco" name="cudeca_donacionesformcheque[banco]" required="required">
+            <input type="text" id="cudeca_donacionesformcheque_banco" name="cudeca_donacionesformcheque[banco]"
+                required="required">
         </div>
 
         <div class="form-group">
             <label for="cudeca_donacionesformcheque_enmemoria">
-                <input type="checkbox" id="cudeca_donacionesformcheque_enmemoria" name="cudeca_donacionesformcheque[enmemoria]" value="1">
+                <input type="checkbox" id="cudeca_donacionesformcheque_enmemoria"
+                    name="cudeca_donacionesformcheque[enmemoria]" value="1">
                 ¿Donación en memoria?
             </label>
         </div>
         <div id="div_campo_memoriatext_cheque" class="form-group" style="display:none; margin-left: 25px;">
-            <input type="text" id="cudeca_donacionesformcheque_memoriatext" name="cudeca_donacionesformcheque[memoriatext]" placeholder="Nombre de la persona...">
+            <input type="text" id="cudeca_donacionesformcheque_memoriatext"
+                name="cudeca_donacionesformcheque[memoriatext]" placeholder="Nombre de la persona...">
         </div>
 
         <h2 class="form-title">Tus datos</h2>
         <div class="form-group">
             <div class="radio-group-inline">
                 <label>
-                    <input type="radio" id="cudeca_donacionesformcheque_tipodonante_0" name="cudeca_donacionesformcheque[tipodonante]" value="particular" checked="checked">
+                    <input type="radio" id="cudeca_donacionesformcheque_tipodonante_0"
+                        name="cudeca_donacionesformcheque[tipodonante]" value="particular" checked="checked">
                     Particular
                 </label>
                 <label>
-                    <input type="radio" id="cudeca_donacionesformcheque_tipodonante_1" name="cudeca_donacionesformcheque[tipodonante]" value="organizacion">
+                    <input type="radio" id="cudeca_donacionesformcheque_tipodonante_1"
+                        name="cudeca_donacionesformcheque[tipodonante]" value="organizacion">
                     Organización
                 </label>
             </div>
@@ -477,19 +551,23 @@
         <div class="form-group">
             <label>Nombre y Apellidos <span style="color:red">*</span></label>
             <div style="display: flex; gap: 10px;">
-                 <input type="text" id="cudeca_donacionesformcheque_nombre" name="cudeca_donacionesformcheque[nombre]" required="required" placeholder="Nombre">
-                 <input type="text" id="cudeca_donacionesformcheque_apellidos" name="cudeca_donacionesformcheque[apellidos]" required="required" placeholder="Apellidos">
+                <input type="text" id="cudeca_donacionesformcheque_nombre" name="cudeca_donacionesformcheque[nombre]"
+                    required="required" placeholder="Nombre">
+                <input type="text" id="cudeca_donacionesformcheque_apellidos"
+                    name="cudeca_donacionesformcheque[apellidos]" required="required" placeholder="Apellidos">
             </div>
         </div>
 
         <div class="form-group">
             <label for="cudeca_donacionesformcheque_email">Email <span style="color:red">*</span></label>
-            <input type="email" id="cudeca_donacionesformcheque_email" name="cudeca_donacionesformcheque[email]" required="required">
+            <input type="email" id="cudeca_donacionesformcheque_email" name="cudeca_donacionesformcheque[email]"
+                required="required">
         </div>
 
         <div class="form-group">
-             <label for="cudeca_donacionesformcheque_telefono">Teléfono / Móvil <span style="color:red">*</span></label>
-             <input type="text" id="cudeca_donacionesformcheque_telefono" name="cudeca_donacionesformcheque[telefono]" placeholder="Teléfono">
+            <label for="cudeca_donacionesformcheque_telefono">Teléfono / Móvil <span style="color:red">*</span></label>
+            <input type="text" id="cudeca_donacionesformcheque_telefono" name="cudeca_donacionesformcheque[telefono]"
+                placeholder="Teléfono">
         </div>
 
         <div class="form-group">
@@ -500,7 +578,8 @@
         <h2 class="form-title">Deducciones fiscales</h2>
         <div class="form-group">
             <label for="cudeca_donacionesformcheque_certificado" style="align-items: flex-start;">
-                <input type="checkbox" id="cudeca_donacionesformcheque_certificado" name="cudeca_donacionesformcheque[certificado]" value="1" style="margin-top: 4px;">
+                <input type="checkbox" id="cudeca_donacionesformcheque_certificado"
+                    name="cudeca_donacionesformcheque[certificado]" value="1" style="margin-top: 4px;">
                 <span>Quiero certificado fiscal.</span>
             </label>
         </div>
@@ -512,21 +591,25 @@
             </div>
             <div class="form-group">
                 <label>Dirección Postal <span style="color:red">*</span></label>
-                <input type="text" id="cudeca_donacionesformcheque_calle" name="cudeca_donacionesformcheque[calle]" placeholder="Dirección">
+                <input type="text" id="cudeca_donacionesformcheque_calle" name="cudeca_donacionesformcheque[calle]"
+                    placeholder="Dirección">
                 <div style="display:flex; gap:10px; margin-top:10px;">
-                    <input type="text" id="cudeca_donacionesformcheque_cp" name="cudeca_donacionesformcheque[cp]" placeholder="CP" style="width:100px;">
-                    <input type="text" id="cudeca_donacionesformcheque_poblacion" name="cudeca_donacionesformcheque[poblacion]" placeholder="Población">
+                    <input type="text" id="cudeca_donacionesformcheque_cp" name="cudeca_donacionesformcheque[cp]"
+                        placeholder="CP" style="width:100px;">
+                    <input type="text" id="cudeca_donacionesformcheque_poblacion"
+                        name="cudeca_donacionesformcheque[poblacion]" placeholder="Población">
                 </div>
             </div>
         </div>
 
         <div class="form-group" style="margin-top:20px;">
             <label for="cudeca_donacionesformcheque_acepto">
-                <input type="checkbox" id="cudeca_donacionesformcheque_acepto" name="cudeca_donacionesformcheque[acepto]" required="required" value="1">
+                <input type="checkbox" id="cudeca_donacionesformcheque_acepto"
+                    name="cudeca_donacionesformcheque[acepto]" required="required" value="1">
                 He leído y acepto la política de privacidad <span style="color:red">*</span>
             </label>
         </div>
-        
+
         <button type="submit" class="btn btn-green" style="width: 100%; margin-top: 20px;">
             Avisar de envío de cheque
         </button>
@@ -534,77 +617,99 @@
 </div>
 
 <script>
-function showTab(tabId) {
-    
-    document.getElementById('tab-donaahora').style.display = 'none';
-    document.getElementById('tab-transferencia').style.display = 'none';
-    document.getElementById('tab-cheque').style.display = 'none';
-    
-    document.getElementById('tab-' + tabId).style.display = 'block';
+    function showTab(tabId) {
 
-    const buttons = document.querySelectorAll('.tab-btn');
-    buttons.forEach(btn => btn.classList.remove('active'));
-    
-    buttons.forEach(btn => {
-        const text = btn.textContent.toLowerCase();
-        if ((tabId === 'donaahora' && text.includes('dona')) ||
-            (tabId === 'transferencia' && text.includes('transferencia')) ||
-            (tabId === 'cheque' && text.includes('cheque'))) {
-            btn.classList.add('active');
+        document.getElementById('tab-donaahora').style.display = 'none';
+        document.getElementById('tab-transferencia').style.display = 'none';
+        document.getElementById('tab-cheque').style.display = 'none';
+
+        document.getElementById('tab-' + tabId).style.display = 'block';
+
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        buttons.forEach(btn => {
+            const text = btn.textContent.toLowerCase();
+            if ((tabId === 'donaahora' && text.includes('dona')) ||
+                (tabId === 'transferencia' && text.includes('transferencia')) ||
+                (tabId === 'cheque' && text.includes('cheque'))) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        function setupToggle(triggerId, targetId, condition = 'checked', makeRequired = false) {
+            const trigger = document.getElementById(triggerId);
+            const target = document.getElementById(targetId);
+            if (!trigger || !target) return;
+
+            const inputs = target.querySelectorAll('input, select');
+
+            const update = () => {
+                const isVisible = (condition === 'checked' && trigger.checked) || (condition !== 'checked' && !trigger.checked);
+                target.style.display = isVisible ? 'block' : 'none';
+
+                if (makeRequired) {
+                    inputs.forEach(input => {
+                        if (isVisible) {
+                            input.setAttribute('required', 'required');
+                        } else {
+                            input.removeAttribute('required');
+                        }
+                    });
+                }
+            };
+            trigger.addEventListener('change', update);
+            update();
         }
+
+        function setupRadioToggle(radioPartId, radioOrgId, targetId) {
+            const radioPart = document.getElementById(radioPartId);
+            const radioOrg = document.getElementById(radioOrgId);
+            const target = document.getElementById(targetId);
+            if (!radioPart || !radioOrg || !target) return;
+
+            const inputs = target.querySelectorAll('input');
+
+            const update = () => {
+                const isVisible = radioOrg.checked;
+                target.style.display = isVisible ? 'block' : 'none';
+
+                // Si es empresa, el nombre de empresa suele ser obligatorio
+                inputs.forEach(input => {
+                    if (isVisible) input.setAttribute('required', 'required');
+                    else input.removeAttribute('required');
+                });
+            };
+            radioPart.addEventListener('change', update);
+            radioOrg.addEventListener('change', update);
+            update();
+        }
+
+        // ------------------------------------------
+        // Parte de "Dona ahora"
+        // ------------------------------------------
+        setupToggle('cudeca_donacionesform_enmemoria', 'div_campo_memoriatext');
+        setupToggle('cudeca_donacionesform_certificado', 'div-certificado', 'checked', true);
+        setupRadioToggle('cudeca_donacionesform_tipodonante_0', 'cudeca_donacionesform_tipodonante_1', 'div_cudeca_donacionesform_empresa');
+
+        // ------------------------------------------
+        // Parte de "Haz una transferencia"
+        // ------------------------------------------
+        setupToggle('cudeca_donacionesformtransferencia_enmemoria', 'div_campo_memoriatext_transferencia');
+        setupToggle('cudeca_donacionesformtransferencia_certificado', 'div-certificado_transferencia', 'checked', true);
+        setupRadioToggle('cudeca_donacionesformtransferencia_tipodonante_0', 'cudeca_donacionesformtransferencia_tipodonante_1', 'div_cudeca_donacionesformtransferencia_empresa');
+
+        // ------------------------------------------
+        // Parte de "Envía un cheque"
+        // ------------------------------------------
+        setupToggle('cudeca_donacionesformcheque_enmemoria', 'div_campo_memoriatext_cheque');
+        setupToggle('cudeca_donacionesformcheque_certificado', 'div-certificado_cheque', 'checked', true);
+        setupRadioToggle('cudeca_donacionesformcheque_tipodonante_0', 'cudeca_donacionesformcheque_tipodonante_1', 'div_cudeca_donacionesformcheque_empresa');
+
     });
-}
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    
-    function setupToggle(triggerId, targetId, condition = 'checked') {
-        const trigger = document.getElementById(triggerId);
-        const target = document.getElementById(targetId);
-        if(!trigger || !target) return;
-
-        const update = () => {
-            if(condition === 'checked') target.style.display = trigger.checked ? 'block' : 'none';
-        };
-        trigger.addEventListener('change', update);
-        update(); 
-    }
-
-    function setupRadioToggle(radioPartId, radioOrgId, targetId) {
-        const radioPart = document.getElementById(radioPartId);
-        const radioOrg = document.getElementById(radioOrgId);
-        const target = document.getElementById(targetId);
-        if(!radioPart || !radioOrg || !target) return;
-
-        const update = () => {
-            target.style.display = radioOrg.checked ? 'block' : 'none';
-        };
-        radioPart.addEventListener('change', update);
-        radioOrg.addEventListener('change', update);
-        update();
-    }
-
-    // ------------------------------------------
-    // Parte de "Dona ahora"
-    // ------------------------------------------
-    setupToggle('cudeca_donacionesform_enmemoria', 'div_campo_memoriatext');
-    setupToggle('cudeca_donacionesform_certificado', 'div-certificado');
-    setupRadioToggle('cudeca_donacionesform_tipodonante_0', 'cudeca_donacionesform_tipodonante_1', 'div_cudeca_donacionesform_empresa');
-
-    // ------------------------------------------
-    // Parte de "Haz una transferencia"
-    // ------------------------------------------
-    setupToggle('cudeca_donacionesformtransferencia_enmemoria', 'div_campo_memoriatext_transferencia');
-    setupToggle('cudeca_donacionesformtransferencia_certificado', 'div-certificado_transferencia');
-    setupRadioToggle('cudeca_donacionesformtransferencia_tipodonante_0', 'cudeca_donacionesformtransferencia_tipodonante_1', 'div_cudeca_donacionesformtransferencia_empresa');
-
-    // ------------------------------------------
-    // Parte de "Envía un cheque"
-    // ------------------------------------------
-    setupToggle('cudeca_donacionesformcheque_enmemoria', 'div_campo_memoriatext_cheque');
-    setupToggle('cudeca_donacionesformcheque_certificado', 'div-certificado_cheque');
-    setupRadioToggle('cudeca_donacionesformcheque_tipodonante_0', 'cudeca_donacionesformcheque_tipodonante_1', 'div_cudeca_donacionesformcheque_empresa');
-
-});
 </script>
 {% endblock %}

@@ -1,52 +1,130 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="event-card" style="margin-top: 20px;">
-    <div class="event-details">
-        <h2>Participar en: {{ rifa.nombre }}</h2>
-
-        <p><strong>Premio:</strong> {{ rifa.premio }}</p>
-        <p><strong>Fecha del sorteo:</strong> {{ rifa.fecha_fin.strftime('%d/%m/%Y %H:%M') if rifa.fecha_fin else 'Sin
-            fecha' }}</p>
-        <p>{{ rifa.informacion }}</p>
-
-        <form method="POST" style="margin-top: 20px;">
-
-            <!-- Cantidad de boletos -->
-            <div style="margin-bottom: 15px;">
-                <label for="cantidad"><strong>Cantidad de boletos:</strong></label>
-                <input type="number" id="cantidad" name="cantidad" min="1" value="1" required>
+<div class="dashboard-container">
+    <div class="dashboard-card" style="max-width: 600px; margin: 0 auto;">
+        
+        <div class="card-header">
+            <h2>Participar en Sorteo</h2>
+            <p class="text-muted">{{ rifa.nombre }}</p>
+        </div>
+        
+        <div class="card-body">
+            <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+                <p><strong>🏆 Premio:</strong> {{ rifa.premio }}</p>
+                <p><strong>📅 Fecha del sorteo:</strong> {{ rifa.fecha_fin.strftime('%d/%m/%Y %H:%M') if rifa.fecha_fin else 'Próximamente' }}</p>
+                <p class="text-muted">{{ rifa.informacion }}</p>
             </div>
 
-            <!-- Métodos de pago, similar a pago_entrada -->
-            <div style="margin-bottom: 15px;">
-                <p><strong>Método de pago:</strong></p>
+            <form method="POST" id="paymentForm">
+                
+                <h4 style="margin-bottom: 15px; border-bottom: 2px solid var(--primary-green);">1. Selección de Boletos</h4>
+                
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <p style="font-size: 1.1rem;">Precio por boleto: <strong style="color: var(--dark-green);">{{ rifa.precio|default(5.0) }}€</strong></p>
+                    
+                    <div class="form-group">
+                        <label for="cantidad">Cantidad de boletos:</label>
+                        <input type="number" id="cantidad" name="cantidad" class="form-control" value="1" min="1" max="100" onchange="calcularTotal()" onkeyup="calcularTotal()">
+                    </div>
+                    
+                    <h3 style="text-align: right; margin-top: 10px;">Total a pagar: <span id="totalDisplay">{{ rifa.precio|default(5.0) }}</span>€</h3>
+                </div>
 
-                <label style="margin-right: 10px;">
-                    <input type="radio" name="metodo_pago" value="Bizum" checked>
-                    <span class="btn btn-green">Bizum</span>
-                </label>
+                <h4 style="margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid var(--primary-green);">2. Forma de Pago</h4>
+                
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <label class="btn btn-outline-green" style="flex: 1; text-align: center; cursor: pointer; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+                            <input type="radio" name="metodo_pago" value="bizum" onclick="mostrarTarjeta()" checked> 
+                            Bizum
+                        </label>
 
-                <label style="margin-right: 10px;">
-                    <input type="radio" name="metodo_pago" value="Tarjeta">
-                    <span class="btn btn-green">Tarjeta</span>
-                </label>
+                        <label class="btn btn-outline-green" style="flex: 1; text-align: center; cursor: pointer; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+                            <input type="radio" name="metodo_pago" value="tarjeta" onclick="mostrarTarjeta()"> 
+                            Tarjeta
+                        </label>
 
-                <label>
-                    <input type="radio" name="metodo_pago" value="PayPal">
-                    <span class="btn btn-green">PayPal</span>
-                </label>
-            </div>
+                        <label class="btn btn-outline-green" style="flex: 1; text-align: center; cursor: pointer; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+                            <input type="radio" name="metodo_pago" value="paypal" onclick="mostrarTarjeta()"> 
+                            PayPal
+                        </label>
+                    </div>
+                </div>
 
-            <!-- Botón de confirmar -->
-            <button type="submit" class="btn btn-green" style="margin-top: 10px;">
-                Confirmar participación
-            </button>
-        </form>
+                <div id="form-tarjeta" style="display: none; background: #f0f0f0; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                    <div class="form-group">
+                        <label>Número de Tarjeta</label>
+                        <input type="text" name="tarjeta_numero" class="form-control" placeholder="0000 0000 0000 0000" maxlength="19">
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <div class="form-group" style="flex: 1;">
+                            <label>Caducidad (MM/AA)</label>
+                            <input type="text" name="tarjeta_expiry" class="form-control" placeholder="MM/AA" maxlength="5">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <label>CVV</label>
+                            <input type="text" name="tarjeta_cvv" class="form-control" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                </div>
 
-        <a href="{{ url_for('eventos') }}" class="btn btn-green" style="margin-top: 20px; display: inline-block;">
-            Volver a eventos
-        </a>
+                <button type="submit" class="btn btn-green" style="width: 100%; font-size: 1.2rem; padding: 15px;">
+                    Confirmar Participación
+                </button>
+                
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="{{ url_for('eventos') }}" style="color: #666; text-decoration: none;">Cancelar y volver</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
+<script>
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', function() {
+        calcularTotal();
+        mostrarTarjeta();
+    });
+
+    function calcularTotal() {
+        // Obtenemos el precio. Si usaste el default en jinja, asegúrate que aquí llegue un número.
+        // He puesto 5.0 como fallback si no hay precio definido en la variable de jinja.
+        const precioUnitario = parseFloat("{{ rifa.precio if rifa.precio else 5.0 }}");
+        const cantidad = document.getElementById('cantidad').value;
+        
+        if (cantidad < 1) return;
+
+        const total = (precioUnitario * cantidad).toFixed(2);
+        document.getElementById('totalDisplay').innerText = total;
+    }
+
+    function mostrarTarjeta() {
+        // Buscamos el radio button que esté marcado (checked)
+        const metodoSeleccionado = document.querySelector('input[name="metodo_pago"]:checked').value;
+        const formTarjeta = document.getElementById('form-tarjeta');
+        
+        // Campos de input
+        const inputNum = document.querySelector('[name="tarjeta_numero"]');
+        const inputExp = document.querySelector('[name="tarjeta_expiry"]');
+        const inputCvv = document.querySelector('[name="tarjeta_cvv"]');
+
+        if (metodoSeleccionado === 'tarjeta') {
+            formTarjeta.style.display = 'block';
+            inputNum.required = true;
+            inputExp.required = true;
+            inputCvv.required = true;
+        } else {
+            formTarjeta.style.display = 'none';
+            inputNum.required = false;
+            inputExp.required = false;
+            inputCvv.required = false;
+            // Opcional: Limpiar campos al ocultar
+            inputNum.value = '';
+            inputExp.value = '';
+            inputCvv.value = '';
+        }
+    }
+</script>
 {% endblock %}

@@ -23,16 +23,29 @@
                     <p><strong>Email:</strong> {{ user.correo_electronico }}</p>
                     <p><strong>Estado:</strong>
                         {% if user.es_socio %}
-                        <span class="badge badge-gold text-dark">Socio Activo</span>
+                            <span class="badge badge-gold text-dark">Socio Activo</span>
                         {% else %}
-                        <span class="badge badge-gray text-dark">Usuario</span>
+                            <span class="badge badge-gray text-dark">Usuario</span>
                         {% endif %}
+                        
                         {% if user.es_admin %}
-                        <span class="badge badge-gold text-dark">Administrador</span>
+                            <span class="badge badge-gold text-dark">Administrador</span>
                         {% endif %}
                     </p>
+                
+                    {% if user.es_socio %}
+                    <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Gestión de suscripción:</p>
+                        <form action="{{ url_for('baja_socio') }}" method="POST" 
+                              onsubmit="return confirm('¿Estás seguro de que deseas darte de baja como socio? Perderás tus ventajas.');">
+                            <button type="submit" class="btn btn-outline-red btn-small" style="font-size: 0.8rem; padding: 5px 10px;">
+                                Darse de baja como socio
+                            </button>
+                        </form>
+                    </div>
+                    {% endif %}
                     {% if user.dni_nif %}
-                    <p><strong>DNI/NIF:</strong> {{ user.dni_nif }}</p>
+                    <p style="margin-top: 10px;"><strong>DNI/NIF:</strong> {{ user.dni_nif }}</p>
                     {% endif %}
                 </div>
                 <div class="profile-actions">

@@ -3,10 +3,9 @@
 {% block content %}
 <style>
 /* ------------------------------------------- */
-/* Estilos generales (mantener los estilos ya definidos) */
+/* Estilos generales (Originales + Nuevos)     */
 /* ------------------------------------------- */
 
-/* Ajuste para la periodicidad para que se vean horizontales y compactos */
 .periodicidad-options {
     display: flex;
     gap: 20px;
@@ -24,42 +23,54 @@
     margin-right: 5px;
 }
 
-
+/* ESTILOS NUEVOS PARA LA SELECCIÓN DE CANTIDAD */
 .donation-options {
     display: flex;
     gap: 10px;
-    margin: 10px 0 20px 0;
+    margin: 10px 0 10px 0;
     justify-content: space-around;
 }
 
-
-.donation-btn {
-    background: var(--dark-green);
-    color: white;
+.donation-btn, .btn-otra-cantidad {
+    background: white; /* Fondo blanco por defecto */
+    border: 2px solid var(--dark-green);
+    color: var(--dark-green);
     padding: 10px 15px;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
     text-align: center;
     flex-grow: 1;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 }
 
-
-.btn-otra-cantidad {
+/* Clase para botón seleccionado (Feedback visual) */
+.donation-btn.selected, .btn-otra-cantidad.selected {
     background: var(--dark-green);
     color: white;
-    padding: 12px 30px;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    display: block;
-    width: 100%; 
-    margin: 10px 0; 
-    text-align: center;
-    cursor: pointer;
+    box-shadow: 0 0 8px rgba(46, 125, 50, 0.5);
+    transform: translateY(-2px);
 }
 
+.custom-amount-container {
+    display: none; /* Oculto por defecto */
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.mensaje-aporte {
+    background-color: #e8f5e9;
+    color: var(--dark-green);
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--dark-green);
+}
 
 .info-adicional-box {
     background-color: #d4e7d4;
@@ -67,7 +78,6 @@
     border-radius: 4px;
     margin-top: 20px;
 }
-
 
 .inline-form-group {
     display: flex;
@@ -84,7 +94,6 @@
 .inline-form-group input, .inline-form-group select {
     flex-grow: 1;
 }
-
 
 .tabs {
     display: flex;
@@ -113,7 +122,6 @@
     box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
 }
 
-
 .checkbox-group {
     margin-top: 20px;
     padding: 10px;
@@ -134,7 +142,6 @@
     margin-top: 2px;
     flex-shrink: 0; 
 }
-
 </style>
 
 <h2>Hazte socio</h2>
@@ -145,10 +152,14 @@
 </div>
 
 <form method="POST" id="socio-form">
+    
     <div id="tab-persona">
+        
+        <input type="hidden" name="cantidad" id="cantidad_final_p" required>
+
         <h3 style="margin-bottom: 5px;">¿Con qué periodicidad desea colaborar?</h3>
         <div class="periodicidad-options">
-            <label><input type="radio" name="periodo_persona" value="mensual"> Mensual</label>
+            <label><input type="radio" name="periodo_persona" value="mensual" checked> Mensual</label>
             <label><input type="radio" name="periodo_persona" value="bimensual"> Bimensual</label>
             <label><input type="radio" name="periodo_persona" value="trimestral"> Trimestral</label>
             <label><input type="radio" name="periodo_persona" value="semestral"> Semestral</label>
@@ -156,13 +167,23 @@
         </div>
 
         <h3>¿Cuánto quieres aportar?*</h3>
-        <div class="donation-images">
-            <div class="donation-options">
-                <div class="donation-btn">15€</div>
-                <div class="donation-btn">25€</div>
-                <div class="donation-btn">40€</div>
-            </div>
-            <div class="btn-otra-cantidad">Otra cantidad</div>
+        
+        <div class="donation-options">
+            <div class="donation-btn" onclick="seleccionarCantidad('p', 15, this)">15€</div>
+            <div class="donation-btn" onclick="seleccionarCantidad('p', 25, this)">25€</div>
+            <div class="donation-btn" onclick="seleccionarCantidad('p', 40, this)">40€</div>
+        </div>
+        
+        <div class="btn-otra-cantidad" onclick="activarOtraCantidad('p', this)" style="margin-bottom: 10px;">Otra cantidad</div>
+
+        <div id="custom-input-p" class="custom-amount-container">
+            <label>Introduce tu cantidad (€):</label>
+            <input type="number" id="input_otra_cantidad_p" class="form-control" placeholder="Ej: 50" min="1" 
+                   onkeyup="actualizarDesdeInput('p')" onchange="actualizarDesdeInput('p')">
+        </div>
+
+        <div class="mensaje-aporte">
+            Has seleccionado aportar: <span id="texto-cantidad-p">0</span>€
         </div>
         
         <h3 style="margin-top: 30px;">INTRODUCE TUS DATOS</h3>
@@ -242,16 +263,35 @@
 
         <div class="form-group" style="margin-top: 20px;">
             <label for="metodo_pago_p">Método de pago*:</label>
-            <select id="metodo_pago_p" name="metodo_pago_p" required>
+            <select id="metodo_pago_p" name="metodo_pago_p" class="form-control" onchange="mostrarTarjetaSocio('p')" required>
                 <option value="">Seleccione:</option>
                 <option value="tarjeta">Tarjeta de crédito/débito</option>
                 <option value="domiciliacion">Domiciliación Bancaria</option>
             </select>
         </div>
         
+        <div id="form-tarjeta-p" style="background: #f0f0f0; padding: 15px; border-radius: 5px; margin-bottom: 20px; display: none; border: 1px solid #ccc;">
+            <h4 style="margin-top: 0; margin-bottom: 10px; font-size: 1rem; color: var(--dark-green);">Datos de la tarjeta</h4>
+            
+            <div class="form-group">
+                <label>Número de Tarjeta</label>
+                <input type="text" name="tarjeta_numero_p" class="form-control" placeholder="0000 0000 0000 0000" maxlength="19">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <div class="form-group" style="flex: 1;">
+                    <label>Caducidad (MM/AA)</label>
+                    <input type="text" name="tarjeta_expiry_p" class="form-control" placeholder="MM/AA" maxlength="5">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>CVV</label>
+                    <input type="text" name="tarjeta_cvv_p" class="form-control" placeholder="123" maxlength="3">
+                </div>
+            </div>
+        </div>
+        
         <div class="checkbox-group">
             <label>
-                <input type="checkbox" name="acepto_privacidad_p" value="si" required> Acepto la **Política de Privacidad y el Aviso Legal**
+                <input type="checkbox" name="acepto_privacidad_p" value="si" required> Acepto la <strong>Política de Privacidad y el Aviso Legal</strong>
             </label>
             <label>
                 <input type="checkbox" name="recibir_informacion_p" value="si"> Quiero recibir información sobre la forma especial de cuidar de la Fundación Cudeca y las diferentes actividades que realiza.
@@ -272,14 +312,12 @@
         </div>
 
         <h3>¿Cuánto quieres aportar?*</h3>
-        <div class="donation-images">
-            <div class="donation-options">
-                <div class="donation-btn">15€</div>
-                <div class="donation-btn">25€</div>
-                <div class="donation-btn">40€</div>
-            </div>
-            <div class="btn-otra-cantidad">Otra cantidad</div>
+        <div class="donation-options">
+            <div class="donation-btn">15€</div>
+            <div class="donation-btn">25€</div>
+            <div class="donation-btn">40€</div>
         </div>
+        <div class="btn-otra-cantidad">Otra cantidad</div>
 
         <h3>INTRODUCE TUS DATOS</h3>
         <div class="form-group">
@@ -366,7 +404,7 @@
         
         <div class="checkbox-group">
             <label>
-                <input type="checkbox" name="acepto_privacidad_e" value="si" required> Acepto la **Política de Privacidad y el Aviso Legal**
+                <input type="checkbox" name="acepto_privacidad_e" value="si" required> Acepto la <strong>Política de Privacidad y el Aviso Legal</strong>
             </label>
             <label>
                 <input type="checkbox" name="recibir_informacion_e" value="si"> Quiero recibir información sobre la forma especial de cuidar de la Fundación Cudeca y las diferentes actividades que realiza.
@@ -379,17 +417,90 @@
 </form>
 
 <script>
-function showTab(type) {
-    document.getElementById('tab-persona').style.display = type === 'persona' ? 'block' : 'none';
-    document.getElementById('tab-empresa').style.display = type === 'empresa' ? 'block' : 'none';
+    // Función para cambiar de pestaña y gestionar los campos obligatorios
+    function showTab(type) {
+        // 1. Mostrar/Ocultar pestañas visualmente
+        document.getElementById('tab-persona').style.display = type === 'persona' ? 'block' : 'none';
+        document.getElementById('tab-empresa').style.display = type === 'empresa' ? 'block' : 'none';
+        
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons[0].classList.toggle('active', type === 'persona');
+        buttons[1].classList.toggle('active', type === 'empresa');
     
-    // Toggle active class visually
-    const buttons = document.querySelectorAll('.tab-btn');
-    buttons[0].classList.toggle('active', type === 'persona');
-    buttons[1].classList.toggle('active', type === 'empresa');
-}
-document.addEventListener('DOMContentLoaded', () => {
-    showTab('persona');
-});
-</script>
+        // 2. GESTIÓN DE REQUIRED (Para que no bloquee el envío)
+        // Si estamos en Persona: Hacemos obligatorios los campos _p y quitamos obligatoriedad a _e
+        // Si estamos en Empresa: Hacemos obligatorios los campos _e y quitamos obligatoriedad a _p
+        
+        const camposPersona = document.querySelectorAll('#tab-persona input[data-required="true"], #tab-persona select[data-required="true"]');
+        const camposEmpresa = document.querySelectorAll('#tab-empresa input[data-required="true"], #tab-empresa select[data-required="true"]');
+    
+        if (type === 'persona') {
+            camposPersona.forEach(el => el.required = true);
+            camposEmpresa.forEach(el => el.required = false);
+        } else {
+            camposPersona.forEach(el => el.required = false);
+            camposEmpresa.forEach(el => el.required = true);
+        }
+    }
+    
+    // -----------------------------------------------------
+    // Lógica para Botones de Cantidad 
+    // -----------------------------------------------------
+    
+    function limpiarSeleccion() {
+        // Quita la clase 'selected' de todos los botones en la pestaña activa
+        document.querySelectorAll('.donation-btn, .btn-otra-cantidad').forEach(btn => btn.classList.remove('selected'));
+    }
+    
+    function seleccionarCantidad(tipo, valor, elemento) {
+        limpiarSeleccion();
+        elemento.classList.add('selected');
+        document.getElementById('custom-input-' + tipo).style.display = 'none';
+        document.getElementById('cantidad_final_' + tipo).value = valor;
+        document.getElementById('texto-cantidad-' + tipo).innerText = valor;
+    }
+    
+    function activarOtraCantidad(tipo, elemento) {
+        limpiarSeleccion();
+        elemento.classList.add('selected');
+        document.getElementById('custom-input-' + tipo).style.display = 'block';
+        document.getElementById('texto-cantidad-' + tipo).innerText = "0";
+        document.getElementById('cantidad_final_' + tipo).value = "";
+        document.getElementById('input_otra_cantidad_' + tipo).focus();
+    }
+    
+    function actualizarDesdeInput(tipo) {
+        const valorInput = document.getElementById('input_otra_cantidad_' + tipo).value;
+        document.getElementById('cantidad_final_' + tipo).value = valorInput;
+        document.getElementById('texto-cantidad-' + tipo).innerText = valorInput ? valorInput : "0";
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        // Marcamos con un atributo especial los campos que queremos que sean required dinámicamente
+        // Esto es un truco para no perder la referencia de cuáles eran obligatorios
+        const inputs = document.querySelectorAll('input[required], select[required]');
+        inputs.forEach(input => {
+            input.setAttribute('data-required', 'true');
+        });
+    
+        showTab('persona');
+    });
+
+    function mostrarTarjetaSocio(sufijo) {
+        const selector = document.getElementById('metodo_pago_' + sufijo);
+        const bloqueTarjeta = document.getElementById('form-tarjeta-' + sufijo);
+        const inputsTarjeta = bloqueTarjeta.querySelectorAll('input');
+    
+        if (selector.value === 'tarjeta') {
+            bloqueTarjeta.style.display = 'block';
+            // Hacemos los campos requeridos si se elige tarjeta
+            inputsTarjeta.forEach(input => input.required = true);
+        } else {
+            bloqueTarjeta.style.display = 'none';
+            // Quitamos required si cambia de opinión
+            inputsTarjeta.forEach(input => input.required = false);
+            inputsTarjeta.forEach(input => input.value = ""); // Limpiar datos
+        }
+    }
+    </script>
 {% endblock %}

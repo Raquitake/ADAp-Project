@@ -311,6 +311,22 @@ def gestionar_socios():
     socios = Usuario.query.filter_by(es_socio=True).all()
     return render_template('admin/gestionar_socios.html', socios=socios)
 
+@app.route('/baja-socio', methods=['POST'])
+@login_required
+def baja_socio():
+    if current_user.es_socio:
+        try:
+            current_user.es_socio = False
+            db.session.commit()
+            flash('Has dado de baja tu suscripción de socio correctamente. Lamentamos verte partir.')
+        except Exception as e:
+            db.session.rollback()
+            flash('Error al procesar la baja. Inténtalo de nuevo.')
+    else:
+        flash('No eras socio, por lo que no se ha realizado ninguna acción.')
+        
+    return redirect(url_for('dashboard'))
+
 # --- GESTIÓN DE RIFAS (ADMIN) ---
 
 @app.route('/admin/rifas')
@@ -419,11 +435,65 @@ def eliminar_rifa(id):
 
 @app.route('/hazte-socio', methods=['GET', 'POST'])
 def hazte_socio():
-    # BocetoHazteSocio_Persona y Empresa
     if request.method == 'POST':
-        # Lógica para procesar el formulario de socio
-        flash('Gracias por tu solicitud de socio. Te contactaremos pronto.')
-        return redirect(url_for('index'))
+        if not current_user.is_authenticated:
+            flash('Debes iniciar sesión o registrarte para hacerte socio.')
+            return redirect(url_for('login'))
+
+        # Recoger datos básicos
+        cantidad = request.form.get('cantidad')
+        # Determinamos si viene de persona o empresa (asumimos persona por el ejemplo)
+        periodo = request.form.get('periodo_persona')
+        metodo_pago = request.form.get('metodo_pago_p')
+
+        # --- VALIDACIÓN DE TARJETA (Igual que en Entradas) ---
+        if metodo_pago == 'tarjeta':
+            # Nota la '_p' al final de los campos
+            numero = request.form.get('tarjeta_numero_p', '').replace(' ', '')
+            expiry = request.form.get('tarjeta_expiry_p', '').strip()
+            cvv = request.form.get('tarjeta_cvv_p', '').strip()
+
+            # 1. Validar Número (16 dígitos)
+            if not re.match(r'^\d{16}$', numero):
+                flash('❌ Error: El número de tarjeta no es válido (debe tener 16 dígitos).')
+                return render_template('hazte_socio.html')
+
+            # 2. Validar CVV (3 dígitos)
+            if not re.match(r'^\d{3}$', cvv):
+                flash('❌ Error: El CVV es incorrecto (deben ser 3 dígitos).')
+                return render_template('hazte_socio.html')
+
+            # 3. Validar Formato Fecha (MM/AA)
+            if not re.match(r'^(0[1-9]|1[0-2])\/\d{2}$', expiry):
+                flash('❌ Error: La fecha de caducidad debe ser MM/AA (ej: 08/25).')
+                return render_template('hazte_socio.html')
+
+            # 4. Validar Caducidad Real
+            try:
+                mes, anio_corto = map(int, expiry.split('/'))
+                anio_completo = 2000 + anio_corto
+                ahora = datetime.now()
+                
+                if anio_completo < ahora.year or (anio_completo == ahora.year and mes < ahora.month):
+                    flash('❌ Error: Su tarjeta está caducada.')
+                    return render_template('hazte_socio.html')
+            except:
+                flash('❌ Error al validar la fecha de la tarjeta.')
+                return render_template('hazte_socio.html')
+        # --- FIN VALIDACIÓN ---
+
+        # Si todo es correcto, guardamos en la base de datos
+        try:
+            current_user.es_socio = True
+            db.session.commit()
+            flash(f'¡Enhorabuena! Pago aceptado. Ya eres socio con una aportación de {cantidad}€ ({periodo}).')
+            return redirect(url_for('dashboard'))
+            
+        except Exception as e:
+            db.session.rollback()
+            flash('Hubo un error al procesar tu solicitud en la base de datos.')
+            return redirect(url_for('hazte_socio'))
+
     return render_template('hazte_socio.html')
 
 @app.route('/hazte-voluntario', methods=['GET', 'POST'])

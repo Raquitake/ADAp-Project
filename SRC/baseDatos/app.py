@@ -236,7 +236,6 @@ def editar_evento(id):
         if 'imagen' in request.files:
             file = request.files['imagen']
             if file and file.filename != '':
-                # Se podría usar Singleton AppConfig aquí también
                 config = AppConfig()
                 filename = f"{datetime.now().strftime('%Y%m%d%H%M%S')}_{file.filename}"
                 file.save(os.path.join(config.get_upload_folder, filename))

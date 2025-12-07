@@ -49,7 +49,6 @@ class Administrador(db.Model):
     __tablename__ = 'administrador'
     id = db.Column(db.Integer, primary_key=True)
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), unique=True)
-    # admin_role puede gestionarse aquí o en las tablas de relación dependiendo de la granularidad
 
 class Voluntario(db.Model):
     __tablename__ = 'voluntario'
@@ -84,6 +83,17 @@ class Evento(db.Model):
     imagen_evento = db.Column(db.String(255), nullable=True)
     precio = db.Column(db.Float, default=0.0)
 
+    # [PROTOTYPE]
+    def clone(self):
+        return Evento(
+            nombre_evento=f"Copia de {self.nombre_evento}",
+            localizacion=self.localizacion,
+            fecha=self.fecha, 
+            informacion=self.informacion,
+            imagen_evento=self.imagen_evento,
+            precio=self.precio
+        )
+
 class Rifa(db.Model):
     __tablename__ = 'rifa'
 
@@ -94,6 +104,16 @@ class Rifa(db.Model):
     premio = db.Column(db.String(255))
     imagen = db.Column(db.String(255), nullable=True)
     ganador_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=True) 
+
+    # [PROTOTYPE]
+    def clone(self):
+        return Rifa(
+            nombre=f"Copia de {self.nombre}",
+            fecha_fin=self.fecha_fin,
+            informacion=self.informacion,
+            premio=self.premio,
+            imagen=self.imagen
+        )
 
 # --- TRANSACCIONES (ENTRADAS Y BOLETOS) ---
 
@@ -121,6 +141,8 @@ class Boleto(db.Model):
     # Claves foráneas
     id_rifa = db.Column(db.Integer, db.ForeignKey('rifa.id'))
     id_comprador = db.Column(db.Integer, db.ForeignKey('usuario.id')) 
+
+    rifa_rel = db.relationship('Rifa', backref='boletos') # Renamed backref to avoid conflict
 
 class Recibo(db.Model):
     __tablename__ = 'recibo'

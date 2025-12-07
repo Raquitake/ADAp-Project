@@ -1,7 +1,9 @@
 import os
 import re
+import qrcode
+import uuid
 
-from flask import Flask, render_template, redirect, url_for, request, flash, abort
+from flask import Flask, render_template, redirect, url_for, request, flash, abort, jsonify
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
@@ -53,6 +55,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'in
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'eventos')
 app.config['RIFA_UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'rifas')
+app.config['QR_UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'qrcodes')
 
 db.init_app(app)
 
@@ -177,15 +180,26 @@ def pago_entrada(id_evento):
 
         # 3. Si todo está correcto (o es Paypal/Bizum), procesamos la compra
         try:
+            # Asegurar que directorio QR existe
+            if not os.path.exists(app.config['QR_UPLOAD_FOLDER']):
+                os.makedirs(app.config['QR_UPLOAD_FOLDER'], exist_ok=True)
+
             for _ in range(cantidad_entradas):
-                # Generamos un código QR único simulado
-                codigo_unico = f"ENTRADA-{evento.id}-{current_user.id}-{datetime.now().strftime('%f')}"
+                # Generamos un código único y QR
+                unique_id = str(uuid.uuid4())
+                qr_data = f"TICKET:{unique_id}"
+                
+                # Crear imagen QR
+                qr_img = qrcode.make(qr_data)
+                qr_filename = f"qr_{unique_id}.png"
+                qr_path_full = os.path.join(app.config['QR_UPLOAD_FOLDER'], qr_filename)
+                qr_img.save(qr_path_full)
                 
                 nueva_entrada = Entrada(
                     precio=evento.precio,
                     id_evento=evento.id,
                     id_comprador=current_user.id,
-                    codigo_qr=codigo_unico
+                    codigo_qr=f"img/qrcodes/{qr_filename}"
                 )
                 db.session.add(nueva_entrada)
             
@@ -630,6 +644,46 @@ def editar_perfil():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+
+# --- VALIDACIÓN QR ---
+
+@app.route('/admin/escanear_qr')
+@login_required
+@admin_required
+def escanear_qr():
+    return render_template('admin/escanear_qr.html')
+
+@app.route('/api/validar_qr', methods=['POST'])
+@login_required
+@admin_required
+def validar_qr_api():
+    data = request.get_json()
+    qr_content = data.get('qr_content')
+    
+    if not qr_content or not qr_content.startswith('TICKET:'):
+        return jsonify({'valid': False, 'message': 'Formato QR inválido o desconocido'}), 400
+        
+    uuid_part = qr_content.split(':', 1)[1]
+    expected_path = f"img/qrcodes/qr_{uuid_part}.png"
+    
+    # Buscar entrada por el path de la imagen (que es lo que guardamos)
+    entrada = Entrada.query.filter_by(codigo_qr=f"img/qrcodes/qr_{uuid_part}.png").first()
+    
+    if entrada:
+        evento_nombre = entrada.evento.nombre_evento if entrada.evento else "Evento desconocido"
+        comprador = Usuario.query.get(entrada.id_comprador)
+        comprador_nombre = comprador.nombre_usuario if comprador else "Desconocido"
+        
+        return jsonify({
+            'valid': True,
+            'mensaje': f"✅ Entrada VÁLIDA",
+            'evento': evento_nombre,
+            'asistente': comprador_nombre,
+            'precio': entrada.precio
+        })
+    else:
+        return jsonify({'valid': False, 'message': '❌ Entrada NO encontrada en el sistema'}), 404
 
 if __name__ == '__main__':
     with app.app_context():

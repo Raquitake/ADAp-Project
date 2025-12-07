@@ -16,29 +16,30 @@
             </div>
             <div class="card-body">
                 <div class="profile-avatar">
-                    <img src="https://api.dicebear.com/7.x/initials/svg?seed={{ user.nombre_usuario }}&backgroundColor=2E7D32&textColor=ffffff" 
+                    <img src="https://api.dicebear.com/7.x/initials/svg?seed={{ user.nombre_usuario }}&backgroundColor=2E7D32&textColor=ffffff"
                         alt="Avatar de {{ user.nombre_usuario }}">
                 </div>
                 <div class="profile-info">
                     <p><strong>Email:</strong> {{ user.correo_electronico }}</p>
                     <p><strong>Estado:</strong>
                         {% if user.es_socio %}
-                            <span class="badge badge-gold text-dark">Socio Activo</span>
+                        <span class="badge badge-gold text-dark">Socio Activo</span>
                         {% else %}
-                            <span class="badge badge-gray text-dark">Usuario</span>
+                        <span class="badge badge-gray text-dark">Usuario</span>
                         {% endif %}
-                        
+
                         {% if user.es_admin %}
-                            <span class="badge badge-gold text-dark">Administrador</span>
+                        <span class="badge badge-gold text-dark">Administrador</span>
                         {% endif %}
                     </p>
-                
+
                     {% if user.es_socio %}
                     <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
                         <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Gestión de suscripción:</p>
-                        <form action="{{ url_for('baja_socio') }}" method="POST" 
-                              onsubmit="return confirm('¿Estás seguro de que deseas darte de baja como socio? Perderás tus ventajas.');">
-                            <button type="submit" class="btn btn-outline-red btn-small" style="font-size: 0.8rem; padding: 5px 10px;">
+                        <form action="{{ url_for('baja_socio') }}" method="POST"
+                            onsubmit="return confirm('¿Estás seguro de que deseas darte de baja como socio? Perderás tus ventajas.');">
+                            <button type="submit" class="btn btn-outline-red btn-small"
+                                style="font-size: 0.8rem; padding: 5px 10px;">
                                 Darse de baja como socio
                             </button>
                         </form>
@@ -68,10 +69,21 @@
                         <div class="ticket-info">
                             <h4>Entrada #{{ entrada.evento.nombre_evento }}</h4>
                             <p>Precio: {{ entrada.precio }}€</p>
+                            {% if entrada.codigo_qr and entrada.codigo_qr.startswith('img/') %}
+                            <img src="{{ url_for('static', filename=entrada.codigo_qr) }}" alt="Código QR"
+                                style="width: 100px; height: 100px;">
+                            {% else %}
                             <span class="qr-placeholder">QR: {{ entrada.codigo_qr }}</span>
+                            {% endif %}
                         </div>
                         <div class="ticket-action">
-                            <button class="btn btn-yellow btn-small">Descargar</button>
+                            {% if entrada.codigo_qr and entrada.codigo_qr.startswith('img/') %}
+                            <a href="{{ url_for('static', filename=entrada.codigo_qr) }}"
+                                download="entrada_{{ entrada.evento.nombre_evento|replace(' ', '_') }}.png"
+                                class="btn btn-yellow btn-small">Descargar</a>
+                            {% else %}
+                            <button class="btn btn-yellow btn-small" disabled>No disponible</button>
+                            {% endif %}
                         </div>
                     </li>
                     {% endfor %}
@@ -94,6 +106,7 @@
             <div class="card-body">
                 <a href="{{ url_for('crear_evento') }}" class="btn btn-yellow">Crear Evento</a>
                 <a href="{{ url_for('gestionar_socios') }}" class="btn btn-yellow">Gestionar Socios</a>
+                <a href="{{ url_for('escanear_qr') }}" class="btn btn-blue">Escanear Entradas</a>
                 <a href="{{ url_for('eventos') }}" class="btn btn-outline-green">Ver Todos los Eventos</a>
             </div>
         </div>

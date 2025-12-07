@@ -159,7 +159,7 @@ def pago_entrada(id_evento):
         success, msg = processor.process(evento.precio * cantidad_entradas, request.form)
         
         if not success:
-            flash(f"❌ Pago fallido: {msg}")
+            flash(f"Pago fallido: {msg}")
             return render_template('pago_entrada.html', evento=evento)
 
         # [ABSTRACT FACTORY]
@@ -175,13 +175,13 @@ def pago_entrada(id_evento):
                 db.session.add(entrada)
             
             db.session.commit()
-            flash(f'✅ ¡Pago exitoso! {cantidad_entradas} entradas generadas.')
+            flash(f'¡Pago exitoso! {cantidad_entradas} entradas generadas.')
             return redirect(url_for('dashboard'))
             
         except Exception as e:
             db.session.rollback()
             print(f"Error DB: {e}")
-            flash('❌ Hubo un error al generar las entradas.')
+            flash('Hubo un error al generar las entradas.')
             return render_template('pago_entrada.html', evento=evento)
         
     return render_template('pago_entrada.html', evento=evento)

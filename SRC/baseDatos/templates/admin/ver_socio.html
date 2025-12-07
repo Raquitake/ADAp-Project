@@ -84,8 +84,8 @@
                     <ul class="list-group list-group-flush" style="max-height: 200px; overflow-y: auto;">
                         {% for boleto in boletos %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Rifa #{{ boleto.id_rifa }}
-                            <span class="badge bg-secondary rounded-pill">{{ boleto.precio }}€</span>
+                            {{ boleto.rifa_rel.nombre }}
+                            <span class="badge bg-secondary rounded-pill">{{ boleto.precio if boleto.precio else '0.0' }}€</span>
                         </li>
                         {% endfor %}
                     </ul>

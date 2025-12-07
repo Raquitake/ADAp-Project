@@ -10,7 +10,6 @@ from functools import wraps
 from datetime import datetime
 from models import db, Usuario, Administrador, Evento, Entrada, Rifa, Boleto
 
-# [IMPORT PATTERNS]
 from patterns import AppConfig, PaymentFactory, EventoBuilder, EventTransactionFactory, RaffleTransactionFactory
 
 def validar_dni_nie(documento):
@@ -34,7 +33,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'in
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # [SINGLETON CONFIG SETUP]
-# Definimos las rutas en app.config para que el Singleton las lea al inicializarse
 app.config['UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'eventos')
 app.config['RIFA_UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'rifas')
 app.config['QR_UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'qrcodes')

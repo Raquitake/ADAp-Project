@@ -120,9 +120,11 @@ def participar_rifa(id):
         factory = RaffleTransactionFactory()
         
         try:
+             precio_boleto = rifa.precio if rifa.precio else 5.0
+             
              for _ in range(cantidad_boletos):
                  # No access token for rifa needed
-                 db_record = factory.create_database_record(rifa.id, current_user.id, 0.0) # Precio simbolico
+                 db_record = factory.create_database_record(rifa.id, current_user.id, precio_boleto)
                  db.session.add(db_record)
                  
              db.session.commit()
@@ -485,7 +487,8 @@ def login():
 @login_required
 def dashboard():
     entradas = Entrada.query.filter_by(id_comprador=current_user.id).all()
-    return render_template('dashboard.html', user=current_user, entradas=entradas)
+    boletos = Boleto.query.filter_by(id_comprador=current_user.id).all()
+    return render_template('dashboard.html', user=current_user, entradas=entradas, boletos=boletos)
 
 @app.route('/perfil/editar', methods=['GET', 'POST'])
 @login_required

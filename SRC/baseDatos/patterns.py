@@ -171,8 +171,8 @@ class RaffleTransactionFactory(TransactionFactory):
         return None
 
     def create_database_record(self, item_id, user_id, price, token=None):
-        # En Boleto no tenemos campo QR o token, solo asociacion
         return Boleto(
             id_rifa=item_id,
-            id_comprador=user_id
+            id_comprador=user_id,
+            precio=price
         )

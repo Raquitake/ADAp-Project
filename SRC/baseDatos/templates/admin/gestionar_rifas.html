@@ -45,12 +45,9 @@
                         <a href="{{ url_for('editar_rifa', id=rifa.id) }}" class="btn btn-sm btn-warning">
                             <i class="fas fa-edit"></i> Editar
                         </a>
-                        <form action="{{ url_for('eliminar_rifa', id=rifa.id) }}" method="POST" class="d-inline"
-                            onsubmit="return confirm('¿Estás seguro de borrar esta rifa?');">
-                            <button type="submit" class="btn btn-sm btn-danger">
-                                <i class="fas fa-trash"></i> Borrar
-                            </button>
-                        </form>
+                        <a href="{{ url_for('confirmar_eliminar_rifa', id=rifa.id) }}" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i> Borrar
+                        </a>
                     </td>
                 </tr>
                 {% else %}

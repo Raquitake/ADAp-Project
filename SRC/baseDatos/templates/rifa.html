@@ -24,10 +24,9 @@
             {% if current_user.is_authenticated and current_user.es_admin %}
             <div style="margin-top: 15px;">
                 <a href="{{ url_for('editar_rifa', id=rifa.id) }}" class="btn btn-warning">Editar Rifa</a>
-                <form action="{{ url_for('eliminar_rifa', id=rifa.id) }}" method="POST" class="d-inline"
-                    onsubmit="return confirm('¿Estás seguro de borrar esta rifa?');">
-                    <button type="submit" class="btn btn-danger" style="margin-left: 10px;">Eliminar Rifa</button>
-                </form>
+                <a href="{{ url_for('confirmar_eliminar_rifa', id=rifa.id) }}" class="btn btn-danger" style="margin-left: 10px;">
+                    Eliminar Rifa
+                </a>
             </div>
             {% endif %}
         </div>

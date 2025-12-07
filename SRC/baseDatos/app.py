@@ -296,12 +296,12 @@ def editar_evento(id):
         return redirect(url_for('ver_evento', id=id))
     return render_template('admin/editar_evento.html', evento=evento)
 
-@app.route('/admin/evento/eliminar/confirmar/<int:id>')
+@app.route('/admin/rifa/eliminar/confirmar/<int:id>')
 @login_required
 @admin_required
-def confirmar_eliminar_evento(id):
-    evento = Evento.query.get_or_404(id)
-    return render_template('admin/confirmar_eliminar_evento.html', evento=evento)
+def confirmar_eliminar_rifa(id):
+    rifa = Rifa.query.get_or_404(id)
+    return render_template('admin/confirmar_eliminar_rifa.html', rifa=rifa)
 
 @app.route('/admin/evento/eliminar/<int:id>', methods=['POST'])
 @login_required
@@ -325,6 +325,13 @@ def eliminar_evento(id):
     db.session.commit()
     flash('Evento e imagen eliminados correctamente')
     return redirect(url_for('eventos'))
+
+@app.route('/admin/evento/eliminar/confirmar/<int:id>')
+@login_required
+@admin_required
+def confirmar_eliminar_evento(id):
+    evento = Evento.query.get_or_404(id)
+    return render_template('admin/confirmar_eliminar_evento.html', evento=evento)
 
 @app.route('/admin/socios')
 @login_required

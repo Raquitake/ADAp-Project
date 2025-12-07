@@ -52,9 +52,10 @@
                 
                 {% if current_user.is_authenticated and current_user.es_admin %}
                     <a href="{{ url_for('editar_rifa', id=rifa.id) }}" class="btn btn-warning" style="margin-left: 10px;">Editar</a>
-                    <form action="{{ url_for('eliminar_rifa', id=rifa.id) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de borrar esta rifa?');" style="display:inline;">
-                        <button type="submit" class="btn btn-danger" style="margin-left: 10px;">Eliminar</button>
-                    </form>
+                    
+                    <a href="{{ url_for('confirmar_eliminar_rifa', id=rifa.id) }}" class="btn btn-danger" style="margin-left: 10px;">
+                        Eliminar
+                    </a>
                 {% endif %}
             </div>
         </div>

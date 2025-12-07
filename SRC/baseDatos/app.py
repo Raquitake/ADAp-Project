@@ -268,11 +268,24 @@ def eliminar_evento(id):
              try: os.remove(image_path)
              except: pass
              
+    entradas = Entrada.query.filter_by(id_evento=evento.id).all()
+    
+    for entrada in entradas:
+        if entrada.codigo_qr:
+            ruta_qr = os.path.join(basedir, 'static', entrada.codigo_qr)
+            
+            if os.path.exists(ruta_qr):
+                try:
+                    os.remove(ruta_qr)
+                except Exception as e:
+                    print(f"Error borrando archivo QR: {e}")
+
     Entrada.query.filter_by(id_evento=evento.id).delete()
     
     db.session.delete(evento)
     db.session.commit()
-    flash('Evento eliminado')
+    
+    flash('Evento, entradas y códigos QR eliminados correctamente')
     return redirect(url_for('eventos'))
 
 # [PROTOTYPE] Route to test cloning

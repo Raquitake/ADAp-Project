@@ -26,20 +26,14 @@
     </div>
 </div>
 
-<!-- Load html5-qrcode library -->
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script>
-    // Initialize scanner
     var html5QrcodeScanner = new Html5QrcodeScanner(
         "reader", { fps: 10, qrbox: 250 });
 
     function onScanSuccess(decodedText, decodedResult) {
-        // Stop scanning
         html5QrcodeScanner.clear();
 
-        // Show loading or processing status if needed
-
-        // Send to API
         fetch("{{ url_for('validar_qr_api') }}", {
             method: 'POST',
             headers: {
@@ -58,7 +52,6 @@
     }
 
     function onScanError(errorMessage) {
-        // ignore errors for now
     }
 
     function showResult(data) {
@@ -69,7 +62,6 @@
         const details = document.getElementById('result-details');
 
         if (data.valid) {
-            // Success Style
             card.style.backgroundColor = "#d4edda";
             card.style.borderColor = "#c3e6cb";
             card.style.color = "#155724";
@@ -82,7 +74,6 @@
             document.getElementById('res-precio').innerText = data.precio;
             details.style.display = 'block';
         } else {
-            // Error Style
             card.style.backgroundColor = "#f8d7da";
             card.style.borderColor = "#f5c6cb";
             card.style.color = "#721c24";
@@ -98,7 +89,6 @@
         html5QrcodeScanner.render(onScanSuccess, onScanError);
     }
 
-    // Start scanner
     html5QrcodeScanner.render(onScanSuccess, onScanError);
 </script>
 {% endblock %}

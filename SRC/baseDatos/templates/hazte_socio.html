@@ -536,7 +536,6 @@ function showTab(type) {
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelector(type === 'persona' ? '.tab-btn:first-child' : '.tab-btn:last-child').classList.add('active');
 
-    // Referencias a inputs
     const inputsPersona = document.querySelectorAll('#tab-persona input, #tab-persona select');
     const inputsEmpresa = document.querySelectorAll('#tab-empresa input, #tab-empresa select');
 
@@ -557,15 +556,12 @@ function showTab(type) {
     }
 }
 
-/**
- * MOSTRAR/OCULTAR CAJA DE INFO FISCAL
- */
+// MOSTRAR/OCULTAR CAJA DE INFO FISCAL
+
 function toggleInfo(sufijo, checkbox) {
     const box = document.getElementById('info-box-' + sufijo);
     box.style.display = checkbox.checked ? 'block' : 'none';
     
-    // Si se muestra, podríamos hacer los campos required si quisiéramos ser estrictos
-    // box.querySelectorAll('input').forEach(i => i.required = checkbox.checked);
 }
 
 /**
@@ -616,19 +612,15 @@ function actualizarDesdeInput(sufijo) {
     document.getElementById('texto-cantidad-' + sufijo).innerText = valor ? valor : "0";
 }
 
-/**
- * LÓGICA DE PAGO (Tarjeta vs Domiciliación)
- */
+ // LÓGICA DE PAGO (Tarjeta vs Domiciliación)
 function gestionarPagoSocio(sufijo) {
     const metodo = document.getElementById('metodo_pago_' + sufijo).value;
     const divTarjeta = document.getElementById('form-tarjeta-' + sufijo);
     const divBanco = document.getElementById('form-domiciliacion-' + sufijo);
     
-    // Ocultar ambos por defecto
     divTarjeta.style.display = 'none';
     divBanco.style.display = 'none';
     
-    // Quitar required por defecto
     divTarjeta.querySelectorAll('input').forEach(i => i.required = false);
     divBanco.querySelectorAll('input').forEach(i => i.required = false);
 
@@ -641,7 +633,6 @@ function gestionarPagoSocio(sufijo) {
     }
 }
 
-// Inicialización
 document.addEventListener('DOMContentLoaded', () => {
     showTab('persona');
 });

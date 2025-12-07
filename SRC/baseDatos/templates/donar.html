@@ -678,7 +678,6 @@
                 const isVisible = radioOrg.checked;
                 target.style.display = isVisible ? 'block' : 'none';
 
-                // Si es empresa, el nombre de empresa suele ser obligatorio
                 inputs.forEach(input => {
                     if (isVisible) input.setAttribute('required', 'required');
                     else input.removeAttribute('required');
@@ -689,23 +688,17 @@
             update();
         }
 
-        // ------------------------------------------
         // Parte de "Dona ahora"
-        // ------------------------------------------
         setupToggle('cudeca_donacionesform_enmemoria', 'div_campo_memoriatext');
         setupToggle('cudeca_donacionesform_certificado', 'div-certificado', 'checked', true);
         setupRadioToggle('cudeca_donacionesform_tipodonante_0', 'cudeca_donacionesform_tipodonante_1', 'div_cudeca_donacionesform_empresa');
 
-        // ------------------------------------------
         // Parte de "Haz una transferencia"
-        // ------------------------------------------
         setupToggle('cudeca_donacionesformtransferencia_enmemoria', 'div_campo_memoriatext_transferencia');
         setupToggle('cudeca_donacionesformtransferencia_certificado', 'div-certificado_transferencia', 'checked', true);
         setupRadioToggle('cudeca_donacionesformtransferencia_tipodonante_0', 'cudeca_donacionesformtransferencia_tipodonante_1', 'div_cudeca_donacionesformtransferencia_empresa');
 
-        // ------------------------------------------
         // Parte de "Envía un cheque"
-        // ------------------------------------------
         setupToggle('cudeca_donacionesformcheque_enmemoria', 'div_campo_memoriatext_cheque');
         setupToggle('cudeca_donacionesformcheque_certificado', 'div-certificado_cheque', 'checked', true);
         setupRadioToggle('cudeca_donacionesformcheque_tipodonante_0', 'cudeca_donacionesformcheque_tipodonante_1', 'div_cudeca_donacionesformcheque_empresa');

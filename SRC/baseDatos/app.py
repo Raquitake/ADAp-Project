@@ -425,7 +425,6 @@ def hazte_socio():
         if not current_user.is_authenticated:
             return redirect(url_for('login'))
         
-        # Simplificado para mantener funcionalidad base
         current_user.es_socio = True
         db.session.commit()
         flash('¡Ya eres socio!')
@@ -446,7 +445,7 @@ def donar():
         return redirect(url_for('dashboard'))
     return render_template('donar.html')
 
-# --- AUTH ---
+# --- AUTHENTICATION ---
 
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
@@ -520,7 +519,6 @@ def escanear_qr():
 @login_required
 @admin_required
 def validar_qr_api():
-    # Simplificado, misma logica
     data = request.get_json()
     qr_content = data.get('qr_content')
     if not qr_content or not qr_content.startswith('TICKET:'):
@@ -538,7 +536,7 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
         if not Evento.query.first():
-            # Demo Data
+
             e = Evento(
                 nombre_evento="Gala Inicio", 
                 localizacion="Marbella", 

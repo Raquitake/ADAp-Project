@@ -37,7 +37,7 @@ app.config['UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'eventos')
 app.config['RIFA_UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'rifas')
 app.config['QR_UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'qrcodes')
 
-# Inicializamos el Singleton
+# Inicializacion Singleton
 app_config = AppConfig()
 app_config.init_app(app)
 
@@ -121,7 +121,6 @@ def participar_rifa(id):
              precio_boleto = rifa.precio if rifa.precio else 5.0
              
              for _ in range(cantidad_boletos):
-                 # No access token for rifa needed
                  db_record = factory.create_database_record(rifa.id, current_user.id, precio_boleto)
                  db.session.add(db_record)
                  
@@ -166,9 +165,7 @@ def pago_entrada(id_evento):
         
         try:
             for _ in range(cantidad_entradas):
-                # Crear QR
                 token_path = factory.create_access_token() 
-                # Crear Entrada
                 entrada = factory.create_database_record(evento.id, current_user.id, evento.precio, token_path)
                 db.session.add(entrada)
             
@@ -258,7 +255,7 @@ def confirmar_eliminar_evento(id):
 @admin_required
 def eliminar_evento(id):
     evento = Evento.query.get_or_404(id)
-    # Using Singleton for path
+    # Singleton for path
     if evento.imagen_evento:
         config = AppConfig()
         filename = os.path.basename(evento.imagen_evento)
@@ -293,7 +290,6 @@ def eliminar_evento(id):
 @admin_required
 def clonar_evento(id):
     original = Evento.query.get_or_404(id)
-    # Cloning using the Prototype method
     clon = original.clone()
     db.session.add(clon)
     db.session.commit()

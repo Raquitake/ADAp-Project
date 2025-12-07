@@ -8,9 +8,8 @@ from werkzeug.utils import secure_filename
 from models import Evento, Entrada, Boleto, db
 from flask import current_app
 
-# ==========================================
 # 1. SINGLETON: App Configuration
-# ==========================================
+
 class AppConfig:
     _instance = None
     
@@ -46,9 +45,7 @@ class AppConfig:
     def get_qr_upload_folder(self):
         return self.qr_upload_folder
 
-# ==========================================
 # 2. FACTORY METHOD: Payment Factory
-# ==========================================
 
 class PaymentProcessor(ABC):
     @abstractmethod
@@ -86,9 +83,8 @@ class PaymentFactory:
         }
         return processors.get(method_name)
 
-# ==========================================
 # 3. BUILDER: EventoBuilder
-# ==========================================
+
 class EventoBuilder:
     def __init__(self):
         self.evento = Evento()
@@ -133,9 +129,9 @@ class EventoBuilder:
     def build(self):
         return self.evento
 
-# ==========================================
+
 # 4. ABSTRACT FACTORY: Transaction Factory
-# ==========================================
+
 # Familia de objetos: DbRecord (Entrada/Boleto) y AccessToken (QR/Nada)
 
 class TransactionFactory(ABC):

@@ -9,6 +9,9 @@
         <h2>{{ rifa.nombre }}</h2>
 
         <p><strong>Premio:</strong> {{ rifa.premio }}</p>
+        
+        <p><strong>Precio del boleto:</strong> {{ rifa.precio }}€</p>
+        
         <p><strong>Fecha del sorteo:</strong> {{ rifa.fecha_fin.strftime('%d/%m/%Y %H:%M') if rifa.fecha_fin else 'Sin
             fecha' }}</p>
         <p><strong>Descripción:</strong> {{ rifa.informacion }}</p>

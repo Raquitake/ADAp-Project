@@ -103,7 +103,9 @@ class Rifa(db.Model):
     informacion = db.Column(db.Text)
     premio = db.Column(db.String(255))
     imagen = db.Column(db.String(255), nullable=True)
-    ganador_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=True) 
+    ganador_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=True)
+    
+    precio = db.Column(db.Float, default=5.0) 
 
     # [PROTOTYPE]
     def clone(self):
@@ -112,7 +114,8 @@ class Rifa(db.Model):
             fecha_fin=self.fecha_fin,
             informacion=self.informacion,
             premio=self.premio,
-            imagen=self.imagen
+            imagen=self.imagen,
+            precio=self.precio  # --- AÑADIR ESTO ---
         )
 
 # --- TRANSACCIONES (ENTRADAS Y BOLETOS) ---

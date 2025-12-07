@@ -325,17 +325,21 @@ def gestionar_rifas():
 @admin_required
 def crear_rifa():
     if request.method == 'POST':
-        # Could use Builder here too, but restricted to Evento per explicit request instructions
         nombre = request.form.get('nombre')
         premio = request.form.get('premio')
         informacion = request.form.get('informacion')
         fecha_str = request.form.get('fecha')
         
+        try:
+            precio = float(request.form.get('precio', 5.0))
+        except ValueError:
+            precio = 5.0
+        
         fecha_fin = None
         if fecha_str:
             try: fecha_fin = datetime.strptime(fecha_str, '%Y-%m-%dT%H:%M')
             except: pass
-
+        
         imagen_path = None
         if 'imagen' in request.files:
             file = request.files['imagen']
@@ -350,7 +354,8 @@ def crear_rifa():
             premio=premio,
             informacion=informacion,
             fecha_fin=fecha_fin,
-            imagen=imagen_path
+            imagen=imagen_path,
+            precio=precio  
         )
         db.session.add(nueva_rifa)
         db.session.commit()
@@ -368,18 +373,18 @@ def editar_rifa(id):
         rifa.premio = request.form.get('premio')
         rifa.informacion = request.form.get('informacion')
         
+        try:
+            rifa.precio = float(request.form.get('precio', 5.0))
+        except ValueError:
+            pass
+
         fecha_str = request.form.get('fecha')
         if fecha_str:
              try: rifa.fecha_fin = datetime.strptime(fecha_str, '%Y-%m-%dT%H:%M')
              except: pass
         
         if 'imagen' in request.files:
-            file = request.files['imagen']
-            if file and file.filename != '':
-                config = AppConfig()
-                filename = f"rifa_{datetime.now().strftime('%Y%m%d%H%M%S')}_{file.filename}"
-                file.save(os.path.join(config.get_rifa_upload_folder, filename))
-                rifa.imagen = f"img/rifas/{filename}"
+             pass
 
         db.session.commit()
         flash('Rifa actualizada')

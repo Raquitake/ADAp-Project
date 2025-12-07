@@ -269,6 +269,8 @@ def eliminar_evento(id):
         if os.path.exists(image_path):
              try: os.remove(image_path)
              except: pass
+             
+    Entrada.query.filter_by(id_evento=evento.id).delete()
     
     db.session.delete(evento)
     db.session.commit()
@@ -412,6 +414,9 @@ def eliminar_rifa(id):
         if os.path.exists(path):
             try: os.remove(path)
             except: pass
+            
+    Boleto.query.filter_by(id_rifa=rifa.id).delete()
+    
     db.session.delete(rifa)
     db.session.commit()
     flash('Rifa eliminada')

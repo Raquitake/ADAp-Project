@@ -457,8 +457,35 @@ def hazte_voluntario():
 @app.route('/donar', methods=['GET', 'POST'])
 def donar():
     if request.method == 'POST':
-        flash('Gracias por donar (Simulado)')
-        return redirect(url_for('dashboard'))
+        tipo_form = request.form.get('tipo_formulario')
+        
+        if tipo_form == 'dona_ahora':
+            metodo_pago = request.form.get('metodo_pago')
+            try:
+                cantidad = float(request.form.get('cantidad', 0))
+            except ValueError:
+                flash('Cantidad inválida')
+                return redirect(url_for('donar'))
+
+            processor = PaymentFactory.get_processor(metodo_pago)
+            if not processor:
+                flash('Método de pago no válido')
+                return redirect(url_for('donar'))
+            
+            success, msg = processor.process(cantidad, request.form)
+            
+            if success:
+                flash(f"¡Gracias por tu donación de {cantidad}€! ({msg})")
+                return redirect(url_for('index'))
+            else:
+                flash(f"Error en la donación: {msg}")
+
+        elif tipo_form == 'transferencia':
+            cantidad = request.form.get('cantidad')
+            nombre = request.form.get('nombre')
+            flash(f"Hemos registrado tu aviso de transferencia de {cantidad}€. Lo verificaremos pronto. Gracias, {nombre}.")
+            return redirect(url_for('index'))
+            
     return render_template('donar.html')
 
 # --- AUTHENTICATION ---

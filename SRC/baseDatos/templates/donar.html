@@ -1,3 +1,6 @@
+Entendido. Aquí tienes el archivo `donar.html` original (con todas sus líneas, estilos en línea y estructura original), modificando **exclusivamente** lo necesario para añadir la lógica de pago (tarjeta/bizum/paypal) en el formulario "Dona ahora" y la identificación en "Transferencia", sin tocar nada más.
+
+```html
 {% extends "base.html" %}
 
 {% block content %}
@@ -25,7 +28,8 @@
     .form-group input[type="email"],
     .form-group input[type="tel"],
     .form-group input[type="date"],
-    .form-group select {
+    .form-group select,
+    .form-group input[type="number"] { /* Añadido number para input cantidad */
         width: 100%;
         padding: 8px;
         border: 1px solid #ccc;
@@ -162,13 +166,15 @@
 
 <div id="tab-donaahora">
     <form method="POST" id="cudeca-formulario-donacion" action="{{ url_for('donar') }}">
+        
+        <input type="hidden" name="tipo_formulario" value="dona_ahora">
 
         <h2 class="form-title">Selecciona la cantidad del donativo</h2>
         <div class="form-group">
             <label for="cudeca_donacionesform_cantidad">Cantidad <span style="color:red">*</span></label>
             <div class="inline-amount-group">
-                <input type="text" id="cudeca_donacionesform_cantidad" name="cudeca_donacionesform[cantidad]"
-                    required="required" placeholder="Cantidad" class="amount-input">
+                <input type="number" id="cudeca_donacionesform_cantidad" name="cantidad"
+                    required="required" placeholder="Cantidad" class="amount-input" step="0.01" min="1">
                 <span class="currency-symbol">€</span>
             </div>
         </div>
@@ -318,6 +324,35 @@
             </div>
         </div>
 
+        <h2 class="form-title">Información de Pago</h2>
+        
+        <div class="form-group">
+            <label for="metodo_pago_dona">Método de pago <span style="color:red">*</span></label>
+            <select id="metodo_pago_dona" name="metodo_pago" onchange="mostrarTarjetaDona()" required>
+                <option value="">Seleccione un método...</option>
+                <option value="tarjeta">Tarjeta de Crédito / Débito</option>
+                <option value="bizum">Bizum</option>
+                <option value="paypal">PayPal</option>
+            </select>
+        </div>
+
+        <div id="form-tarjeta-dona" style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px; display: none; border: 1px solid #ddd;">
+            <h4 style="margin-top:0; color: var(--dark-green);">Datos de la Tarjeta</h4>
+            <div class="form-group">
+                <label>Número de Tarjeta</label>
+                <input type="text" name="tarjeta_numero" placeholder="0000 0000 0000 0000" maxlength="19">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <div class="form-group" style="flex: 1;">
+                    <label>Caducidad</label>
+                    <input type="text" name="tarjeta_expiry" placeholder="MM/AA" maxlength="5">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>CVV</label>
+                    <input type="text" name="tarjeta_cvv" placeholder="123" maxlength="3">
+                </div>
+            </div>
+        </div>
         <h2 class="form-title" style="border: none; margin-top: 30px;"></h2>
 
         <div class="form-group">
@@ -361,13 +396,15 @@
 
     <form method="POST" id="cudeca-formulario-transferencia" action="{{ url_for('donar') }}">
 
+        <input type="hidden" name="tipo_formulario" value="transferencia">
+
         <h2 class="form-title">Detalles de la donación</h2>
         <div class="form-group">
             <label for="cudeca_donacionesformtransferencia_cantidad">Cantidad transferida <span
                     style="color:red">*</span></label>
             <div class="inline-amount-group">
                 <input type="text" id="cudeca_donacionesformtransferencia_cantidad"
-                    name="cudeca_donacionesformtransferencia[cantidad]" required="required" placeholder="Cantidad"
+                    name="cantidad" required="required" placeholder="Cantidad"
                     class="amount-input">
                 <span class="currency-symbol">€</span>
             </div>
@@ -414,7 +451,7 @@
                     style="color:red">*</span></label>
             <div style="display: flex; gap: 10px;">
                 <input type="text" id="cudeca_donacionesformtransferencia_nombre"
-                    name="cudeca_donacionesformtransferencia[nombre]" required="required" placeholder="Nombre">
+                    name="nombre" required="required" placeholder="Nombre">
                 <input type="text" id="cudeca_donacionesformtransferencia_apellidos"
                     name="cudeca_donacionesformtransferencia[apellidos]" required="required" placeholder="Apellidos">
             </div>
@@ -638,6 +675,20 @@
         });
     }
 
+    function mostrarTarjetaDona() {
+        const metodo = document.getElementById('metodo_pago_dona').value;
+        const box = document.getElementById('form-tarjeta-dona');
+        const inputs = box.querySelectorAll('input');
+
+        if (metodo === 'tarjeta') {
+            box.style.display = 'block';
+            inputs.forEach(i => i.setAttribute('required', 'required'));
+        } else {
+            box.style.display = 'none';
+            inputs.forEach(i => i.removeAttribute('required'));
+        }
+    }
+
 
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -706,3 +757,4 @@
     });
 </script>
 {% endblock %}
+```

@@ -32,7 +32,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'instance', 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# [SINGLETON CONFIG SETUP]
+# [SINGLETON] Configuración de rutas de subida
 app.config['UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'eventos')
 app.config['RIFA_UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'rifas')
 app.config['QR_UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'qrcodes')
@@ -102,19 +102,18 @@ def participar_rifa(id):
         cantidad_boletos = int(request.form.get('cantidad', 1))
         metodo_pago = request.form.get('metodo_pago')
 
-        # [FACTORY METHOD]: Payment Processing
+        # [FACTORY METHOD]: Procesar Pago
         processor = PaymentFactory.get_processor(metodo_pago)
         if not processor:
              flash('Método de pago no válido')
              return redirect(url_for('participar_rifa', id=id))
              
-        # Placeholder Amount logic
         success, msg = processor.process(10.0 * cantidad_boletos, request.form)
         if not success:
             flash(f"Error en el pago: {msg}")
             return render_template('participar_rifa.html', rifa=rifa)
 
-        # [ABSTRACT FACTORY]: Create Database Record (Boleto) and Token (None for Rifa)
+        # [ABSTRACT FACTORY]: Crear Records para la base de datos
         factory = RaffleTransactionFactory()
         
         try:
@@ -188,7 +187,7 @@ def pago_entrada(id_evento):
 @admin_required
 def crear_evento():
     if request.method == 'POST':
-        # [BUILDER PATTERN]
+        # [BUILDER]
         try:
             builder = EventoBuilder()
             nuevo_evento = (builder
@@ -255,7 +254,7 @@ def confirmar_eliminar_evento(id):
 @admin_required
 def eliminar_evento(id):
     evento = Evento.query.get_or_404(id)
-    # Singleton for path
+    # [SINGLETON]
     if evento.imagen_evento:
         config = AppConfig()
         filename = os.path.basename(evento.imagen_evento)
@@ -284,7 +283,7 @@ def eliminar_evento(id):
     flash('Evento, entradas y códigos QR eliminados correctamente')
     return redirect(url_for('eventos'))
 
-# [PROTOTYPE] Route to test cloning
+# [PROTOTYPE]
 @app.route('/admin/evento/clonar/<int:id>')
 @login_required
 @admin_required

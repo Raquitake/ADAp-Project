@@ -115,7 +115,7 @@ class Rifa(db.Model):
             informacion=self.informacion,
             premio=self.premio,
             imagen=self.imagen,
-            precio=self.precio  # --- AÑADIR ESTO ---
+            precio=self.precio
         )
 
 # --- TRANSACCIONES (ENTRADAS Y BOLETOS) ---

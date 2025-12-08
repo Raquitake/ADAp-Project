@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 from models import Evento, Entrada, Boleto, db
 from flask import current_app
 
-# 1. SINGLETON: App Configuration
+# 1. SINGLETON: Configuración de la aplicación
 
 class AppConfig:
     _instance = None
@@ -45,7 +45,7 @@ class AppConfig:
     def get_qr_upload_folder(self):
         return self.qr_upload_folder
 
-# 2. FACTORY METHOD: Payment Factory
+# 2. FACTORY METHOD: Factory de pagos
 
 class PaymentProcessor(ABC):
     @abstractmethod
@@ -112,7 +112,7 @@ class EventoBuilder:
         
     def set_image(self, file_storage):
         if file_storage and file_storage.filename:
-            config = AppConfig() # Singleton access
+            config = AppConfig() # Singleton
             folder = config.get_upload_folder
             
             filename = secure_filename(file_storage.filename)
@@ -130,7 +130,7 @@ class EventoBuilder:
         return self.evento
 
 
-# 4. ABSTRACT FACTORY: Transaction Factory
+# 4. ABSTRACT FACTORY: Factory de transacciones
 
 # Familia de objetos: DbRecord (Entrada/Boleto) y AccessToken (QR/Nada)
 
@@ -167,7 +167,7 @@ class EventTransactionFactory(TransactionFactory):
 
 class RaffleTransactionFactory(TransactionFactory):
     def create_access_token(self):
-        # Rifas no tienen QR, retornamos Token simple o None
+        # Rifas sin QR
         return None
 
     def create_database_record(self, item_id, user_id, price, token=None):

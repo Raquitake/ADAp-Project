@@ -26,7 +26,7 @@ def validar_dni_nie(documento):
     return letras_validas[resto] == letra_usuario
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'tu_clave_secreta_muy_segura'
+app.config['SECRET_KEY'] = os.urandom(24)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'instance', 'database.db')
@@ -583,4 +583,4 @@ if __name__ == '__main__':
             )
             db.session.add(e)
             db.session.commit()
-    app.run(debug=True)
+    app.run(debug=True, ssl_context='adhoc')

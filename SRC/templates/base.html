@@ -10,6 +10,14 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
+    <style>
+        /* Estilo para el enlace activo en la barra de navegación */
+        .navbar a.active {
+            color: #FFD700 !important; /* Color dorado */
+            font-weight: bold;
+            border-bottom: 2px solid #FFD700; /* Línea inferior para resaltar */
+        }
+    </style>
 </head>
 
 <body>
@@ -26,21 +34,58 @@
                 </p>
             </div>
         </div>
+        
         <nav class="navbar">
-            <a href="{{ url_for('index') }}">Inicio</a>
-            <a href="{{ url_for('quienes_somos') }}">Quiénes Somos</a>
-            <a href="{{ url_for('eventos') }}">Eventos</a>
-            <a href="{{ url_for('donar') }}">Donar</a>
-            <a href="{{ url_for('hazte_socio') }}">Socios</a>
-            <a href="{{ url_for('contacto') }}">Contacto</a>
+            <a href="{{ url_for('index') }}" 
+               class="{{ 'active' if request.endpoint == 'index' else '' }}">
+               Inicio
+            </a>
+
+            <a href="{{ url_for('quienes_somos') }}"
+               class="{{ 'active' if request.endpoint == 'quienes_somos' else '' }}">
+               Quiénes Somos
+            </a>
+
+            <a href="{{ url_for('eventos') }}"
+               class="{{ 'active' if request.endpoint in ['eventos', 'ver_evento', 'pago_entrada', 'ver_rifa', 'participar_rifa'] else '' }}">
+               Eventos
+            </a>
+
+            <a href="{{ url_for('donar') }}"
+               class="{{ 'active' if request.endpoint == 'donar' else '' }}">
+               Donar
+            </a>
+
+            <a href="{{ url_for('hazte_socio') }}"
+               class="{{ 'active' if request.endpoint == 'hazte_socio' else '' }}">
+               Socios
+            </a>
+
+            <a href="{{ url_for('contacto') }}"
+               class="{{ 'active' if request.endpoint == 'contacto' else '' }}">
+               Contacto
+            </a>
+
             {% if current_user.is_authenticated %}
-            <a href="{{ url_for('dashboard') }}">Mi Cuenta</a>
+            <a href="{{ url_for('dashboard') }}"
+               class="{{ 'active' if request.endpoint in ['dashboard', 'editar_perfil'] else '' }}">
+               Mi Cuenta
+            </a>
+            
             {% if current_user.es_admin %}
-            <a href="{{ url_for('gestionar_socios') }}" style="color: gold;">Admin</a>
+            <a href="{{ url_for('gestionar_socios') }}" style="color: gold;"
+               class="{{ 'active' if 'admin' in request.endpoint else '' }}">
+               Admin
+            </a>
             {% endif %}
+            
             <a href="{{ url_for('logout') }}">Log Out</a>
+            
             {% else %}
-            <a href="{{ url_for('login') }}">Log In</a>
+            <a href="{{ url_for('login') }}"
+               class="{{ 'active' if request.endpoint in ['login', 'registro'] else '' }}">
+               Log In
+            </a>
             {% endif %}
         </nav>
     </header>

@@ -565,7 +565,7 @@ def validar_qr_api():
     entrada = Entrada.query.filter_by(codigo_qr=f"img/qrcodes/qr_{uuid_part}.png").first()
     
     if entrada:
-        return jsonify({'valid': True, 'mensaje': 'Válida', 'evento': entrada.evento.nombre_evento, 'asistente': Usuario.query.get(entrada.id_comprador).nombre_usuario})
+        return jsonify({'valid': True, 'mensaje': 'Válida', 'evento': entrada.evento.nombre_evento, 'asistente': Usuario.query.get(entrada.id_comprador).nombre_usuario, 'precio': entrada.precio})
     else:
         return jsonify({'valid': False, 'message': 'No encontrada'}), 404
 

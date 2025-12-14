@@ -4,12 +4,12 @@ from werkzeug.security import generate_password_hash
 
 with app.app_context():
     # 1. Buscar o crear el usuario
-    correo = 'conejo@gmail.com'
+    correo = 'admin@gmail.com'
     usuario = Usuario.query.filter_by(correo_electronico=correo).first()
     
     if not usuario:
         print(f"ℹ️ El usuario {correo} no existe. Creándolo...")
-        hashed_password = generate_password_hash('conejo', method='pbkdf2:sha256')
+        hashed_password = generate_password_hash('admin', method='pbkdf2:sha256')
         usuario = Usuario(
             nombre_usuario=correo.split('@')[0],
             correo_electronico=correo,
@@ -18,7 +18,7 @@ with app.app_context():
         )
         db.session.add(usuario)
         db.session.commit()
-        print(f"✅ Usuario 'conejo' creado exitosamente.")
+        print(f"✅ Usuario 'admin' creado exitosamente.")
     else:
         print(f"ℹ️ El usuario {correo} ya existe.")
 
@@ -35,4 +35,4 @@ with app.app_context():
     print("-" * 30)
     print("Credenciales:")
     print(f"Email: {correo}")
-    print(f"Pass:  conejo")
+    print(f"Pass:  admin")

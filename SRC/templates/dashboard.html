@@ -34,13 +34,11 @@
                     {% if user.es_socio %}
                     <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
                         <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Gestión de suscripción:</p>
-                        <form action="{{ url_for('baja_socio') }}" method="POST"
-                            onsubmit="return confirm('¿Estás seguro de que deseas darte de baja como socio? Perderás tus ventajas.');">
-                            <button type="submit" class="btn btn-outline-red btn-small"
-                                style="font-size: 0.8rem; padding: 5px 10px;">
-                                Darse de baja como socio
-                            </button>
-                        </form>
+                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Gestión de suscripción:</p>
+                        <a href="{{ url_for('baja_socio') }}" class="btn btn-outline-red btn-small"
+                            style="font-size: 0.8rem; padding: 5px 10px; display: inline-block;">
+                            Darse de baja como socio
+                        </a>
                     </div>
                     {% endif %}
                     {% if user.dni_nif %}
@@ -55,7 +53,7 @@
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 20px;">
-            
+
             <div class="dashboard-card activity-card">
                 <div class="card-header">
                     <h3>Mis Entradas (Eventos)</h3>
@@ -77,8 +75,7 @@
                             </div>
                             <div class="ticket-action">
                                 {% if entrada.codigo_qr and entrada.codigo_qr.startswith('img/') %}
-                                <a href="{{ url_for('static', filename=entrada.codigo_qr) }}"
-                                    download="entrada.png"
+                                <a href="{{ url_for('static', filename=entrada.codigo_qr) }}" download="entrada.png"
                                     class="btn btn-yellow btn-small">Descargar</a>
                                 {% endif %}
                             </div>
@@ -107,10 +104,13 @@
                                 <h4>{{ boleto.rifa_rel.nombre }}</h4>
                                 <p><strong>Premio:</strong> {{ boleto.rifa_rel.premio }}</p>
                                 <p>Boleto ID: #{{ boleto.id }} | Aportación: {{ boleto.precio }}€</p>
-                                <p><small class="text-muted">Fecha Sorteo: {{ boleto.rifa_rel.fecha_fin.strftime('%d/%m/%Y') if boleto.rifa_rel.fecha_fin else 'Pendiente' }}</small></p>
+                                <p><small class="text-muted">Fecha Sorteo: {{
+                                        boleto.rifa_rel.fecha_fin.strftime('%d/%m/%Y') if boleto.rifa_rel.fecha_fin else
+                                        'Pendiente' }}</small></p>
                             </div>
                             <div class="ticket-action">
-                                <span class="badge badge-gold text-dark" style="padding: 5px 10px; border-radius: 15px;">Participando</span>
+                                <span class="badge badge-gold text-dark"
+                                    style="padding: 5px 10px; border-radius: 15px;">Participando</span>
                             </div>
                         </li>
                         {% endfor %}
@@ -132,9 +132,9 @@
             <div class="card-body">
                 <a href="{{ url_for('crear_evento') }}" class="btn btn-yellow">Crear Evento</a>
                 <a href="{{ url_for('gestionar_rifas') }}" class="btn btn-yellow">Gestionar Rifas</a>
-                
+
                 <a href="{{ url_for('gestionar_metas') }}" class="btn btn-yellow">Metas Recaudación</a>
-                
+
                 <a href="{{ url_for('gestionar_socios') }}" class="btn btn-yellow">Gestionar Socios</a>
                 <a href="{{ url_for('escanear_qr') }}" class="btn btn-blue">Escanear Entradas</a>
                 <a href="{{ url_for('eventos') }}" class="btn btn-outline-green">Ver Todo</a>

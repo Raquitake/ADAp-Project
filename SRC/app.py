@@ -215,14 +215,17 @@ def ver_socio_admin(id):
     boletos = Boleto.query.filter_by(id_comprador=socio.id).all()
     return render_template('admin/ver_socio.html', socio=socio, entradas=entradas, boletos=boletos)
 
-@app.route('/baja-socio', methods=['POST'])
+@app.route('/baja-socio', methods=['GET', 'POST'])
 @login_required
 def baja_socio():
-    if current_user.es_socio:
-        current_user.es_socio = False
-        db.session.commit()
-        flash('Has dado de baja tu suscripción.')
-    return redirect(url_for('dashboard'))
+    if request.method == 'POST':
+        if current_user.es_socio:
+            current_user.es_socio = False
+            db.session.commit()
+            flash('Has dado de baja tu suscripción.')
+            facade.notify(f"Usuario {current_user.nombre_usuario} se dio de baja de socio.")
+        return redirect(url_for('dashboard'))
+    return render_template('baja_socio.html')
 
 # --- RUTAS DE ADMINISTRACIÓN DE METAS (CRUD) ---
 

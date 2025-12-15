@@ -210,3 +210,16 @@ class EmailNotificationObserver(Observer):
             print(f"[EMAIL SERVICE] Enviando entradas para el evento '{data.get('event_name')}' a {data.get('user_email')}")
         elif event_type == 'RAFFLE_TICKET_PURCHASED':
              print(f"[EMAIL SERVICE] Enviando boletos de rifa a {data.get('user_email')}")
+        elif event_type == 'USER_REGISTERED':
+             print(f"[EMAIL SERVICE] Enviando correo de bienvenida a {data.get('user_email')}")
+        elif event_type == 'USER_SOCIO':
+             print(f"[EMAIL SERVICE] Enviando correo de bienvenida a {data.get('user_email')}")
+        elif event_type == 'USER_BAJA':
+             print(f"[EMAIL SERVICE] Enviando correo de bienvenida a {data.get('user_email')}")
+        elif event_type == 'USER_SUSCRIPCION':
+             print(f"[EMAIL SERVICE] Enviando correo de bienvenida a {data.get('user_email')}")
+        elif event_type == 'USER_SUSCRIPCION':
+             print(f"[EMAIL SERVICE] Enviando correo de bienvenida a {data.get('user_email')}")
+        else:
+             print(f"[EMAIL SERVICE] Evento no reconocido: {event_type}")
+

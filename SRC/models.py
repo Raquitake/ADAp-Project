@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
-from datetime import datetime
+from datetime import datetime, timezone
 
 db = SQLAlchemy()
 
@@ -69,7 +69,36 @@ class Destinatarios(db.Model):
     __tablename__ = 'destinatarios'
     id = db.Column(db.Integer, primary_key=True)
     id_mensaje = db.Column(db.Integer, db.ForeignKey('mensaje.id'))
-    id_destinatario = db.Column(db.Integer, db.ForeignKey('usuario.id')) 
+    id_destinatario = db.Column(db.Integer, db.ForeignKey('usuario.id'))
+
+
+# --- METAS ---
+
+class MetaRecaudacion(db.Model):
+    __tablename__ = 'meta_recaudacion'
+    id = db.Column(db.Integer, primary_key=True)
+    titulo = db.Column(db.String(150), nullable=False)
+    descripcion = db.Column(db.Text)
+    cantidad_objetivo = db.Column(db.Float, nullable=False)
+    fecha_inicio = db.Column(db.DateTime, nullable=False)
+    fecha_fin = db.Column(db.DateTime, nullable=False)
+    imagen = db.Column(db.String(255), nullable=True)
+    activa = db.Column(db.Boolean, default=True)
+
+    @property
+    def porcentaje_completado(self):
+        # Este cálculo se hará en app.py o via helper
+        pass
+
+class Donacion(db.Model):
+    __tablename__ = 'donacion'
+    id = db.Column(db.Integer, primary_key=True)
+    cantidad = db.Column(db.Float, nullable=False)
+    fecha = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    mensaje = db.Column(db.Text, nullable=True)
+    
+    id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=True)
+    usuario = db.relationship('Usuario', backref='donaciones') 
 
 # --- EVENTOS Y RIFAS ---
 
@@ -104,7 +133,6 @@ class Rifa(db.Model):
     premio = db.Column(db.String(255))
     imagen = db.Column(db.String(255), nullable=True)
     ganador_id = db.Column(db.Integer, db.ForeignKey('usuario.id'), nullable=True)
-    
     precio = db.Column(db.Float, default=5.0) 
 
     # [PROTOTYPE]
@@ -128,6 +156,7 @@ class Entrada(db.Model):
     asiento = db.Column(db.String(50))
     enlace_evento = db.Column(db.String(255))
     codigo_qr = db.Column(db.String(255))
+    fecha_compra = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     
     # Claves foráneas
     id_evento = db.Column(db.Integer, db.ForeignKey('evento.id'))
@@ -140,12 +169,13 @@ class Boleto(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     precio = db.Column(db.Float)
+    fecha_compra = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     
     # Claves foráneas
     id_rifa = db.Column(db.Integer, db.ForeignKey('rifa.id'))
     id_comprador = db.Column(db.Integer, db.ForeignKey('usuario.id')) 
 
-    rifa_rel = db.relationship('Rifa', backref='boletos') # Renamed backref to avoid conflict
+    rifa_rel = db.relationship('Rifa', backref='boletos')
 
 class Recibo(db.Model):
     __tablename__ = 'recibo'

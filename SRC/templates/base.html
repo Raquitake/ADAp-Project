@@ -83,7 +83,8 @@
             
             {% else %}
             <a href="{{ url_for('login') }}"
-               class="{{ 'active' if request.endpoint in ['login', 'registro'] else '' }}">
+               class="btn btn-yellow"
+               style="margin-left: 10px; font-weight: bold; padding: 8px 15px;">
                Log In
             </a>
             {% endif %}

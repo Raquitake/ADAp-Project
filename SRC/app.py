@@ -6,9 +6,10 @@ import uuid
 from flask import Flask, render_template, redirect, url_for, request, flash, abort, jsonify
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from functools import wraps
-from datetime import datetime
-from models import db, Usuario, Administrador, Evento, Entrada, Rifa, Boleto
+from datetime import datetime, timezone
+from models import db, Usuario, Administrador, Evento, Entrada, Rifa, Boleto, MetaRecaudacion, Donacion
 
 from patterns import AppConfig, PaymentFactory, EventoBuilder, EventTransactionFactory, RaffleTransactionFactory
 
@@ -65,7 +66,14 @@ def admin_required(f):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    meta_activa = MetaRecaudacion.query.filter_by(activa=True).order_by(MetaRecaudacion.fecha_fin.desc()).first()
+    
+    recaudado = 0
+    porcentaje = 0
+    if meta_activa:
+        recaudado, porcentaje = calcular_progreso_meta(meta_activa)
+
+    return render_template('index.html', meta=meta_activa, recaudado=recaudado, porcentaje=porcentaje)
 
 @app.route('/quienes-somos')
 def quienes_somos():
@@ -320,6 +328,134 @@ def baja_socio():
         flash('Has dado de baja tu suscripción.')
     return redirect(url_for('dashboard'))
 
+# --- RUTAS DE ADMINISTRACIÓN DE METAS (CRUD) ---
+
+@app.route('/admin/meta/crear', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def crear_meta():
+    if request.method == 'POST':
+        try:
+            # 1. Crear objeto base
+            nueva_meta = MetaRecaudacion(
+                titulo=request.form.get('titulo'),
+                descripcion=request.form.get('descripcion'),
+                cantidad_objetivo=float(request.form.get('objetivo')),
+                fecha_inicio=datetime.strptime(request.form.get('fecha_inicio'), '%Y-%m-%dT%H:%M'),
+                fecha_fin=datetime.strptime(request.form.get('fecha_fin'), '%Y-%m-%dT%H:%M'),
+                activa=True if request.form.get('activa') else False
+            )
+
+            # 2. Lógica de Imagen
+            if 'imagen' in request.files:
+                file = request.files['imagen']
+                if file and file.filename != '':
+                    filename = secure_filename(file.filename)
+                    # Generar nombre único
+                    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+                    save_name = f"meta_{timestamp}_{filename}"
+                    
+                    # Definir ruta (creando carpeta si no existe)
+                    upload_dir = os.path.join(basedir, 'static', 'img', 'metas')
+                    if not os.path.exists(upload_dir):
+                        os.makedirs(upload_dir)
+                    
+                    file.save(os.path.join(upload_dir, save_name))
+                    nueva_meta.imagen = f"img/metas/{save_name}"
+
+            db.session.add(nueva_meta)
+            db.session.commit()
+            flash('Meta de recaudación creada exitosamente.')
+            return redirect(url_for('gestionar_metas'))
+            
+        except ValueError as e:
+            flash(f'Error en el formato de datos: {e}')
+        except Exception as e:
+            flash(f'Error al crear la meta: {e}')
+
+    return render_template('admin/crear_meta.html')
+
+
+@app.route('/admin/meta/editar/<int:id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def editar_meta(id):
+    meta = MetaRecaudacion.query.get_or_404(id)
+    
+    if request.method == 'POST':
+        try:
+            # Actualizar campos de texto
+            meta.titulo = request.form.get('titulo')
+            meta.descripcion = request.form.get('descripcion')
+            meta.cantidad_objetivo = float(request.form.get('objetivo'))
+            meta.activa = True if request.form.get('activa') else False
+            
+            # Actualizar fechas
+            fecha_inicio_str = request.form.get('fecha_inicio')
+            if fecha_inicio_str:
+                meta.fecha_inicio = datetime.strptime(fecha_inicio_str, '%Y-%m-%dT%H:%M')
+                
+            fecha_fin_str = request.form.get('fecha_fin')
+            if fecha_fin_str:
+                meta.fecha_fin = datetime.strptime(fecha_fin_str, '%Y-%m-%dT%H:%M')
+
+            # Actualizar Imagen (si se sube una nueva)
+            if 'imagen' in request.files:
+                file = request.files['imagen']
+                if file and file.filename != '':
+                    # Borrar imagen antigua si existe
+                    if meta.imagen:
+                        ruta_antigua = os.path.join(basedir, 'static', meta.imagen)
+                        if os.path.exists(ruta_antigua):
+                            os.remove(ruta_antigua)
+                    
+                    # Guardar nueva imagen
+                    filename = secure_filename(file.filename)
+                    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+                    save_name = f"meta_{timestamp}_{filename}"
+                    
+                    upload_dir = os.path.join(basedir, 'static', 'img', 'metas')
+                    if not os.path.exists(upload_dir):
+                        os.makedirs(upload_dir)
+                        
+                    file.save(os.path.join(upload_dir, save_name))
+                    meta.imagen = f"img/metas/{save_name}"
+
+            db.session.commit()
+            flash('Meta actualizada correctamente.')
+            return redirect(url_for('gestionar_metas'))
+            
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error al actualizar: {e}')
+
+    return render_template('admin/editar_meta.html', meta=meta)
+
+
+@app.route('/admin/meta/eliminar/<int:id>', methods=['POST'])
+@login_required
+@admin_required
+def eliminar_meta(id):
+    meta = MetaRecaudacion.query.get_or_404(id)
+    
+    try:
+        # Borrar archivo de imagen asociado
+        if meta.imagen:
+            ruta_imagen = os.path.join(basedir, 'static', meta.imagen)
+            if os.path.exists(ruta_imagen):
+                os.remove(ruta_imagen)
+        
+        # Borrar registro de base de datos
+        db.session.delete(meta)
+        db.session.commit()
+        flash('Meta eliminada correctamente.')
+        
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Error al eliminar la meta: {e}')
+        
+    return redirect(url_for('gestionar_metas'))
+
 # --- GESTIÓN DE RIFAS (ADMIN) ---
 
 @app.route('/admin/rifas')
@@ -469,6 +605,14 @@ def donar():
             success, msg = processor.process(cantidad, request.form)
             
             if success:
+                nueva_donacion = Donacion(
+                    cantidad=cantidad,
+                    id_usuario=current_user.id if current_user.is_authenticated else None,
+                    fecha=datetime.now(timezone.utc)
+                )
+                db.session.add(nueva_donacion)
+                db.session.commit()
+
                 flash(f"¡Gracias por tu donación de {cantidad}€! ({msg})")
                 return redirect(url_for('index'))
             else:
@@ -568,6 +712,65 @@ def validar_qr_api():
         return jsonify({'valid': True, 'mensaje': 'Válida', 'evento': entrada.evento.nombre_evento, 'asistente': Usuario.query.get(entrada.id_comprador).nombre_usuario, 'precio': entrada.precio})
     else:
         return jsonify({'valid': False, 'message': 'No encontrada'}), 404
+    
+from sqlalchemy import func # Asegúrate de tener esto arriba del todo con los imports
+
+# --- FUNCIÓN DE CÁLCULO (Necesaria para las rutas) ---
+def calcular_progreso_meta(meta):
+    if not meta:
+        return 0, 0
+
+    inicio = meta.fecha_inicio
+    fin = meta.fecha_fin
+
+    # 1. Sumar Entradas vendidas en el rango
+    total_entradas = db.session.query(func.sum(Entrada.precio)).filter(
+        Entrada.fecha_compra >= inicio,
+        Entrada.fecha_compra <= fin
+    ).scalar() or 0.0
+
+    # 2. Sumar Boletos de Rifa vendidos en el rango
+    total_boletos = db.session.query(func.sum(Boleto.precio)).filter(
+        Boleto.fecha_compra >= inicio,
+        Boleto.fecha_compra <= fin
+    ).scalar() or 0.0
+
+    # 3. Sumar Donaciones directas en el rango
+    total_donaciones = db.session.query(func.sum(Donacion.cantidad)).filter(
+        Donacion.fecha >= inicio,
+        Donacion.fecha <= fin
+    ).scalar() or 0.0
+
+    recaudado = total_entradas + total_boletos + total_donaciones
+    
+    if meta.cantidad_objetivo > 0:
+        porcentaje = (recaudado / meta.cantidad_objetivo) * 100
+    else:
+        porcentaje = 0
+
+    return round(recaudado, 2), min(round(porcentaje, 1), 100)
+
+# --- RUTAS DE ADMINISTRACIÓN DE METAS (CRUD) ---
+
+@app.route('/admin/metas')
+@login_required
+@admin_required
+def gestionar_metas():
+    # Esta es la función que Flask no encontraba
+    metas = MetaRecaudacion.query.all()
+    datos_metas = []
+    for m in metas:
+        rec, porc = calcular_progreso_meta(m)
+        datos_metas.append({'obj': m, 'recaudado': rec, 'porcentaje': porc})
+        
+    return render_template('admin/gestionar_metas.html', metas=datos_metas)
+
+@app.route('/meta/<int:id>')
+def ver_meta(id):
+    meta = MetaRecaudacion.query.get_or_404(id)
+    recaudado, porcentaje = calcular_progreso_meta(meta)
+    return render_template('ver_meta.html', meta=meta, recaudado=recaudado, porcentaje=porcentaje)
+
 
 if __name__ == '__main__':
     with app.app_context():
@@ -584,3 +787,5 @@ if __name__ == '__main__':
             db.session.add(e)
             db.session.commit()
     app.run(debug=True, ssl_context='adhoc')
+
+

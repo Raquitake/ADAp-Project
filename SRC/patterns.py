@@ -122,7 +122,6 @@ class EventoBuilder:
             file_storage.save(os.path.join(folder, filename))
             self.evento.imagen_evento = f"img/eventos/{filename}"
         elif not self.evento.imagen_evento:
-             # Default o conservar logic podría ir aquí
              pass
         return self
         
@@ -176,3 +175,38 @@ class RaffleTransactionFactory(TransactionFactory):
             id_comprador=user_id,
             precio=price
         )
+
+# 5. OBSERVER PATTERN: Sistema de Notificaciones
+
+class Observer(ABC):
+    @abstractmethod
+    def update(self, subject, *args, **kwargs):
+        pass
+
+class Subject:
+    def __init__(self):
+        self._observers = []
+
+    def attach(self, observer: Observer):
+        if observer not in self._observers:
+            self._observers.append(observer)
+
+    def detach(self, observer: Observer):
+        try:
+            self._observers.remove(observer)
+        except ValueError:
+            pass
+
+    def notify(self, event_type, data=None):
+        for observer in self._observers:
+            observer.update(self, event_type, data)
+
+
+class EmailNotificationObserver(Observer):
+    def update(self, subject, event_type, data):
+        if event_type == 'DONATION_RECEIVED':
+            print(f"[EMAIL SERVICE] Enviando correo de agradecimiento por donación de {data.get('amount')}€ a {data.get('user_email', 'anónimo')}")
+        elif event_type == 'TICKET_PURCHASED':
+            print(f"[EMAIL SERVICE] Enviando entradas para el evento '{data.get('event_name')}' a {data.get('user_email')}")
+        elif event_type == 'RAFFLE_TICKET_PURCHASED':
+             print(f"[EMAIL SERVICE] Enviando boletos de rifa a {data.get('user_email')}")

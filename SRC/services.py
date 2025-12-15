@@ -4,9 +4,9 @@ from flask import current_app
 from werkzeug.utils import secure_filename
 from sqlalchemy import func
 from models import db, Usuario, Evento, Entrada, Rifa, Boleto, MetaRecaudacion, Donacion
-from patterns import AppConfig, PaymentFactory, EventoBuilder, EventTransactionFactory, RaffleTransactionFactory
+from patterns import AppConfig, PaymentFactory, EventoBuilder, EventTransactionFactory, RaffleTransactionFactory, Subject
 
-class FundraisingFacade:
+class FundraisingFacade(Subject):
     """
     Facade que centraliza la lógica de negocio para:
     - Metas de recaudación
@@ -15,6 +15,9 @@ class FundraisingFacade:
     - Gestión de Rifas (y compra de boletos)
     - Validación de QRs
     """
+
+    def __init__(self):
+        super().__init__()
 
     # --- METAS DE RECAUDACIÓN ---
 
@@ -83,9 +86,6 @@ class FundraisingFacade:
                 save_name = f"meta_{timestamp}_{filename}"
                 
                 config = AppConfig()
-                # Nota: AppConfig en patterns.py tiene rutas, pero 'upload_folder' es eventos.
-                # Aquí la lógica original creaba la ruta ad-hoc en app.py.
-                # Para ser consistentes con el Facade, usamos paths relativos a basedir (current_app.root_path)
                 upload_dir = os.path.join(current_app.root_path, 'static', 'img', 'metas')
                 if not os.path.exists(upload_dir):
                     os.makedirs(upload_dir)
@@ -114,14 +114,12 @@ class FundraisingFacade:
             if f_fin: meta.fecha_fin = datetime.strptime(f_fin, '%Y-%m-%dT%H:%M')
 
             if imagen_file and imagen_file.filename != '':
-                # Borrar antigua
                 if meta.imagen:
                     ruta_antigua = os.path.join(current_app.root_path, 'static', meta.imagen)
                     if os.path.exists(ruta_antigua):
                         try: os.remove(ruta_antigua)
                         except: pass
                 
-                # Guardar nueva
                 filename = secure_filename(imagen_file.filename)
                 timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
                 save_name = f"meta_{timestamp}_{filename}"
@@ -170,6 +168,19 @@ class FundraisingFacade:
                 )
                 db.session.add(nueva_donacion)
                 db.session.commit()
+                
+                # Notificar Observers
+                detalles_usuario = {}
+                if user_id:
+                     u = Usuario.query.get(user_id)
+                     if u: detalles_usuario['user_email'] = u.correo_electronico
+
+                self.notify('DONATION_RECEIVED', {
+                    'amount': amount, 
+                    'user_id': user_id,
+                    **detalles_usuario
+                })
+                
                 return True, msg
             except Exception as e:
                 db.session.rollback()
@@ -276,6 +287,14 @@ class FundraisingFacade:
                 entrada = factory.create_database_record(evento.id, user_id, evento.precio, token_path)
                 db.session.add(entrada)
             db.session.commit()
+            
+            # Notify Observers
+            detalles = {'event_name': evento.nombre_evento}
+            u = Usuario.query.get(user_id)
+            if u: detalles['user_email'] = u.correo_electronico
+            
+            self.notify('TICKET_PURCHASED', detalles)
+            
             return True, "Entradas generadas"
         except Exception as e:
             db.session.rollback()
@@ -341,8 +360,6 @@ class FundraisingFacade:
                 try: rifa.fecha_fin = datetime.strptime(f_str, '%Y-%m-%dT%H:%M')
                 except: pass
                 
-            # Nota: Lógica de imagen para update faltaba en el original, se puede añadir si se desea, 
-            # pero mantendré fidelidad al original que tenía un 'pass'
             if imagen_file:
                 pass 
 
@@ -387,10 +404,17 @@ class FundraisingFacade:
         factory = RaffleTransactionFactory()
         try:
             for _ in range(quantity):
-                token = factory.create_access_token() # None
+                token = factory.create_access_token()
                 record = factory.create_database_record(rifa.id, user_id, precio_boleto, token)
                 db.session.add(record)
             db.session.commit()
+            
+            # Notificar Observers
+            detalles = {'raffle_name': rifa.nombre}
+            u = Usuario.query.get(user_id)
+            if u: detalles['user_email'] = u.correo_electronico
+            self.notify('RAFFLE_TICKET_PURCHASED', detalles)
+
             return True, f"Boletos comprados. {msg}"
         except Exception as e:
             db.session.rollback()

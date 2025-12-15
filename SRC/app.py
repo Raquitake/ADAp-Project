@@ -6,7 +6,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from models import db, Usuario, Evento, Entrada, Rifa, Boleto, MetaRecaudacion, Donacion
-from patterns import AppConfig
+from patterns import AppConfig, EmailNotificationObserver
 from services import FundraisingFacade
 
 # Configuracion Singleton inicial
@@ -27,6 +27,10 @@ app_config.init_app(app)
 
 db.init_app(app)
 facade = FundraisingFacade()
+
+# [OBSERVER] Registrar observadores
+facade.attach(EmailNotificationObserver())
+
 
 # --- CONFIGURACIÓN DE LOGIN ---
 login_manager = LoginManager()

@@ -87,7 +87,6 @@ class MetaRecaudacion(db.Model):
 
     @property
     def porcentaje_completado(self):
-        # Este cálculo se hará en app.py o via helper
         pass
 
 class Donacion(db.Model):

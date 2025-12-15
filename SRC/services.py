@@ -288,7 +288,7 @@ class FundraisingFacade(Subject):
                 db.session.add(entrada)
             db.session.commit()
             
-            # Notify Observers
+            # Notificar Observers
             detalles = {'event_name': evento.nombre_evento}
             u = Usuario.query.get(user_id)
             if u: detalles['user_email'] = u.correo_electronico

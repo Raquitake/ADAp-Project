@@ -144,7 +144,6 @@ class TransactionFactory(ABC):
 
 class EventTransactionFactory(TransactionFactory):
     def create_access_token(self):
-        # Generar QR
         config = AppConfig()
         unique_id = str(uuid.uuid4())
         qr_data = f"TICKET:{unique_id}"

@@ -1,31 +1,15 @@
 import os
-import re
-import qrcode
-import uuid
-
+from datetime import datetime
+from functools import wraps
 from flask import Flask, render_template, redirect, url_for, request, flash, abort, jsonify
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.utils import secure_filename
-from functools import wraps
-from datetime import datetime, timezone
-from models import db, Usuario, Administrador, Evento, Entrada, Rifa, Boleto, MetaRecaudacion, Donacion
 
-from patterns import AppConfig, PaymentFactory, EventoBuilder, EventTransactionFactory, RaffleTransactionFactory
+from models import db, Usuario, Evento, Entrada, Rifa, Boleto, MetaRecaudacion, Donacion
+from patterns import AppConfig
+from services import FundraisingFacade
 
-def validar_dni_nie(documento):
-    documento = documento.upper().strip()
-    if len(documento) != 9: return False
-    letras_validas = "TRWAGMYFPDXBNJZSQVHLCKE"
-    letra_usuario = documento[-1]
-    parte_numerica = documento[:-1]
-    if parte_numerica.startswith('X'): parte_numerica = '0' + parte_numerica[1:]
-    elif parte_numerica.startswith('Y'): parte_numerica = '1' + parte_numerica[1:]
-    elif parte_numerica.startswith('Z'): parte_numerica = '2' + parte_numerica[1:]
-    if not parte_numerica.isdigit(): return False
-    resto = int(parte_numerica) % 23
-    return letras_validas[resto] == letra_usuario
-
+# Configuracion Singleton inicial
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 
@@ -33,16 +17,16 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'baseDatos', 'database.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# [SINGLETON] Configuración de rutas de subida
+# Rutas de subida
 app.config['UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'eventos')
 app.config['RIFA_UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'rifas')
 app.config['QR_UPLOAD_FOLDER'] = os.path.join(basedir, 'static', 'img', 'qrcodes')
 
-# Inicializacion Singleton
 app_config = AppConfig()
 app_config.init_app(app)
 
 db.init_app(app)
+facade = FundraisingFacade()
 
 # --- CONFIGURACIÓN DE LOGIN ---
 login_manager = LoginManager()
@@ -66,13 +50,8 @@ def admin_required(f):
 
 @app.route('/')
 def index():
-    meta_activa = MetaRecaudacion.query.filter_by(activa=True).order_by(MetaRecaudacion.fecha_fin.desc()).first()
-    
-    recaudado = 0
-    porcentaje = 0
-    if meta_activa:
-        recaudado, porcentaje = calcular_progreso_meta(meta_activa)
-
+    meta_activa = facade.get_active_meta()
+    recaudado, porcentaje = facade.calculate_progress(meta_activa)
     return render_template('index.html', meta=meta_activa, recaudado=recaudado, porcentaje=porcentaje)
 
 @app.route('/quienes-somos')
@@ -107,37 +86,27 @@ def participar_rifa(id):
     rifa = Rifa.query.get_or_404(id)
 
     if request.method == 'POST':
-        cantidad_boletos = int(request.form.get('cantidad', 1))
-        metodo_pago = request.form.get('metodo_pago')
-
-        # [FACTORY METHOD]: Procesar Pago
-        processor = PaymentFactory.get_processor(metodo_pago)
-        if not processor:
-             flash('Método de pago no válido')
-             return redirect(url_for('participar_rifa', id=id))
-             
-        success, msg = processor.process(10.0 * cantidad_boletos, request.form)
-        if not success:
-            flash(f"Error en el pago: {msg}")
-            return render_template('participar_rifa.html', rifa=rifa)
-
-        # [ABSTRACT FACTORY]: Crear Records para la base de datos
-        factory = RaffleTransactionFactory()
-        
         try:
-             precio_boleto = rifa.precio if rifa.precio else 5.0
-             
-             for _ in range(cantidad_boletos):
-                 db_record = factory.create_database_record(rifa.id, current_user.id, precio_boleto)
-                 db.session.add(db_record)
-                 
-             db.session.commit()
-             flash(f'Has comprado {cantidad_boletos} boletos para "{rifa.nombre}". {msg}')
+            cantidad_boletos = int(request.form.get('cantidad', 1))
+        except ValueError:
+            cantidad_boletos = 1
+            
+        metodo_pago = request.form.get('metodo_pago')
+        
+        success, msg = facade.purchase_raffle_tickets(
+            raffle_id=id,
+            quantity=cantidad_boletos,
+            method=metodo_pago,
+            form_data=request.form,
+            user_id=current_user.id
+        )
+
+        if success:
+             flash(f'Compra exitosa: {msg}')
              return redirect(url_for('dashboard'))
-             
-        except Exception as e:
-            db.session.rollback()
-            flash(f"Error procesando compra: {e}")
+        else:
+            flash(f"Error: {msg}")
+            return render_template('participar_rifa.html', rifa=rifa)
 
     return render_template('participar_rifa.html', rifa=rifa)
 
@@ -154,68 +123,36 @@ def pago_entrada(id_evento):
             
         metodo_pago = request.form.get('metodo_pago')
 
-        # [FACTORY METHOD]
-        processor = PaymentFactory.get_processor(metodo_pago)
-        if not processor:
-             flash('Método de pago desconocido')
-             return render_template('pago_entrada.html', evento=evento)
-             
-        success, msg = processor.process(evento.precio * cantidad_entradas, request.form)
+        success, msg = facade.purchase_ticket(
+            event_id=id_evento,
+            quantity=cantidad_entradas,
+            method=metodo_pago,
+            form_data=request.form,
+            user_id=current_user.id
+        )
         
-        if not success:
+        if success:
+            flash(f'¡Pago exitoso! {msg}')
+            return redirect(url_for('dashboard'))
+        else:
             flash(f"Pago fallido: {msg}")
             return render_template('pago_entrada.html', evento=evento)
 
-        # [ABSTRACT FACTORY]
-        # Crear Entradas (DB) y QRs (Access Token)
-        factory = EventTransactionFactory()
-        
-        try:
-            for _ in range(cantidad_entradas):
-                token_path = factory.create_access_token() 
-                entrada = factory.create_database_record(evento.id, current_user.id, evento.precio, token_path)
-                db.session.add(entrada)
-            
-            db.session.commit()
-            flash(f'¡Pago exitoso! {cantidad_entradas} entradas generadas.')
-            return redirect(url_for('dashboard'))
-            
-        except Exception as e:
-            db.session.rollback()
-            print(f"Error DB: {e}")
-            flash('Hubo un error al generar las entradas.')
-            return render_template('pago_entrada.html', evento=evento)
-        
     return render_template('pago_entrada.html', evento=evento)
 
-# --- RUTAS DE ADMINISTRACIÓN ---
+# --- RUTAS DE ADMINISTRACIÓN DE EVENTOS ---
 
 @app.route('/admin/evento/crear', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def crear_evento():
     if request.method == 'POST':
-        # [BUILDER]
-        try:
-            builder = EventoBuilder()
-            nuevo_evento = (builder
-                .set_basic_info(
-                    nombre=request.form.get('nombre'),
-                    localizacion=request.form.get('localizacion'),
-                    informacion=request.form.get('informacion')
-                )
-                .set_date(request.form.get('fecha'))
-                .set_price(request.form.get('precio'))
-                .set_image(request.files.get('imagen'))
-                .build()
-            )
-            db.session.add(nuevo_evento)
-            db.session.commit()
-            flash('Evento creado exitosamente (Builder Pattern)')
+        success, msg = facade.create_event(request.form, request.files.get('imagen'))
+        if success:
+            flash(msg)
             return redirect(url_for('eventos'))
-        except Exception as e:
-            print(f"Error builder: {e}")
-            flash("Error creando evento")
+        else:
+            flash(f"Error: {msg}")
             
     return render_template('admin/crear_evento.html')
 
@@ -225,29 +162,12 @@ def crear_evento():
 def editar_evento(id):
     evento = Evento.query.get_or_404(id)
     if request.method == 'POST':
-        evento.nombre_evento = request.form.get('nombre')
-        evento.localizacion = request.form.get('localizacion')
-        evento.informacion = request.form.get('informacion')
-        evento.precio = float(request.form.get('precio', 0.0))
-        
-        fecha_str = request.form.get('fecha')
-        if fecha_str:
-            try:
-                evento.fecha = datetime.strptime(fecha_str, '%Y-%m-%dT%H:%M')
-            except ValueError:
-                pass
-        
-        if 'imagen' in request.files:
-            file = request.files['imagen']
-            if file and file.filename != '':
-                config = AppConfig()
-                filename = f"{datetime.now().strftime('%Y%m%d%H%M%S')}_{file.filename}"
-                file.save(os.path.join(config.get_upload_folder, filename))
-                evento.imagen_evento = f"img/eventos/{filename}"
-
-        db.session.commit()
-        flash('Evento actualizado')
-        return redirect(url_for('ver_evento', id=id))
+        success, msg = facade.update_event(id, request.form, request.files.get('imagen'))
+        if success:
+             flash(msg)
+             return redirect(url_for('ver_evento', id=id))
+        else:
+             flash(f"Error: {msg}")
     return render_template('admin/editar_evento.html', evento=evento)
 
 @app.route('/admin/evento/eliminar/confirmar/<int:id>')
@@ -261,47 +181,19 @@ def confirmar_eliminar_evento(id):
 @login_required
 @admin_required
 def eliminar_evento(id):
-    evento = Evento.query.get_or_404(id)
-    # [SINGLETON]
-    if evento.imagen_evento:
-        config = AppConfig()
-        filename = os.path.basename(evento.imagen_evento)
-        image_path = os.path.join(config.get_upload_folder, filename)
-        if os.path.exists(image_path):
-             try: os.remove(image_path)
-             except: pass
-             
-    entradas = Entrada.query.filter_by(id_evento=evento.id).all()
-    
-    for entrada in entradas:
-        if entrada.codigo_qr:
-            ruta_qr = os.path.join(basedir, 'static', entrada.codigo_qr)
-            
-            if os.path.exists(ruta_qr):
-                try:
-                    os.remove(ruta_qr)
-                except Exception as e:
-                    print(f"Error borrando archivo QR: {e}")
-
-    Entrada.query.filter_by(id_evento=evento.id).delete()
-    
-    db.session.delete(evento)
-    db.session.commit()
-    
-    flash('Evento, entradas y códigos QR eliminados correctamente')
+    success, msg = facade.delete_event(id)
+    flash(msg)
     return redirect(url_for('eventos'))
 
-# [PROTOTYPE]
 @app.route('/admin/evento/clonar/<int:id>')
 @login_required
 @admin_required
 def clonar_evento(id):
-    original = Evento.query.get_or_404(id)
-    clon = original.clone()
-    db.session.add(clon)
-    db.session.commit()
-    flash(f'Evento clonado: {clon.nombre_evento}')
+    success, msg = facade.clone_event(id)
+    flash(msg)
     return redirect(url_for('eventos'))
+
+# --- RUTAS DE ADMINISTRACIÓN GENERAL ---
 
 @app.route('/admin/socios')
 @login_required
@@ -330,131 +222,50 @@ def baja_socio():
 
 # --- RUTAS DE ADMINISTRACIÓN DE METAS (CRUD) ---
 
+@app.route('/admin/metas')
+@login_required
+@admin_required
+def gestionar_metas():
+    # Usando el facade para obtener datos procesados
+    datos_metas = facade.get_all_metas_with_progress()
+    return render_template('admin/gestionar_metas.html', metas=datos_metas)
+
 @app.route('/admin/meta/crear', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def crear_meta():
     if request.method == 'POST':
-        try:
-            # 1. Crear objeto base
-            nueva_meta = MetaRecaudacion(
-                titulo=request.form.get('titulo'),
-                descripcion=request.form.get('descripcion'),
-                cantidad_objetivo=float(request.form.get('objetivo')),
-                fecha_inicio=datetime.strptime(request.form.get('fecha_inicio'), '%Y-%m-%dT%H:%M'),
-                fecha_fin=datetime.strptime(request.form.get('fecha_fin'), '%Y-%m-%dT%H:%M'),
-                activa=True if request.form.get('activa') else False
-            )
-
-            # 2. Lógica de Imagen
-            if 'imagen' in request.files:
-                file = request.files['imagen']
-                if file and file.filename != '':
-                    filename = secure_filename(file.filename)
-                    # Generar nombre único
-                    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-                    save_name = f"meta_{timestamp}_{filename}"
-                    
-                    # Definir ruta (creando carpeta si no existe)
-                    upload_dir = os.path.join(basedir, 'static', 'img', 'metas')
-                    if not os.path.exists(upload_dir):
-                        os.makedirs(upload_dir)
-                    
-                    file.save(os.path.join(upload_dir, save_name))
-                    nueva_meta.imagen = f"img/metas/{save_name}"
-
-            db.session.add(nueva_meta)
-            db.session.commit()
-            flash('Meta de recaudación creada exitosamente.')
+        success, msg = facade.create_meta(request.form, request.files.get('imagen'))
+        flash(msg)
+        if success:
             return redirect(url_for('gestionar_metas'))
-            
-        except ValueError as e:
-            flash(f'Error en el formato de datos: {e}')
-        except Exception as e:
-            flash(f'Error al crear la meta: {e}')
-
     return render_template('admin/crear_meta.html')
-
 
 @app.route('/admin/meta/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def editar_meta(id):
-    meta = MetaRecaudacion.query.get_or_404(id)
-    
+    meta = facade.get_meta_by_id(id)
     if request.method == 'POST':
-        try:
-            # Actualizar campos de texto
-            meta.titulo = request.form.get('titulo')
-            meta.descripcion = request.form.get('descripcion')
-            meta.cantidad_objetivo = float(request.form.get('objetivo'))
-            meta.activa = True if request.form.get('activa') else False
-            
-            # Actualizar fechas
-            fecha_inicio_str = request.form.get('fecha_inicio')
-            if fecha_inicio_str:
-                meta.fecha_inicio = datetime.strptime(fecha_inicio_str, '%Y-%m-%dT%H:%M')
-                
-            fecha_fin_str = request.form.get('fecha_fin')
-            if fecha_fin_str:
-                meta.fecha_fin = datetime.strptime(fecha_fin_str, '%Y-%m-%dT%H:%M')
-
-            # Actualizar Imagen (si se sube una nueva)
-            if 'imagen' in request.files:
-                file = request.files['imagen']
-                if file and file.filename != '':
-                    # Borrar imagen antigua si existe
-                    if meta.imagen:
-                        ruta_antigua = os.path.join(basedir, 'static', meta.imagen)
-                        if os.path.exists(ruta_antigua):
-                            os.remove(ruta_antigua)
-                    
-                    # Guardar nueva imagen
-                    filename = secure_filename(file.filename)
-                    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-                    save_name = f"meta_{timestamp}_{filename}"
-                    
-                    upload_dir = os.path.join(basedir, 'static', 'img', 'metas')
-                    if not os.path.exists(upload_dir):
-                        os.makedirs(upload_dir)
-                        
-                    file.save(os.path.join(upload_dir, save_name))
-                    meta.imagen = f"img/metas/{save_name}"
-
-            db.session.commit()
-            flash('Meta actualizada correctamente.')
+        success, msg = facade.update_meta(id, request.form, request.files.get('imagen'))
+        flash(msg)
+        if success:
             return redirect(url_for('gestionar_metas'))
-            
-        except Exception as e:
-            db.session.rollback()
-            flash(f'Error al actualizar: {e}')
-
     return render_template('admin/editar_meta.html', meta=meta)
-
 
 @app.route('/admin/meta/eliminar/<int:id>', methods=['POST'])
 @login_required
 @admin_required
 def eliminar_meta(id):
-    meta = MetaRecaudacion.query.get_or_404(id)
-    
-    try:
-        # Borrar archivo de imagen asociado
-        if meta.imagen:
-            ruta_imagen = os.path.join(basedir, 'static', meta.imagen)
-            if os.path.exists(ruta_imagen):
-                os.remove(ruta_imagen)
-        
-        # Borrar registro de base de datos
-        db.session.delete(meta)
-        db.session.commit()
-        flash('Meta eliminada correctamente.')
-        
-    except Exception as e:
-        db.session.rollback()
-        flash(f'Error al eliminar la meta: {e}')
-        
+    success, msg = facade.delete_meta(id)
+    flash(msg)
     return redirect(url_for('gestionar_metas'))
+
+@app.route('/meta/<int:id>')
+def ver_meta(id):
+    meta = facade.get_meta_by_id(id)
+    recaudado, porcentaje = facade.calculate_progress(meta)
+    return render_template('ver_meta.html', meta=meta, recaudado=recaudado, porcentaje=porcentaje)
 
 # --- GESTIÓN DE RIFAS (ADMIN) ---
 
@@ -470,42 +281,10 @@ def gestionar_rifas():
 @admin_required
 def crear_rifa():
     if request.method == 'POST':
-        nombre = request.form.get('nombre')
-        premio = request.form.get('premio')
-        informacion = request.form.get('informacion')
-        fecha_str = request.form.get('fecha')
-        
-        try:
-            precio = float(request.form.get('precio', 5.0))
-        except ValueError:
-            precio = 5.0
-        
-        fecha_fin = None
-        if fecha_str:
-            try: fecha_fin = datetime.strptime(fecha_str, '%Y-%m-%dT%H:%M')
-            except: pass
-        
-        imagen_path = None
-        if 'imagen' in request.files:
-            file = request.files['imagen']
-            if file and file.filename != '':
-                config = AppConfig()
-                filename = f"rifa_{datetime.now().strftime('%Y%m%d%H%M%S')}_{file.filename}"
-                file.save(os.path.join(config.get_rifa_upload_folder, filename))
-                imagen_path = f"img/rifas/{filename}"
-
-        nueva_rifa = Rifa(
-            nombre=nombre,
-            premio=premio,
-            informacion=informacion,
-            fecha_fin=fecha_fin,
-            imagen=imagen_path,
-            precio=precio  
-        )
-        db.session.add(nueva_rifa)
-        db.session.commit()
-        flash('Rifa creada')
-        return redirect(url_for('gestionar_rifas'))
+        success, msg = facade.create_raffle(request.form, request.files.get('imagen'))
+        flash(msg)
+        if success:
+            return redirect(url_for('gestionar_rifas'))
     return render_template('admin/crear_rifa.html')
 
 @app.route('/admin/rifa/editar/<int:id>', methods=['GET', 'POST'])
@@ -514,26 +293,10 @@ def crear_rifa():
 def editar_rifa(id):
     rifa = Rifa.query.get_or_404(id)
     if request.method == 'POST':
-        rifa.nombre = request.form.get('nombre')
-        rifa.premio = request.form.get('premio')
-        rifa.informacion = request.form.get('informacion')
-        
-        try:
-            rifa.precio = float(request.form.get('precio', 5.0))
-        except ValueError:
-            pass
-
-        fecha_str = request.form.get('fecha')
-        if fecha_str:
-             try: rifa.fecha_fin = datetime.strptime(fecha_str, '%Y-%m-%dT%H:%M')
-             except: pass
-        
-        if 'imagen' in request.files:
-             pass
-
-        db.session.commit()
-        flash('Rifa actualizada')
-        return redirect(url_for('gestionar_rifas'))
+        success, msg = facade.update_raffle(id, request.form, request.files.get('imagen'))
+        flash(msg)
+        if success:
+             return redirect(url_for('gestionar_rifas'))
     return render_template('admin/editar_rifa.html', rifa=rifa)
 
 @app.route('/admin/rifa/eliminar/confirmar/<int:id>')
@@ -547,20 +310,8 @@ def confirmar_eliminar_rifa(id):
 @login_required
 @admin_required
 def eliminar_rifa(id):
-    rifa = Rifa.query.get_or_404(id)
-    if rifa.imagen:
-        config = AppConfig()
-        filename = os.path.basename(rifa.imagen)
-        path = os.path.join(config.get_rifa_upload_folder, filename)
-        if os.path.exists(path):
-            try: os.remove(path)
-            except: pass
-            
-    Boleto.query.filter_by(id_rifa=rifa.id).delete()
-    
-    db.session.delete(rifa)
-    db.session.commit()
-    flash('Rifa eliminada')
+    success, msg = facade.delete_raffle(id)
+    flash(msg)
     return redirect(url_for('gestionar_rifas'))
 
 # --- SOCIO / DONAR ---
@@ -597,22 +348,10 @@ def donar():
                 flash('Cantidad inválida')
                 return redirect(url_for('donar'))
 
-            processor = PaymentFactory.get_processor(metodo_pago)
-            if not processor:
-                flash('Método de pago no válido')
-                return redirect(url_for('donar'))
-            
-            success, msg = processor.process(cantidad, request.form)
+            user_id = current_user.id if current_user.is_authenticated else None
+            success, msg = facade.process_donation(cantidad, metodo_pago, request.form, user_id)
             
             if success:
-                nueva_donacion = Donacion(
-                    cantidad=cantidad,
-                    id_usuario=current_user.id if current_user.is_authenticated else None,
-                    fecha=datetime.now(timezone.utc)
-                )
-                db.session.add(nueva_donacion)
-                db.session.commit()
-
                 flash(f"¡Gracias por tu donación de {cantidad}€! ({msg})")
                 return redirect(url_for('index'))
             else:
@@ -701,82 +440,17 @@ def escanear_qr():
 @admin_required
 def validar_qr_api():
     data = request.get_json()
-    qr_content = data.get('qr_content')
-    if not qr_content or not qr_content.startswith('TICKET:'):
-        return jsonify({'valid': False, 'message': 'Formato inválido'}), 400
+    valid, message, details = facade.validate_qr(data.get('qr_content'))
     
-    uuid_part = qr_content.split(':', 1)[1]
-    entrada = Entrada.query.filter_by(codigo_qr=f"img/qrcodes/qr_{uuid_part}.png").first()
-    
-    if entrada:
-        return jsonify({'valid': True, 'mensaje': 'Válida', 'evento': entrada.evento.nombre_evento, 'asistente': Usuario.query.get(entrada.id_comprador).nombre_usuario, 'precio': entrada.precio})
+    if valid:
+        return jsonify({'valid': True, 'mensaje': message, **details})
     else:
-        return jsonify({'valid': False, 'message': 'No encontrada'}), 404
-    
-from sqlalchemy import func # Asegúrate de tener esto arriba del todo con los imports
-
-# --- FUNCIÓN DE CÁLCULO (Necesaria para las rutas) ---
-def calcular_progreso_meta(meta):
-    if not meta:
-        return 0, 0
-
-    inicio = meta.fecha_inicio
-    fin = meta.fecha_fin
-
-    # 1. Sumar Entradas vendidas en el rango
-    total_entradas = db.session.query(func.sum(Entrada.precio)).filter(
-        Entrada.fecha_compra >= inicio,
-        Entrada.fecha_compra <= fin
-    ).scalar() or 0.0
-
-    # 2. Sumar Boletos de Rifa vendidos en el rango
-    total_boletos = db.session.query(func.sum(Boleto.precio)).filter(
-        Boleto.fecha_compra >= inicio,
-        Boleto.fecha_compra <= fin
-    ).scalar() or 0.0
-
-    # 3. Sumar Donaciones directas en el rango
-    total_donaciones = db.session.query(func.sum(Donacion.cantidad)).filter(
-        Donacion.fecha >= inicio,
-        Donacion.fecha <= fin
-    ).scalar() or 0.0
-
-    recaudado = total_entradas + total_boletos + total_donaciones
-    
-    if meta.cantidad_objetivo > 0:
-        porcentaje = (recaudado / meta.cantidad_objetivo) * 100
-    else:
-        porcentaje = 0
-
-    return round(recaudado, 2), min(round(porcentaje, 1), 100)
-
-# --- RUTAS DE ADMINISTRACIÓN DE METAS (CRUD) ---
-
-@app.route('/admin/metas')
-@login_required
-@admin_required
-def gestionar_metas():
-    # Esta es la función que Flask no encontraba
-    metas = MetaRecaudacion.query.all()
-    datos_metas = []
-    for m in metas:
-        rec, porc = calcular_progreso_meta(m)
-        datos_metas.append({'obj': m, 'recaudado': rec, 'porcentaje': porc})
-        
-    return render_template('admin/gestionar_metas.html', metas=datos_metas)
-
-@app.route('/meta/<int:id>')
-def ver_meta(id):
-    meta = MetaRecaudacion.query.get_or_404(id)
-    recaudado, porcentaje = calcular_progreso_meta(meta)
-    return render_template('ver_meta.html', meta=meta, recaudado=recaudado, porcentaje=porcentaje)
-
+        return jsonify({'valid': False, 'message': message}), 404
 
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
         if not Evento.query.first():
-
             e = Evento(
                 nombre_evento="Gala Inicio", 
                 localizacion="Marbella", 
@@ -787,5 +461,3 @@ if __name__ == '__main__':
             db.session.add(e)
             db.session.commit()
     app.run(debug=True, ssl_context='adhoc')
-
-

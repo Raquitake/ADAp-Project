@@ -467,4 +467,4 @@ if __name__ == '__main__':
             )
             db.session.add(e)
             db.session.commit()
-    app.run(debug=True, ssl_context='adhoc')
+    app.run(debug=True, ssl_context=('localhost+1.pem', 'localhost+1-key.pem'))

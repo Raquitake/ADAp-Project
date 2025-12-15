@@ -32,14 +32,18 @@
                     </p>
 
                     {% if user.es_socio %}
-                    <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+                    <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; margin-bottom: 20px;">
                         <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Gestión de suscripción:</p>
-                        <a href="{{ url_for('baja_socio') }}" class="btn btn-outline-red btn-small"
-                            style="font-size: 0.8rem; padding: 5px 10px; display: inline-block;">
-                            Darse de baja como socio
-                        </a>
+                        
+                        <form action="{{ url_for('baja_socio') }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas darte de baja?');" style="display:inline;">
+                            <button type="submit" class="btn btn-outline-red btn-small" 
+                                style="font-size: 0.8rem; padding: 5px 10px; display: inline-block; cursor: pointer; background: none;">
+                                Darse de baja como socio
+                            </button>
+                        </form>
                     </div>
                     {% endif %}
+                    
                     {% if user.dni_nif %}
                     <p style="margin-top: 10px;"><strong>DNI/NIF:</strong> {{ user.dni_nif }}</p>
                     {% endif %}

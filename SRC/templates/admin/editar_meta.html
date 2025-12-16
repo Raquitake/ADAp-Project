@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4 mb-5">
+    <h2>Editar Meta: {{ meta.titulo }}</h2>
+    <div class="card shadow-sm mt-3">
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label class="form-label">Título</label>
+                    <input type="text" name="titulo" class="form-control" value="{{ meta.titulo }}" required>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Objetivo (€)</label>
+                        <input type="number" name="objetivo" class="form-control" step="0.01" value="{{ meta.cantidad_objetivo }}" required>
+                    </div>
+                    <div class="col-md-6 mb-3 d-flex align-items-center">
+                        <div class="form-check form-switch mt-4 ms-3">
+                            <input class="form-check-input" type="checkbox" name="activa" {% if meta.activa %}checked{% endif %}>
+                            <label class="form-check-label fw-bold">Campaña Activa</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Fecha Inicio</label>
+                        <input type="datetime-local" name="fecha_inicio" class="form-control" 
+                               value="{{ meta.fecha_inicio.strftime('%Y-%m-%dT%H:%M') }}">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Fecha Fin</label>
+                        <input type="datetime-local" name="fecha_fin" class="form-control"
+                               value="{{ meta.fecha_fin.strftime('%Y-%m-%dT%H:%M') }}">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Descripción</label>
+                    <textarea name="descripcion" class="form-control" rows="5">{{ meta.descripcion }}</textarea>
+                </div>
+
+                {% if meta.imagen %}
+                <div class="mb-2">
+                    <p class="small text-muted">Imagen actual:</p>
+                    <img src="{{ url_for('static', filename=meta.imagen) }}" height="100" class="rounded border">
+                </div>
+                {% endif %}
+
+                <div class="mb-4">
+                    <label class="form-label">Cambiar Imagen</label>
+                    <input type="file" name="imagen" class="form-control" accept="image/*">
+                </div>
+
+                <button type="submit" class="btn btn-primary px-4">Guardar Cambios</button>
+                <a href="{{ url_for('gestionar_metas') }}" class="btn btn-outline-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

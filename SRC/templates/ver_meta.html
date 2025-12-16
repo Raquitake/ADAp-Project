@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            {% if meta.imagen %}
+            <div class="mb-4 text-center">
+                <img src="{{ url_for('static', filename=meta.imagen) }}" alt="{{ meta.titulo }}" class="img-fluid rounded shadow" style="max-height: 400px; width: 100%; object-fit: cover;">
+            </div>
+            {% endif %}
+
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <div class="text-center mb-5">
+                        <span class="badge bg-warning text-dark mb-2">Campaña de Recaudación</span>
+                        <h1 style="color: #2E7D32; font-weight: 800; font-size: 2.5rem;">{{ meta.titulo }}</h1>
+                        <p class="text-muted">
+                            <i class="far fa-calendar-alt me-2"></i> Activa desde <strong>{{ meta.fecha_inicio.strftime('%d/%m/%Y') }}</strong> hasta <strong>{{ meta.fecha_fin.strftime('%d/%m/%Y') }}</strong>
+                        </p>
+                    </div>
+
+                    <div class="row g-5">
+                        <div class="col-md-7">
+                            <h3 style="border-bottom: 2px solid #FFD700; padding-bottom: 10px; display: inline-block; margin-bottom: 20px;">Sobre la Causa</h3>
+                            <div style="font-size: 1.1rem; line-height: 1.8; color: #444; white-space: pre-line;">
+                                {{ meta.descripcion }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="p-4" style="background-color: #f0f7f0; border-radius: 15px; border: 1px solid #c8e6c9;">
+                                <h4 class="text-center mb-4" style="color: #2E7D32;">Estado de la Meta</h4>
+                                
+                                <div class="progress mb-2" style="height: 35px; border-radius: 20px; background-color: #fff; border: 1px solid #ddd;">
+                                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" 
+                                         role="progressbar" 
+                                         style="width: {{ porcentaje }}%; font-weight: bold; font-size: 1rem;" 
+                                         aria-valuenow="{{ porcentaje }}" aria-valuemin="0" aria-valuemax="100">
+                                        {{ porcentaje|round(1) }}%
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center mb-4">
+                                    <h2 class="display-6 fw-bold text-dark mb-0">{{ recaudado }}€</h2>
+                                    <small class="text-muted">recaudados de {{ meta.cantidad_objetivo }}€</small>
+                                </div>
+
+                                <div class="d-grid gap-3">
+                                    <a href="{{ url_for('donar') }}" class="btn btn-success btn-lg fw-bold py-3 shadow-sm">
+                                        <i class="fas fa-heart me-2"></i> ¡Hacer Donación!
+                                    </a>
+                                    <a href="{{ url_for('eventos') }}" class="btn btn-outline-dark fw-bold">
+                                        <i class="fas fa-ticket-alt me-2"></i> Comprar Entradas/Rifas
+                                    </a>
+                                </div>
+                                <p class="text-center mt-3 small text-muted fst-italic">
+                                    * Todas las donaciones, compras de entradas y rifas realizadas durante las fechas de la campaña suman al objetivo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="{{ url_for('index') }}" class="text-muted text-decoration-none">
+                    &larr; Volver al Inicio
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h2>Hola, {{ user.nombre_usuario }}</h2>
+        <p>Bienvenido a tu área personal de Fundación Cudeca</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="dashboard-card profile-card">
+            <div class="card-header">
+                <h3>Mi Perfil</h3>
+            </div>
+            <div class="card-body">
+                <div class="profile-avatar">
+                    <img src="https://api.dicebear.com/7.x/initials/svg?seed={{ user.nombre_usuario }}&backgroundColor=2E7D32&textColor=ffffff"
+                        alt="Avatar de {{ user.nombre_usuario }}">
+                </div>
+                <div class="profile-info">
+                    <p><strong>Email:</strong> {{ user.correo_electronico }}</p>
+                    <p><strong>Estado:</strong>
+                        {% if user.es_socio %}
+                        <span class="badge badge-gold text-dark">Socio Activo</span>
+                        {% else %}
+                        <span class="badge badge-gray text-dark">Usuario</span>
+                        {% endif %}
+
+                        {% if user.es_admin %}
+                        <span class="badge badge-gold text-dark">Administrador</span>
+                        {% endif %}
+                    </p>
+
+                    {% if user.es_socio %}
+                    <div style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; margin-bottom: 20px;">
+                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Gestión de suscripción:</p>
+                        
+                        <form action="{{ url_for('baja_socio') }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas darte de baja?');" style="display:inline;">
+                            <button type="submit" class="btn btn-outline-red btn-small" 
+                                style="font-size: 0.8rem; padding: 5px 10px; display: inline-block; cursor: pointer; background: none;">
+                                Darse de baja como socio
+                            </button>
+                        </form>
+                    </div>
+                    {% endif %}
+                    
+                    {% if user.dni_nif %}
+                    <p style="margin-top: 10px;"><strong>DNI/NIF:</strong> {{ user.dni_nif }}</p>
+                    {% endif %}
+                </div>
+                <div class="profile-actions">
+                    <a href="{{ url_for('editar_perfil') }}" class="btn btn-green btn-small">Editar Datos</a>
+                    <a href="{{ url_for('logout') }}" class="btn btn-outline-red">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+
+            <div class="dashboard-card activity-card">
+                <div class="card-header">
+                    <h3>Mis Entradas (Eventos)</h3>
+                </div>
+                <div class="card-body">
+                    {% if entradas %}
+                    <ul class="ticket-list">
+                        {% for entrada in entradas %}
+                        <li class="ticket-item">
+                            <div class="ticket-info">
+                                <h4>{{ entrada.evento.nombre_evento }}</h4>
+                                <p>Precio: {{ entrada.precio }}€</p>
+                                {% if entrada.codigo_qr and entrada.codigo_qr.startswith('img/') %}
+                                <img src="{{ url_for('static', filename=entrada.codigo_qr) }}" alt="Código QR"
+                                    style="width: 80px; height: 80px;">
+                                {% else %}
+                                <span class="qr-placeholder">QR: {{ entrada.codigo_qr }}</span>
+                                {% endif %}
+                            </div>
+                            <div class="ticket-action">
+                                {% if entrada.codigo_qr and entrada.codigo_qr.startswith('img/') %}
+                                <a href="{{ url_for('static', filename=entrada.codigo_qr) }}" download="entrada.png"
+                                    class="btn btn-yellow btn-small">Descargar</a>
+                                {% endif %}
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <div class="empty-state">
+                        <p>No tienes entradas próximas.</p>
+                        <a href="{{ url_for('eventos') }}" class="btn btn-green btn-small">Ver Eventos</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="dashboard-card activity-card">
+                <div class="card-header">
+                    <h3>Mis Participaciones en Rifas</h3>
+                </div>
+                <div class="card-body">
+                    {% if boletos %}
+                    <ul class="ticket-list">
+                        {% for boleto in boletos %}
+                        <li class="ticket-item" style="align-items: center;">
+                            <div class="ticket-info">
+                                <h4>{{ boleto.rifa_rel.nombre }}</h4>
+                                <p><strong>Premio:</strong> {{ boleto.rifa_rel.premio }}</p>
+                                <p>Boleto ID: #{{ boleto.id }} | Aportación: {{ boleto.precio }}€</p>
+                                <p><small class="text-muted">Fecha Sorteo: {{
+                                        boleto.rifa_rel.fecha_fin.strftime('%d/%m/%Y') if boleto.rifa_rel.fecha_fin else
+                                        'Pendiente' }}</small></p>
+                            </div>
+                            <div class="ticket-action">
+                                <span class="badge badge-gold text-dark"
+                                    style="padding: 5px 10px; border-radius: 15px;">Participando</span>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <div class="empty-state">
+                        <p>No estás participando en ninguna rifa.</p>
+                        <a href="{{ url_for('eventos') }}" class="btn btn-green btn-small">Ver Rifas</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div> {% if user.es_admin %}
+        <div class="dashboard-card admin-card" style="grid-column: 1 / -1;">
+            <div class="card-header">
+                <h3>Panel de Administración</h3>
+            </div>
+            <div class="card-body">
+                <a href="{{ url_for('crear_evento') }}" class="btn btn-yellow">Crear Evento</a>
+                <a href="{{ url_for('gestionar_rifas') }}" class="btn btn-yellow">Gestionar Rifas</a>
+
+                <a href="{{ url_for('gestionar_metas') }}" class="btn btn-yellow">Metas Recaudación</a>
+
+                <a href="{{ url_for('gestionar_socios') }}" class="btn btn-yellow">Gestionar Socios</a>
+                <a href="{{ url_for('escanear_qr') }}" class="btn btn-blue">Escanear Entradas</a>
+                <a href="{{ url_for('eventos') }}" class="btn btn-outline-green">Ver Todo</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

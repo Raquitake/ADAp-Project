@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Gestión de Metas de Recaudación</h2>
+        <a href="{{ url_for('crear_meta') }}" class="btn btn-yellow">
+            <i class="fas fa-plus"></i> Nueva Meta
+        </a>
+    </div>
+
+    <div class="table-responsive bg-white shadow-sm p-3 rounded">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Título</th>
+                    <th>Fechas</th>
+                    <th>Progreso</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in metas %}
+                <tr>
+                    <td>
+                        <strong>{{ item.obj.titulo }}</strong><br>
+                        <small class="text-muted">Obj: {{ item.obj.cantidad_objetivo }}€</small>
+                    </td>
+                    <td>
+                        <small>{{ item.obj.fecha_inicio.strftime('%d/%m/%y') }} - {{ item.obj.fecha_fin.strftime('%d/%m/%y') }}</small>
+                    </td>
+                    <td style="width: 200px;">
+                        <div class="progress" style="height: 10px;">
+                            <div class="progress-bar bg-success" style="width: {{ item.porcentaje }}%"></div>
+                        </div>
+                        <small>{{ item.recaudado }}€ ({{ item.porcentaje|round(1) }}%)</small>
+                    </td>
+                    <td>
+                        {% if item.obj.activa %}
+                        <span class="badge bg-success">Activa</span>
+                        {% else %}
+                        <span class="badge bg-secondary">Inactiva</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('editar_meta', id=item.obj.id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <form action="{{ url_for('eliminar_meta', id=item.obj.id) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar esta meta?');">
+                            <button class="btn btn-sm btn-outline-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" class="text-center py-4">No hay metas creadas.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

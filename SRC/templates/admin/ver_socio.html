@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Detalles del Socio</h2>
+        <a href="{{ url_for('gestionar_socios') }}" class="btn btn-outline-gray">
+            <i class="fas fa-arrow-left"></i> Volver al listado
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5 mb-4">
+            <div class="dashboard-card h-100">
+                <div class="card-header">
+                    <h3>Datos Personales</h3>
+                </div>
+                <div class="card-body text-center">
+                    <div class="profile-avatar mb-3" style="width: 120px; height: 120px; margin: 0 auto;">
+                        <img src="https://api.dicebear.com/7.x/initials/svg?seed={{ socio.nombre_usuario }}&backgroundColor=2E7D32&textColor=ffffff" 
+                             alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%;">
+                    </div>
+                    
+                    <h4 class="mb-1">{{ socio.nombre_usuario }}</h4>
+                    <p class="text-muted">{{ socio.correo_electronico }}</p>
+
+                    <div class="mt-4 text-start">
+                        <p><strong>ID Usuario:</strong> #{{ socio.id }}</p>
+                        <p><strong>DNI/NIF:</strong> {{ socio.dni_nif if socio.dni_nif else 'No registrado' }}</p>
+                        <p><strong>Estado:</strong> 
+                            {% if socio.es_socio %}
+                                <span class="badge badge-gold text-dark">Socio Activo</span>
+                            {% else %}
+                                <span class="badge badge-gray text-dark">Usuario Estándar</span>
+                            {% endif %}
+                        </p>
+                        <p><strong>Rol:</strong> 
+                            {% if socio.es_admin %}
+                                <span class="badge bg-danger">Administrador</span>
+                            {% else %}
+                                <span class="badge bg-info">Usuario</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7 mb-4">
+            <div class="dashboard-card h-100">
+                <div class="card-header">
+                    <h3>Historial de Participación</h3>
+                </div>
+                <div class="card-body">
+                    
+                    <h5 class="border-bottom pb-2">Entradas Compradas ({{ entradas|length }})</h5>
+                    {% if entradas %}
+                    <div class="table-responsive mb-4" style="max-height: 200px; overflow-y: auto;">
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Evento</th>
+                                    <th>Precio</th>
+                                    <th>QR</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for entrada in entradas %}
+                                <tr>
+                                    <td>{{ entrada.evento.nombre_evento }}</td>
+                                    <td>{{ entrada.precio }}€</td>
+                                    <td><small>{{ entrada.codigo_qr|truncate(15) }}</small></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <p class="text-muted mb-4">No ha comprado entradas aún.</p>
+                    {% endif %}
+
+                    <h5 class="border-bottom pb-2">Participación en Rifas ({{ boletos|length }})</h5>
+                    {% if boletos %}
+                    <ul class="list-group list-group-flush" style="max-height: 200px; overflow-y: auto;">
+                        {% for boleto in boletos %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ boleto.rifa_rel.nombre }}
+                            <span class="badge bg-secondary rounded-pill">{{ boleto.precio if boleto.precio else '0.0' }}€</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p class="text-muted">No ha participado en rifas aún.</p>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

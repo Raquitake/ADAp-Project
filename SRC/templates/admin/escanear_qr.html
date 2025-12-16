@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row" style="margin-top: 50px;">
+    <div class="col-md-8 offset-md-2 text-center">
+        <h2>Escanear Entrada</h2>
+        <p>Utiliza la cámara para escanear el código QR de la entrada.</p>
+
+        <div id="reader" style="width: 100%; max-width: 600px; margin: 0 auto;"></div>
+
+        <div id="result-container" style="margin-top: 20px; display: none;">
+            <div id="result-card" class="card">
+                <div class="card-body">
+                    <h3 id="result-title"></h3>
+                    <p id="result-message" style="font-size: 1.2rem; font-weight: bold;"></p>
+                    <div id="result-details" style="text-align: left; display: none; margin-top: 15px;">
+                        <p><strong>Evento:</strong> <span id="res-evento"></span></p>
+                        <p><strong>Asistente:</strong> <span id="res-asistente"></span></p>
+                        <p><strong>Precio:</strong> <span id="res-precio"></span>€</p>
+                    </div>
+                    <button class="btn btn-primary" style="margin-top: 20px;" onclick="resetScanner()">Escanear
+                        Otro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script>
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader", { fps: 10, qrbox: 250 });
+
+    function onScanSuccess(decodedText, decodedResult) {
+        html5QrcodeScanner.clear();
+
+        fetch("{{ url_for('validar_qr_api') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ qr_content: decodedText })
+        })
+            .then(response => response.json())
+            .then(data => {
+                showResult(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showResult({ valid: false, message: "Error de conexión con el servidor" });
+            });
+    }
+
+    function onScanError(errorMessage) {
+    }
+
+    function showResult(data) {
+        document.getElementById('result-container').style.display = 'block';
+        const card = document.getElementById('result-card');
+        const title = document.getElementById('result-title');
+        const message = document.getElementById('result-message');
+        const details = document.getElementById('result-details');
+
+        if (data.valid) {
+            card.style.backgroundColor = "#d4edda";
+            card.style.borderColor = "#c3e6cb";
+            card.style.color = "#155724";
+
+            title.innerText = "¡ENTRADA VÁLIDA!";
+            message.innerText = data.mensaje;
+
+            document.getElementById('res-evento').innerText = data.evento;
+            document.getElementById('res-asistente').innerText = data.asistente;
+            document.getElementById('res-precio').innerText = data.precio;
+            details.style.display = 'block';
+        } else {
+            card.style.backgroundColor = "#f8d7da";
+            card.style.borderColor = "#f5c6cb";
+            card.style.color = "#721c24";
+
+            title.innerText = "ENTRADA INVÁLIDA";
+            message.innerText = data.message || data.mensaje;
+            details.style.display = 'none';
+        }
+    }
+
+    function resetScanner() {
+        document.getElementById('result-container').style.display = 'none';
+        html5QrcodeScanner.render(onScanSuccess, onScanError);
+    }
+
+    html5QrcodeScanner.render(onScanSuccess, onScanError);
+</script>
+{% endblock %}

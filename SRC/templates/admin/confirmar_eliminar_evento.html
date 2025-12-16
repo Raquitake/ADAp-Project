@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="card-title mb-0">Confirmar Eliminación</h3>
+                </div>
+                <div class="card-body">
+                    <p class="lead">¿Estás seguro de que deseas eliminar el evento <strong>{{ evento.nombre_evento
+                            }}</strong>?</p>
+                    <p class="text-danger">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Esta acción no se puede deshacer. La imagen asociada también será eliminada permanentemente.
+                    </p>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ url_for('eventos') }}" class="btn btn-secondary">Cancelar</a>
+                        <form action="{{ url_for('eliminar_evento', id=evento.id) }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-danger">Sí, eliminar evento</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
